@@ -1,0 +1,9 @@
+<p>
+  <%= "#{@user.login}'s album - #{@album.title}" %>
+  <%= link_to "upload photos", new_album_photo_url(@album) %>
+</p>
+<p><%= page_entries_info @photos, :entry_name => 'photo' %> | <%= link_to_edit_album @album %> | <%= link_to 'back to album list', user_albums_url(@user)%></p>
+
+<div id='photos'>
+  <%= render :partial => 'photos', :object => @photos %>
+</div> 

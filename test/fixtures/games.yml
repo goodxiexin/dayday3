@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  company: MyString
+  sale_date: 2009-08-09 23:15:07
+  description: MyText
+  no_areas: false
+
+two:
+  name: MyString
+  company: MyString
+  sale_date: 2009-08-09 23:15:07
+  description: MyText
+  no_areas: false

@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  game_id: 1
+  server_id: 1
+  area_id: 1
+  profession_id: 1
+  race_id: 1
+  name: MyString
+  level: 1
+  boolean: 
+
+two:
+  user_id: 1
+  game_id: 1
+  server_id: 1
+  area_id: 1
+  profession_id: 1
+  race_id: 1
+  name: MyString
+  level: 1
+  boolean: 

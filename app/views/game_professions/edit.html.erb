@@ -1,0 +1,20 @@
+<h1>Editing game_profession</h1>
+
+<% form_for(@game_profession) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :game_id %><br />
+    <%= f.text_field :game_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @game_profession %> |
+<%= link_to 'Back', game_professions_path %>

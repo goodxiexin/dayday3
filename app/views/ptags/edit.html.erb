@@ -1,0 +1,28 @@
+<h1>Editing ptag</h1>
+
+<% form_for(@ptag) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :tagged_user_id %><br />
+    <%= f.text_field :tagged_user_id %>
+  </p>
+  <p>
+    <%= f.label :photo_id %><br />
+    <%= f.text_field :photo_id %>
+  </p>
+  <p>
+    <%= f.label :x,y,width,height %><br />
+    <%= f.text_field :x,y,width,height %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ptag %> |
+<%= link_to 'Back', ptags_path %>

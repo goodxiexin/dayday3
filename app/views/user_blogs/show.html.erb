@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'blog.js' %>
+<%= stylesheet_link_tag 'popup.css' %>
+
+<table> 
+  <tr>
+    <td> <%= user_icon(@user) %></td>
+    <td> <%= @user.login %> Blogs <br/> <%= link_to 'back to blog list', user_blogs_url %> | <%= link_to 'personal page', new_user_wall_message_url %> </td>
+  </tr>
+</table>
+
+<% ret = Blog.next_prev_blog(@user, @blog)
+    @next_blog = ret[0]
+    @prev_blog = ret[1]
+    @cur_blog_idx = ret[2] + 1 %>
+
+<%= "#{@cur_blog_idx} of #{@user.blogs.count} blogs" %>
+<%= link_to 'prev', user_blog_url(@user, @prev_blog) %> 
+<%= link_to 'next', user_blog_url(@user, @next_blog) %> <br/>
+
+<table cellpadding='3px'> 
+  <tr >
+    <td width='400px'><strong><%= @blog.title %></strong><br/><%= ftime @blog.updated_at %></td>
+    <td><%= link_to @blog.game.name %><br/><%= link_to 'edit', edit_user_blog_url(@user, @blog)%> | 
+        <%= link_to 'delete', confirm_destroy_user_blog_url(@user, @blog), :rel => 'facebox' %></td>
+  </tr>
+  <tr>
+    <td><%= @blog.content %></td>
+  </tr>
+</table>
+
+<div id='tags'>
+  Tags: <%= render :partial => 'name_tag', :collection => @blog.tags %> 
+</div>
+
+<div>
+  <%= link_to_function "Comment", "$('bcomment_content').focus();" %>(<%= label_tag 'nil', "#{@blog.comments.count}", :id => 'comments_count' %>) |
+  <%= link_to_remote "Dig", :url => blog_digs_url(@blog), :method => :post%>(<%= label_tag nil, "#{@blog.digs.count}", :id => "digs_count_#{@blog.id}" %>)
+</div>
+<hr/> 
+<div id='bcomments'>
+  <%= render :partial => 'bcomment', :collection => @blog.comments %>
+</div>
+
+<% form_remote_for :bcomment,
+                   :position => :bottom,
+                   :update => 'bcomments',
+                   :complete => "$('bcomment_content').value='';",
+                   :url => blog_comments_url(@blog) do |form| %>
+  <p><%= form.text_area 'content', :cols => 70, :rows => 6 %></p>
+  <p><%= form.label "whisper?" %><%= form.check_box 'whisper' %><%= form.submit 'comment' %></p>
+<% end %>
+
+<%= javascript_tag "popup_manager = new PopupManager();" %>

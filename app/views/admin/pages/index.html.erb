@@ -1,0 +1,22 @@
+<h1>Listing pages</h1>
+
+<table>
+  <tr>
+    <th>permalink</th>
+    <th>title</th>
+  </tr>
+
+<% @pages.each do |page| %>
+  <tr>
+    <td><%=h page.permalink %></td>
+    <td><%=h page.title %></td>
+    <td><%= link_to 'Show', admin_page_url(page) %></td>
+    <td><%= link_to 'Edit', edit_admin_page_path(page) %></td>
+    <td><%= link_to 'Destroy', admin_page_url(page), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New page', new_admin_page_path %>

@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'mailbox.js' %>
+
+<p>
+  <%= render :partial => 'mailbox_menu' %>
+</p>
+
+<p>
+  <%= "select: " %>
+  <%= mail_select_tag %>
+  <%= link_to_function 'delete', "delete_mails(#{@user.id}, 'sent')", :id => 'delete_mails_link' %>
+</p>
+
+<div id='mails_count'>
+  <%= "totally #{@user.sent_mails.count} mails sent" %>
+</div>
+
+<div id='mails'>
+  <%= render :partial => 'sent_mails', :object => @mails %>
+</div>

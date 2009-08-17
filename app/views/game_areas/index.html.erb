@@ -1,0 +1,22 @@
+<h1>Listing game_areas</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Game</th>
+  </tr>
+
+<% @game_areas.each do |game_area| %>
+  <tr>
+    <td><%=h game_area.name %></td>
+    <td><%=h game_area.game_id %></td>
+    <td><%= link_to 'Show', game_area %></td>
+    <td><%= link_to 'Edit', edit_game_area_path(game_area) %></td>
+    <td><%= link_to 'Destroy', game_area, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New game_area', new_game_area_path %>

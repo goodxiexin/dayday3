@@ -1,0 +1,26 @@
+<h1>Listing bcomments</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Blog</th>
+    <th>Content</th>
+    <th>Whisper</th>
+  </tr>
+
+<% @bcomments.each do |bcomment| %>
+  <tr>
+    <td><%=h bcomment.user_id %></td>
+    <td><%=h bcomment.blog_id %></td>
+    <td><%=h bcomment.content %></td>
+    <td><%=h bcomment.whisper %></td>
+    <td><%= link_to 'Show', bcomment %></td>
+    <td><%= link_to 'Edit', edit_bcomment_path(bcomment) %></td>
+    <td><%= link_to 'Destroy', bcomment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bcomment', new_bcomment_path %>

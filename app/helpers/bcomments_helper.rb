@@ -1,0 +1,2 @@
+module BcommentsHelper
+end

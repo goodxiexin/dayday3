@@ -1,0 +1,36 @@
+<h1>Listing mails</h1>
+
+<table>
+  <tr>
+    <th>Sender</th>
+    <th>Receiver</th>
+    <th>Delete by sender</th>
+    <th>Delete by receiver</th>
+    <th>Read by sender</th>
+    <th>Read by receiver</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Parent</th>
+  </tr>
+
+<% @mails.each do |mail| %>
+  <tr>
+    <td><%=h mail.sender_id %></td>
+    <td><%=h mail.receiver_id %></td>
+    <td><%=h mail.delete_by_sender %></td>
+    <td><%=h mail.delete_by_receiver %></td>
+    <td><%=h mail.read_by_sender %></td>
+    <td><%=h mail.read_by_receiver %></td>
+    <td><%=h mail.title %></td>
+    <td><%=h mail.content %></td>
+    <td><%=h mail.parent_id %></td>
+    <td><%= link_to 'Show', mail %></td>
+    <td><%= link_to 'Edit', edit_mail_path(mail) %></td>
+    <td><%= link_to 'Destroy', mail, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mail', new_mail_path %>

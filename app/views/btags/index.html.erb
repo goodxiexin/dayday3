@@ -1,0 +1,24 @@
+<h1>Listing btags</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Tagged user</th>
+    <th>Blog</th>
+  </tr>
+
+<% @btags.each do |btag| %>
+  <tr>
+    <td><%=h btag.user_id %></td>
+    <td><%=h btag.tagged_user_id %></td>
+    <td><%=h btag.blog_id %></td>
+    <td><%= link_to 'Show', btag %></td>
+    <td><%= link_to 'Edit', edit_btag_path(btag) %></td>
+    <td><%= link_to 'Destroy', btag, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New btag', new_btag_path %>

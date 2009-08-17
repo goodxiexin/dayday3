@@ -1,0 +1,2 @@
+module BlogDigsHelper
+end

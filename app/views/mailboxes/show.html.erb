@@ -1,0 +1,21 @@
+<%= render :partial => 'mailbox_menu' %><br/>
+
+Title: <%= @mail.title %><br/>
+between <%= link_to @mail.sender.login %> and <%= link_to @mail.receiver.login %><br/>
+<hr/>
+
+<table id='mails' cellpadding=3>
+  <%= render :partial => 'mail', :collection => @root_mail.children %>
+</table>
+
+
+<% receiver = get_receiver(@mail) %>
+
+<% form_remote_tag :position => :bottom, 
+                   :update => 'mails', 
+                   :complete => "$('mail[content]').value='';", 
+                   :url => reply_user_mail_url(:id => @mail) do |form| %>
+  <p><%= label_tag 'reply' %><p>
+  <p><%= text_area_tag 'mail[content]', '', :cols => 60, :rows => 6 %></p>
+  <p><%= submit_tag 'submit' %></p>
+<% end %>

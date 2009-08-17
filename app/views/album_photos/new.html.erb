@@ -1,0 +1,15 @@
+<p><%= "Edit album - #{@album.title}" %></p>
+<p><%= render :partial => 'user_albums/edit_menu' %></p>
+<p><%= "Upload Photos: you can upload JPG, GIF, PNG or BMG formats" %></p>
+
+<% form_tag create_multiple_album_photos_url(@album), :multipart => true do %>
+  <div id='photos'>
+    <% 1.upto(3) do %>
+      <%= render :partial => 'photo_upload_form', :object => Photo.new %>
+    <% end %>
+  </div>
+  <%= link_to_function 'add photo' do |page|
+        page.insert_html :bottom, :photos, :partial => 'photo_upload_form', :object => Photo.new
+      end %>
+  <%= submit_tag 'upload' %>
+<% end %>

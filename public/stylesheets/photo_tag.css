@@ -1,0 +1,17 @@
+.square-class {
+	border:3px solid #333;
+	-webkit-border-radius: 8px; -moz-border-radius: 8px;
+}
+.tag_square_class {
+	border:1px solid #ccc;
+}
+.tag_class {
+	background:#333;
+	color:#efefef;font-size:11px;font-family:Tahoma;
+	padding:2px;
+}
+.friends_list_class {
+	height: 200px;
+        overflow: auto;
+        background: #fff;
+}

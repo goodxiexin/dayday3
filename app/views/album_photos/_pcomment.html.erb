@@ -1,0 +1,14 @@
+<% comment_divid = "comment_#{pcomment.id}" %>
+<div id=<%= comment_divid %>>
+  <p>
+    <%= user_icon(pcomment.user) %>
+    <%= link_to_user pcomment.user %>
+    <%= ftime pcomment.created_at %>
+  </p>
+  <%= pcomment.content %>
+  <% if current_user == pcomment.user %>
+    <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => photo_comment_url(:photo_id => @photo, :id => pcomment), :method => :delete %>
+  <% else %>
+    <%= link_to_function 'comment', "$('comment_content').value='reply to #{pcomment.user.login}: ';$('comment_content').focus();" %>
+  <% end %>
+</div>

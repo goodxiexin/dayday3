@@ -1,0 +1,28 @@
+<p>
+  <b>User:</b>
+  <%=h @wall_message.user_id %>
+</p>
+
+<p>
+  <b>Receiver:</b>
+  <%=h @wall_message.receiver_id %>
+</p>
+
+<p>
+  <b>Poster:</b>
+  <%=h @wall_message.poster_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @wall_message.content %>
+</p>
+
+<p>
+  <b>Whisper:</b>
+  <%=h @wall_message.whisper %>
+</p>
+
+
+<%= link_to 'Edit', edit_wall_message_path(@wall_message) %> |
+<%= link_to 'Back', wall_messages_path %>

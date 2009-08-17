@@ -1,0 +1,35 @@
+<h1>Listing icons</h1>
+
+<table>
+  <tr>
+    <th>current</th>
+    <th>User</th>
+    <th>Parent</th>
+    <th>File name</th>
+    <th>Thumbnail</th>
+    <th>Size</th>
+    <th>Width</th>
+    <th>Height</th>
+  </tr>
+
+<% @icons.each do |icon| %>
+  <tr>
+    <td><%=h icon.current %></td>
+    <td><%=h icon.user_id %></td>
+    <td><%=h icon.parent_id %></td>
+    <td><%=h icon.content_type %></td>
+    <td><%=h icon.filename %></td>
+    <td><%=h icon.thumbnail %></td>
+    <td><%=h icon.size %></td>
+    <td><%=h icon.width %></td>
+    <td><%=h icon.height %></td>
+    <td><%= link_to 'Show', icon %></td>
+    <td><%= link_to 'Edit', edit_icon_path(icon) %></td>
+    <td><%= link_to 'Destroy', icon, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New icon', new_icon_path %>

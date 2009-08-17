@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <td width='100px'><%= link_to_function "select all", "draft_manager.select_all()" %></td>
+    <td > title </td>
+    <td width='100px'> updated at </td>
+  </tr>
+  <% drafts.each do |draft| %>
+  <tr> 
+    <td><%= check_box_tag '', "#{draft.id}", false, :blog_id => draft.id %></td>
+    <td width='400px'><%= link_to draft.title, edit_user_blog_url(:user_id => current_user, :id => draft) %></td>
+    <td><%= ftime draft.updated_at %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= link_to_function "delete all selected", "draft_manager.delete_selected()", :confirm => 'are you sure to delete these drafts' %><br/>
+
+<%= page_entries_info drafts %> <br/>
+<%= will_paginate drafts %>
+

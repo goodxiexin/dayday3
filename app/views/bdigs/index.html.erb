@@ -1,0 +1,22 @@
+<h1>Listing bdigs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Blog</th>
+  </tr>
+
+<% @bdigs.each do |bdig| %>
+  <tr>
+    <td><%=h bdig.user_id %></td>
+    <td><%=h bdig.blog_id %></td>
+    <td><%= link_to 'Show', bdig %></td>
+    <td><%= link_to 'Edit', edit_bdig_path(bdig) %></td>
+    <td><%= link_to 'Destroy', bdig, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bdig', new_bdig_path %>

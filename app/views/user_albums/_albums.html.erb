@@ -1,0 +1,19 @@
+<%= page_entries_info albums, :entry_name => 'album' %>
+<table cellpadding = '10'>
+<% albums.each do |album| %>
+  <% album_divid = "album_#{album.id}" %>
+  <div id=<%= album_divid %>>
+    <tr>
+      <td align='center'><%= album_cover(album) %></td>
+      <td>
+        <p><%= link_to_album album %></p>
+        <p><%= "totally #{album.photos.count} photos" %></p>
+        <p><%= "updated at #{ftime album.updated_at}" %></p>
+        <p><%= "created at #{ftime album.created_at}" %></p>
+        <p><%= link_to 'edit album', edit_user_album_url(@user, album) %> | <%= link_to 'view album', user_album_url(@user, album) %></p>
+      </td>
+    </tr>
+  </div>
+<% end %>
+</table>
+<%= will_paginate albums %>

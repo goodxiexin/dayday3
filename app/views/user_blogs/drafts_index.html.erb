@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'blog.js' %>
+
+<%= render :partial => 'blog_menu' %>
+
+<div id='drafts'>
+  <%= render :partial => 'drafts', :object => @blogs %>
+</div>
+
+<%= javascript_tag "var draft_manager = new DraftManager(#{@user.id})" %>

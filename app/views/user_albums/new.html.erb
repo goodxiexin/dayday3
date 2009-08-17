@@ -1,0 +1,30 @@
+<h2>Upload photos</h2>
+<hr/>
+
+<p><%= "Create new album" %></p>
+<table cellpadding=5>
+<% form_for :album, :url => user_albums_url(@user) do |form| %>
+  <tr>
+    <td><%= form.label 'title' %></td>
+    <td><%= form.text_field 'title' %></td>
+  </tr>
+  <tr>
+    <td><%= form.label 'game' %></td>
+    <td><%= form.collection_select 'game_id', @user.games, :id, :name %></td>
+  </tr>
+  <tr vAlign='top'>
+    <td><%= form.label 'description' %></td>
+    <td><%= form.text_area 'description', :rows => 5, :cols => 50 %></td>
+  </tr>
+  <tr>
+    <td></td><td><%= form.submit 'create' %></td>
+  </tr>
+<% end %>
+</table>
+<hr/>
+<% unless @user.albums.count == 0 %>
+  <% form_tag nil, :onsubmit => "this.action = '/albums/' + this.getElements()[0].value + '/photos/new';", :method => :get do %>
+    Select an album: <%= collection_select '', 'album_id', @user.albums, :id, :title %>
+    <%= submit_tag 'next' %>
+  <% end %>
+<% end %>

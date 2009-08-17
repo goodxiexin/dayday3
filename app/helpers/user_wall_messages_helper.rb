@@ -1,0 +1,2 @@
+module UserWallMessagesHelper
+end

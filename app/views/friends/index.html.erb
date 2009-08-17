@@ -1,0 +1,10 @@
+<% content_for :left do %>
+  <%= render :partial => 'friend_menu' %>
+<% end %>
+
+<% content_for :right do %>
+<% end %>
+
+<div id="friends">
+  <%= render :partial => 'friends', :object => @friends %>
+</div>

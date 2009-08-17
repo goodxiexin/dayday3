@@ -1,0 +1,16 @@
+<table cellpadding=10>  
+  <% recv_mails.each do |mail| %>
+    <% sender = mail.sender %>
+    <% (mail.read_by_receiver)? style = "font-weight: light;" : style = "font-weight: bold;" %>
+    <tr>
+      <td><%= check_box_tag "select_mail_#{mail.id}", "#{mail.id}-#{mail.read_by_receiver}" %></td>
+      <td align='center'><%= user_icon(sender) %></td>
+      <td><%= link_to sender.login %></td>
+      <td><%= ftime mail.created_at %></td>
+      <td><%= link_to mail.title, user_mail_url(:id => mail), :id => "mail_#{mail.id}_title", :style => style %><br/>
+          <%= mail.content %></td>
+      <td><%= link_to 'delete', user_mail_url(:id => mail, :type => 'recv'), :confirm => 'are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate recv_mails %>

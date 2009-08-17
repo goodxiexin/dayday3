@@ -1,0 +1,48 @@
+<p>
+  <b>User:</b>
+  <%=h @game_characters.user_id %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%=h @game_characters.game_id %>
+</p>
+
+<p>
+  <b>Server:</b>
+  <%=h @game_characters.server_id %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%=h @game_characters.area_id %>
+</p>
+
+<p>
+  <b>Profession:</b>
+  <%=h @game_characters.profession_id %>
+</p>
+
+<p>
+  <b>Race:</b>
+  <%=h @game_characters.race_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @game_characters.name %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%=h @game_characters.level %>
+</p>
+
+<p>
+  <b>Playing:</b>
+  <%=h @game_characters.playing %>
+</p>
+
+
+<%= link_to 'Edit', edit_game_characters_path(@game_characters) %> |
+<%= link_to 'Back', game_characters_path %>

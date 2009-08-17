@@ -1,0 +1,43 @@
+<p>
+  <b>User:</b>
+  <%=h @blog.user_id %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%=h @blog.game_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @blog.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @blog.content %>
+</p>
+
+<p>
+  <b>Digs count:</b>
+  <%=h @blog.digs_count %>
+</p>
+
+<p>
+  <b>Comments count:</b>
+  <%=h @blog.comments_count %>
+</p>
+
+<p>
+  <b>Draft:</b>
+  <%=h @blog.draft %>
+</p>
+
+<p>
+  <b>Privilege:</b>
+  <%=h @blog.privilege %>
+</p>
+
+
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>

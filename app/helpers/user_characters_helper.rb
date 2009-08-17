@@ -1,0 +1,2 @@
+module UserCharactersHelper
+end

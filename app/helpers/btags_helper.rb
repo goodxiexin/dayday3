@@ -1,0 +1,2 @@
+module BtagsHelper
+end

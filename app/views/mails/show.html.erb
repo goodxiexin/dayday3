@@ -1,0 +1,48 @@
+<p>
+  <b>Sender:</b>
+  <%=h @mail.sender_id %>
+</p>
+
+<p>
+  <b>Receiver:</b>
+  <%=h @mail.receiver_id %>
+</p>
+
+<p>
+  <b>Delete by sender:</b>
+  <%=h @mail.delete_by_sender %>
+</p>
+
+<p>
+  <b>Delete by receiver:</b>
+  <%=h @mail.delete_by_receiver %>
+</p>
+
+<p>
+  <b>Read by sender:</b>
+  <%=h @mail.read_by_sender %>
+</p>
+
+<p>
+  <b>Read by receiver:</b>
+  <%=h @mail.read_by_receiver %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @mail.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @mail.content %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @mail.parent_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_mail_path(@mail) %> |
+<%= link_to 'Back', mails_path %>

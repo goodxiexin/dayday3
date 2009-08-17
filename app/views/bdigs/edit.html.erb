@@ -1,0 +1,20 @@
+<h1>Editing bdig</h1>
+
+<% form_for(@bdig) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :blog_id %><br />
+    <%= f.text_field :blog_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @bdig %> |
+<%= link_to 'Back', bdigs_path %>

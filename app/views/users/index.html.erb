@@ -1,0 +1,34 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>Email</th>
+    <th>Vname</th>
+    <th>Gender</th>
+    <th>Created at</th>
+    <th>Activated at</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%=h user.id %></td>
+    <td><%=h user.email %></td>
+    <td><%=h user.login %></td>
+    <td><%=h user.gender %></td>
+    <td><%=h ftime user.created_at %></td>
+    <td><%=h ftime user.activated_at %></td>
+    <% unless user == current_user %>
+      <% if user.enabled %>
+        <td>[<%= link_to 'disable', user, :method => :delete %>]</td>
+      <% else %>
+        <td>[<%= link_to 'enable', enable_user_url(user), :method => :put %>]</td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user', new_user_url %>

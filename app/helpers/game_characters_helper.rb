@@ -1,0 +1,2 @@
+module GameCharactersHelper
+end

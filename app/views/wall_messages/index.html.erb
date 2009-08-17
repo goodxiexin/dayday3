@@ -1,0 +1,28 @@
+<h1>Listing wall_messages</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Receiver</th>
+    <th>Poster</th>
+    <th>Content</th>
+    <th>Whisper</th>
+  </tr>
+
+<% @wall_messages.each do |wall_message| %>
+  <tr>
+    <td><%=h wall_message.user_id %></td>
+    <td><%=h wall_message.receiver_id %></td>
+    <td><%=h wall_message.poster_id %></td>
+    <td><%=h wall_message.content %></td>
+    <td><%=h wall_message.whisper %></td>
+    <td><%= link_to 'Show', wall_message %></td>
+    <td><%= link_to 'Edit', edit_wall_message_path(wall_message) %></td>
+    <td><%= link_to 'Destroy', wall_message, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New wall_message', new_wall_message_path %>

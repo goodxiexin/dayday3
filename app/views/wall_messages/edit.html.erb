@@ -1,0 +1,32 @@
+<h1>Editing wall_message</h1>
+
+<% form_for(@wall_message) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :receiver_id %><br />
+    <%= f.text_field :receiver_id %>
+  </p>
+  <p>
+    <%= f.label :poster_id %><br />
+    <%= f.text_field :poster_id %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.label :whisper %><br />
+    <%= f.check_box :whisper %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @wall_message %> |
+<%= link_to 'Back', wall_messages_path %>

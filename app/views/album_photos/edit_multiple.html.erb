@@ -1,0 +1,9 @@
+<p><%= "edit album - #{@album.title}" %></p>
+<p><%= link_to 'back to album', user_album_url(@user, @album) %></p>
+
+<% form_tag update_multiple_album_photos_url(@album), :method => :put do %>
+  <div id='photo'>
+    <%= render :partial => 'edition', :collection => @photos %> 
+  </div>
+  <%= submit_tag 'update' %>
+<% end %>

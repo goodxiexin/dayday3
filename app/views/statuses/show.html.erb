@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @status.user_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @status.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_status_path(@status) %> |
+<%= link_to 'Back', statuses_path %>

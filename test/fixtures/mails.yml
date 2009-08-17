@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  delete_by_sender: false
+  delete_by_receiver: false
+  read_by_sender: false
+  read_by_receiver: false
+  title: MyString
+  text: 
+  parent_id: 1
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  delete_by_sender: false
+  delete_by_receiver: false
+  read_by_sender: false
+  read_by_receiver: false
+  title: MyString
+  text: 
+  parent_id: 1

@@ -1,0 +1,11 @@
+<p>Reset password</p>
+
+<%= image_tag 'split.gif' %><br/>
+
+<p>Please type in your email address. The system will send an email to your mailbox.</p>
+
+<% form_tag url_for(:controller => 'passwords', :action => 'create') do %>
+  <p>Your Email Address: <%= text_field_tag 'email' %></p>
+  <p>Validation code: <%= text_field_tag 'validation_text', '', :size => 4 %><%= validation_image %></p> 
+  <%= submit_tag 'submit' %>
+<% end %>

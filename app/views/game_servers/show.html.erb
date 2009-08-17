@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @game_server.name %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%=h @game_server.ip %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%=h @game_server.game_id %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%=h @game_server.area_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_game_server_path(@game_server) %> |
+<%= link_to 'Back', game_servers_path %>

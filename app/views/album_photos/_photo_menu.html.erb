@@ -1,0 +1,6 @@
+<ul id='photo_operations'>
+  <li> <%= link_to_function 'tag your friends', "photo_tag.init();" %> </li>
+  <li> <%= link_to_remote 'make it cover', :url => cover_album_photo_url(@album, @photo), :confirm => 'are you sure?', :method => :post %> </li>
+  <li> <%= link_to 'edit photo',  edit_album_photo_url(@album, @photo) %> </li>
+  <li> <%= link_to 'delete photo', confirm_destroy_album_photo_url(@album, @photo), :rel => 'facebox' %> </li>
+</ul>

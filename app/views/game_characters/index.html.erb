@@ -1,0 +1,36 @@
+<h1>Listing game_characters</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Game</th>
+    <th>Server</th>
+    <th>Area</th>
+    <th>Profession</th>
+    <th>Race</th>
+    <th>Name</th>
+    <th>Level</th>
+    <th>Playing</th>
+  </tr>
+
+<% @game_characters.each do |game_characters| %>
+  <tr>
+    <td><%=h game_characters.user_id %></td>
+    <td><%=h game_characters.game_id %></td>
+    <td><%=h game_characters.server_id %></td>
+    <td><%=h game_characters.area_id %></td>
+    <td><%=h game_characters.profession_id %></td>
+    <td><%=h game_characters.race_id %></td>
+    <td><%=h game_characters.name %></td>
+    <td><%=h game_characters.level %></td>
+    <td><%=h game_characters.playing %></td>
+    <td><%= link_to 'Show', game_characters %></td>
+    <td><%= link_to 'Edit', edit_game_characters_path(game_characters) %></td>
+    <td><%= link_to 'Destroy', game_characters, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New game_characters', new_game_characters_path %>

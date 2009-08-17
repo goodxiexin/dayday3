@@ -1,0 +1,5 @@
+<ul>
+  <% friends.each do |friend| %>
+    <li style="list-style-type:none;" user_id=<%= friend.id %>><%= friend.login %> </li>
+  <% end %>
+</ul>

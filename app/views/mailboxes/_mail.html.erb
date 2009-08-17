@@ -1,0 +1,8 @@
+<% sender = mail.sender %>
+<tr>
+  <td><%= user_icon(sender) %></td>
+  <td><%= link_to sender.login %><br/>
+      <%= ftime mail.created_at %>
+  </td>
+  <td vAlign='top'><%= mail.content %></td>
+</tr>

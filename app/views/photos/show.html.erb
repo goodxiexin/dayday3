@@ -1,0 +1,58 @@
+<p>
+  <b>Digs count:</b>
+  <%=h @photo.digs_count %>
+</p>
+
+<p>
+  <b>Album:</b>
+  <%=h @photo.album_id %>
+</p>
+
+<p>
+  <b>Cover:</b>
+  <%=h @photo.cover %>
+</p>
+
+<p>
+  <b>Notation:</b>
+  <%=h @photo.notation %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @photo.parent_id %>
+</p>
+
+<p>
+  <b>Content type:</b>
+  <%=h @photo.content_type %>
+</p>
+
+<p>
+  <b>File name:</b>
+  <%=h @photo.file_name %>
+</p>
+
+<p>
+  <b>Thumbnail:</b>
+  <%=h @photo.thumbnail %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @photo.size %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%=h @photo.width %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%=h @photo.height %>
+</p>
+
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

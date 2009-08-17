@@ -1,0 +1,12 @@
+<% content_for :left do %>
+  <% form_tag sessions_url do %>
+    <p>name:<%= text_field_tag 'email', nil, :size => 15 %></p>
+    <p>password:<%= password_field_tag 'password', nil, :size => 15 %></p>
+    <p>remember me: <%= check_box_tag 'remember_me' %></p>
+    <p><%= submit_tag 'login' %></p>
+  <% end %>
+  <%= link_to 'forgot password?', '/forgot_password' %> | 
+  <%= link_to 'register', signup_url %>
+<% end %>
+
+Main Body!!

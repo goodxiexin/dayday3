@@ -1,0 +1,2 @@
+module WallMessagesHelper
+end

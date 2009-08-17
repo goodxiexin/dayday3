@@ -1,0 +1,26 @@
+<h1>Listing game_servers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Ip</th>
+    <th>Game</th>
+    <th>Area</th>
+  </tr>
+
+<% @game_servers.each do |game_server| %>
+  <tr>
+    <td><%=h game_server.name %></td>
+    <td><%=h game_server.ip %></td>
+    <td><%=h game_server.game_id %></td>
+    <td><%=h game_server.area_id %></td>
+    <td><%= link_to 'Show', game_server %></td>
+    <td><%= link_to 'Edit', edit_game_server_path(game_server) %></td>
+    <td><%= link_to 'Destroy', game_server, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New game_server', new_game_server_path %>

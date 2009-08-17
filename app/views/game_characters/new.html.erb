@@ -1,0 +1,22 @@
+<h2> New Game Character </h2>
+
+<div>
+  <%= label 'game_id', "Game Name: " %>
+  <% game_array = [['---', '---']] %>
+  <% @games.each { |game| game_array << [game.name, game.id] } %>
+  <%= select_tag 'game_id', options_for_select(game_array), :onchange => "validate_game_id(this.value);game_onchange(this.value)"%>
+  <a id='game_id_info'></a>
+</div>
+<div>
+  <%= label '', "Character ID: " %>
+  <%= text_field_tag 'name', '', :size => 10, :onfocus => "show_name_requirement()", :onblur => "validate_name(this.value)" %>
+  <div id='name_info'></div>
+</div>
+<div>
+  <%= label_tag '', "Character level: " %>
+  <%= text_field_tag 'level', '', :size => 10, :onfocus => "show_level_requirement()", :onblur => "validate_level(this.value)" %>
+  <div id='level_info'></div>
+</div>
+<div id=details></div>
+
+<%= link_to_function 'complete', "add_character()" %>

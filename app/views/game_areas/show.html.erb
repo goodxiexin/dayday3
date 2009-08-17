@@ -1,0 +1,5 @@
+<% server_array = [['---', '---']] %>
+<% @servers.each { |server| server_array << [server.name, server.id] } %>
+<%= label_tag '', 'Game Server: ', :style => "width: 125px;float:left" %>
+<%= select_tag 'character[server_id]', options_for_select(server_array), :onchange => "validate_server_id(this.value)" %>
+<a id='server_id_info'></a>

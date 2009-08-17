@@ -1,0 +1,6 @@
+<%= label_tag 'email', 'email', :style => "width:200px;float:left"%><%= @user.email %><br/>
+<%= label_tag 'qq', 'qq', :style => "width:200px;float:left"%><%=  @user.qq %><br/>
+<%= label_tag 'mobile', 'mobile', :style => "width:200px;float:left" %><%= @user.mobile %><br/>
+<%= label_tag 'webiste', 'website', :style => "width:200px;float:left"%><%= @user.website %><br/>
+<%= link_to 'edit', edit_user_contact_info_url(@user), :rel => 'facebox', :style => "float:right"%>
+

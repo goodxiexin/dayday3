@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @ptag.user_id %>
+</p>
+
+<p>
+  <b>Tagged user:</b>
+  <%=h @ptag.tagged_user_id %>
+</p>
+
+<p>
+  <b>Photo:</b>
+  <%=h @ptag.photo_id %>
+</p>
+
+<p>
+  <b>X,y,width,height:</b>
+  <%=h @ptag.x,y,width,height %>
+</p>
+
+
+<%= link_to 'Edit', edit_ptag_path(@ptag) %> |
+<%= link_to 'Back', ptags_path %>

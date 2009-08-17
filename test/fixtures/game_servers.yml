@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  ip: MyString
+  game_id: 1
+  area_id: 1
+
+two:
+  name: MyString
+  ip: MyString
+  game_id: 1
+  area_id: 1

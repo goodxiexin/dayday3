@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  digs_count: 1
+  album_id: 1
+  cover: false
+  notation: MyText
+  parent_id: 1
+  content_type: MyString
+  file_name: MyString
+  thumbnail: MyString
+  size: 1
+  width: 1
+  height: 1
+
+two:
+  digs_count: 1
+  album_id: 1
+  cover: false
+  notation: MyText
+  parent_id: 1
+  content_type: MyString
+  file_name: MyString
+  thumbnail: MyString
+  size: 1
+  width: 1
+  height: 1

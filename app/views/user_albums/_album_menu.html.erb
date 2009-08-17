@@ -1,0 +1,4 @@
+<%= link_to "my albums", user_albums_url(@user) %>
+<%= link_to "friends' albums", :controller => 'album_feeds', :action => 'index', :user_id =>(@user) %>
+<%= link_to "my tagged photos", :controller => 'tagged_photos', :action => 'index', :user_id => @user %>
+<%= link_to "upload photo", new_user_album_url(@user) %>

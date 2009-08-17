@@ -1,0 +1,16 @@
+ <%= render :partial => 'user_albums/album_menu' %>
+
+<table cellpadding = '10'>
+<% @albums.each do |album| %>
+    <tr>
+  <td><%= album_cover(album) %></td>
+  <td>
+    <p><%= link_to_album album %></p>
+    <p><%= link_to_user album.user %></p>
+    <p><%= "updated at #{ftime album.updated_at}" %></p>
+    <p><%= "created at #{ftime album.created_at}" %></p>
+  </td>
+    </tr>
+<% end %>
+</table>
+<%= will_paginate @albums %>

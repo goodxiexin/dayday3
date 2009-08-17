@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @bcomment.user_id %>
+</p>
+
+<p>
+  <b>Blog:</b>
+  <%=h @bcomment.blog_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @bcomment.content %>
+</p>
+
+<p>
+  <b>Whisper:</b>
+  <%=h @bcomment.whisper %>
+</p>
+
+
+<%= link_to 'Edit', edit_bcomment_path(@bcomment) %> |
+<%= link_to 'Back', bcomments_path %>

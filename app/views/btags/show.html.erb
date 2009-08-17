@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @btag.user_id %>
+</p>
+
+<p>
+  <b>Tagged user:</b>
+  <%=h @btag.tagged_user_id %>
+</p>
+
+<p>
+  <b>Blog:</b>
+  <%=h @btag.blog_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_btag_path(@btag) %> |
+<%= link_to 'Back', btags_path %>

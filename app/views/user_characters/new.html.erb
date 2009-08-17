@@ -1,0 +1,25 @@
+<h3> New Game Character </h3>
+
+<% form_for :character, :html => {:id => 'character_form'} do |f| %>
+<div>
+  <%= f.label 'game_id', "Game Name: ", :style => "width:125px;float:left" %>
+  <% game_array = [['---', '---']] %>
+  <% @games.each { |game| game_array << [game.name, game.id] } %>
+  <%= select_tag 'character[game_id]', options_for_select(game_array), :onchange => "validate_game_id(this.value);game_onchange(this.value)"%>
+  <a id='game_id_info'></a>
+</div>
+<div>
+  <%= f.label '', "Character ID: ", :style => "width:125px;float:left" %>
+  <%= f.text_field 'name', :size => 10, :onfocus => "show_name_requirement()", :onblur => "validate_name(this.value)" %>
+  <a id='name_info'></a>
+</div>
+<div>
+  <%= f.label '', "Character level: ", :style => "width:125px;float:left" %>
+  <%= f.text_field 'level', :size => 10, :onfocus => "show_level_requirement()", :onblur => "validate_level(this.value)" %>
+  <a id='level_info'></a>
+</div>
+<div id=details></div>
+<% end %>
+
+<%= link_to_function 'complete', "add_user_character(#{@user.id})" %>
+

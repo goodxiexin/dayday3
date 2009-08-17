@@ -1,0 +1,22 @@
+<h1>Listing game_races</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Game</th>
+  </tr>
+
+<% @game_races.each do |game_races| %>
+  <tr>
+    <td><%=h game_races.name %></td>
+    <td><%=h game_races.game_id %></td>
+    <td><%= link_to 'Show', game_races %></td>
+    <td><%= link_to 'Edit', edit_game_races_path(game_races) %></td>
+    <td><%= link_to 'Destroy', game_races, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New game_races', new_game_races_path %>

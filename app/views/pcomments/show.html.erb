@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @pcomment.user_id %>
+</p>
+
+<p>
+  <b>Photo:</b>
+  <%=h @pcomment.photo_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @pcomment.content %>
+</p>
+
+<p>
+  <b>Whisper:</b>
+  <%=h @pcomment.whisper %>
+</p>
+
+
+<%= link_to 'Edit', edit_pcomment_path(@pcomment) %> |
+<%= link_to 'Back', pcomments_path %>

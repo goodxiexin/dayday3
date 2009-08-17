@@ -1,0 +1,4 @@
+<div new_record=<%= btag.new_record?%> tagged_user_id=<%= btag.tagged_user_id %> tag_id=<%= btag.new_record? ? 0: btag.id %>>
+  <p><%= user_icon(btag.tagged_user) %></p>
+  <p><%= link_to_user btag.tagged_user %> | <%= link_to_function 'delete', "blog_builder.remove_tag(#{btag.tagged_user_id})" %></p>
+</div>

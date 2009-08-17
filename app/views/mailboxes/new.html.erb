@@ -1,0 +1,23 @@
+<%= javascript_include_tag 'mailbox' %>
+<%= render :partial => 'mailbox_menu' %>
+
+<ul id='mail_info'></ul>
+<table>
+<% form_for :mail, :url => user_mails_url, :html => {:onsubmit => "return validate_mail();"} do |form| %>
+  <tr>
+    <td><%= form.label 'recipient: ' %></td>
+    <td><%= text_field_with_auto_complete :mail, :recipients, {}, {:tokens => ','} %></td>
+  </tr>
+  <tr>
+    <td><%= form.label 'title: ' %></td>
+    <td><%= form.text_field 'title' %></td>
+  </tr>
+  <tr>
+    <td><%= form.label 'content: ' %></td>
+    <td><%= form.text_area 'content', :rows => 8, :cols => 35 %></td>
+  </tr>
+  <tr>
+    <td></td><td><%= form.submit 'send' %></td>
+  </tr>
+<% end %>
+</table>

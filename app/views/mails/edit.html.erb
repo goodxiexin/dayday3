@@ -1,0 +1,48 @@
+<h1>Editing mail</h1>
+
+<% form_for(@mail) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :sender_id %><br />
+    <%= f.text_field :sender_id %>
+  </p>
+  <p>
+    <%= f.label :receiver_id %><br />
+    <%= f.text_field :receiver_id %>
+  </p>
+  <p>
+    <%= f.label :delete_by_sender %><br />
+    <%= f.check_box :delete_by_sender %>
+  </p>
+  <p>
+    <%= f.label :delete_by_receiver %><br />
+    <%= f.check_box :delete_by_receiver %>
+  </p>
+  <p>
+    <%= f.label :read_by_sender %><br />
+    <%= f.check_box :read_by_sender %>
+  </p>
+  <p>
+    <%= f.label :read_by_receiver %><br />
+    <%= f.check_box :read_by_receiver %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @mail %> |
+<%= link_to 'Back', mails_path %>

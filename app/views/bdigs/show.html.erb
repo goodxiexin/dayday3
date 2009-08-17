@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @bdig.user_id %>
+</p>
+
+<p>
+  <b>Blog:</b>
+  <%=h @bdig.blog_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_bdig_path(@bdig) %> |
+<%= link_to 'Back', bdigs_path %>

@@ -1,0 +1,43 @@
+<p>
+  <b>User:</b>
+  <%=h @icon.user_id %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @icon.parent_id %>
+</p>
+
+<p>
+  <b>Content type:</b>
+  <%=h @icon.content_type %>
+</p>
+
+<p>
+  <b>File name:</b>
+  <%=h @icon.filename %>
+</p>
+
+<p>
+  <b>Thumbnail:</b>
+  <%=h @icon.thumbnail %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @icon.size %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%=h @icon.width %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%=h @icon.height %>
+</p>
+
+
+<%= link_to 'Edit', edit_icon_path(@icon) %> |
+<%= link_to 'Back', icons_path %>

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/18/trunk/vendor/plugins/imagemagick_tag/test
+END
+image_magick_macro_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/18/trunk/vendor/plugins/imagemagick_tag/test/image_magick_macro_test.rb
+END
+image_magick_macro_helper_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/18/trunk/vendor/plugins/imagemagick_tag/test/image_magick_macro_helper_test.rb
+END

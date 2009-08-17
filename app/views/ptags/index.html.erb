@@ -1,0 +1,26 @@
+<h1>Listing ptags</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Tagged user</th>
+    <th>Photo</th>
+    <th>X,y,width,height</th>
+  </tr>
+
+<% @ptags.each do |ptag| %>
+  <tr>
+    <td><%=h ptag.user_id %></td>
+    <td><%=h ptag.tagged_user_id %></td>
+    <td><%=h ptag.photo_id %></td>
+    <td><%=h ptag.x,y,width,height %></td>
+    <td><%= link_to 'Show', ptag %></td>
+    <td><%= link_to 'Edit', edit_ptag_path(ptag) %></td>
+    <td><%= link_to 'Destroy', ptag, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ptag', new_ptag_path %>

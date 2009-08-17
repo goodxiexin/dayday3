@@ -1,0 +1,11 @@
+<table cellpadding='3px'>
+<% blogs.each do |blog| %>
+  <tr>
+    <td width='400px'><%= link_to blog.title, user_blog_url(:id => blog) %><br/><%= ftime blog.updated_at %></td>
+    <td><%= link_to blog.game.name, blog.game %><br/>
+        <%= link_to 'edit', edit_user_blog_url(@user, blog) %> | <%= link_to 'delete', confirm_destroy_user_blog_url(@user, blog, :draft => 0), :rel => 'facebox' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate blogs %>

@@ -1,0 +1,22 @@
+<h1>Listing game_professions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Game</th>
+  </tr>
+
+<% @game_professions.each do |game_profession| %>
+  <tr>
+    <td><%=h game_profession.name %></td>
+    <td><%=h game_profession.game_id %></td>
+    <td><%= link_to 'Show', game_profession %></td>
+    <td><%= link_to 'Edit', edit_game_profession_path(game_profession) %></td>
+    <td><%= link_to 'Destroy', game_profession, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New game_profession', new_game_profession_path %>

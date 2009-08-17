@@ -1,0 +1,41 @@
+<p><%= user_icon(@user) %></p>
+<p>
+<%= link_to_function "Currently Characters", "$('playing_characters').toggle();" %>
+<ul id="playing_characters" style="display:none">
+<% @user.game_characters.each do |character| %>
+  <% if character.playing %>
+    <% character_divid = "character_#{character.id}" %>
+    <li>
+      <%= link_to_function character.name, "$('#{character_divid}').toggle();" %>
+      <div id=<%= character_divid %> style="display:none">
+        level: <%= character.level %> <br/>
+        game: <%= character.game.name %> <br/>
+        server: <%= character.server.name %> <br/>
+        area: <%= character.area.name %> <br/>
+        profession: <%= character.profession.name %> <br/>
+        race: <%= character.race.name %> <br/>
+      </div>
+    </li>
+  <% end %>
+<% end %>
+</ul>
+<%= link_to_function "Past Characters", "$('past_characters').toggle();" %>
+<ul id="past_characters" style="display:none">
+<% @user.game_characters.each do |character| %>
+  <% if not character.playing %>
+    <% character_divid = "character_#{character.id}" %>
+    <li>
+      <%= link_to_function character.name, "$('#{character_divid}').toggle();" %>
+      <div id=<%= character_divid %> style="display:none">
+        level: <%= character.level %> <br/>
+        game: <%= character.game.name %> <br/>
+        server: <%= character.server.name %> <br/>
+        area: <%= character.area.name %> <br/>
+        profession: <%= character.profession.name %> <br/>
+        race: <%= character.race.name %> <br/>
+      </div>
+    </li>
+  <% end %>
+<% end %>
+</ul>
+</p>

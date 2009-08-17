@@ -1,0 +1,2 @@
+module PhotoDigsHelper
+end

@@ -1,0 +1,25 @@
+<%= render :partial => 'user_blogs/blog_menu' %><br/>
+
+<%= page_entries_info @blogs, :entry_name => 'blog' %>
+<table cellpadding='5px'>
+<% @blogs.each do |blog| %>
+  <tr>
+    <td><%= user_icon(blog.user) %></td>
+    <td width='400px' vAlign='top'>
+      <strong><%= blog.title %></strong><br/><%= link_to_user blog.user %> | <%= ftime blog.updated_at %><br/>
+      <%= h(truncate(blog.content, 80)) %>
+    </td>
+  </tr>
+  <tr>
+    <td align='right'> Tags: </td>
+    <td><% blog.tags.each do |t| %>
+          <%= link_to_user t.tagged_user %>
+        <% end %></td>
+  <tr>
+    <td></td>
+    <td align='right'><%= link_to 'comment', user_blog_url(blog.user, blog) %>(<%= blog.comments.count %>) | <%= link_to_remote 'dig', :url => blog_digs_url(blog), :method => :post%>(<%= label_tag nil, blog.digs.count, :id => "digs_count_#{blog.id}" %>)</td>
+   </tr> 
+<% end %>
+</table>
+<%= will_paginate @blogs %>
+

@@ -1,0 +1,4 @@
+<%= link_to "upload", new_album_photo_url(@album) %> |
+<%= link_to "edit", edit_user_album_url(@user, @album) %> |
+<%= link_to "delete", confirm_destroy_user_album_url(@user, @album), :method => 'get' %> |
+<%= link_to "back to album", user_album_url(@user, @album) %>
