@@ -1,0 +1,24 @@
+<h1>Editing vtag</h1>
+
+<% form_for(@vtag) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :tagged_user_id %><br />
+    <%= f.text_field :tagged_user_id %>
+  </p>
+  <p>
+    <%= f.label :video_id %><br />
+    <%= f.text_field :video_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @vtag %> |
+<%= link_to 'Back', vtags_path %>

@@ -1,0 +1,14 @@
+<%= page_entries_info videos, :entry_name => 'video' %>
+<% videos.each do |v| %>
+  <div>
+    <%= link_to_user v.user %>'s video<br/><%= ftime v.updated_at %>
+    <%= link_to 'edit', edit_user_video_url(@user, v) %> | <%= link_to 'delete', confirm_destroy_user_video_url(@user, v), :rel => 'facebox'%>
+  </div>
+  <div>
+    <p id=<%= "video_#{v.id}"%>><%= image_tag 'blank_video.png', :onclick => "play_video(#{v.id}, '#{v.link}')" %></p>
+    <%= link_to v.title, user_video_url(@user, v) %><br/>
+    <%= link_to h(truncate(v.url,40)), v.url, :popup => true %>
+  </div>  
+  <hr/>
+<% end %>
+<%= will_paginate videos %>

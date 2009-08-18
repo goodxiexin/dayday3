@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090816174114) do
+ActiveRecord::Schema.define(:version => 20090818041940) do
 
   create_table "albums", :force => true do |t|
     t.integer  "user_id"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(:version => 20090816174114) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_wall_messages", :force => true do |t|
+    t.integer  "activity_id"
+    t.integer  "poster_id"
+    t.integer  "receiver_id"
+    t.text     "content"
+    t.boolean  "whisper",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -262,6 +272,44 @@ ActiveRecord::Schema.define(:version => 20090816174114) do
     t.integer  "mobile"
     t.string   "website"
     t.datetime "birthday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vcomments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "video_id"
+    t.text     "content"
+    t.boolean  "whisper",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vdigs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "video_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "videos", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "title"
+    t.string   "url"
+    t.text     "link"
+    t.integer  "digs_count",     :default => 0
+    t.integer  "comments_count", :default => 0
+    t.integer  "tags_count",     :default => 0
+    t.string   "privilege"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vtags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tagged_user_id"
+    t.integer  "video_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

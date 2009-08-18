@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @vtag.user_id %>
+</p>
+
+<p>
+  <b>Tagged user:</b>
+  <%=h @vtag.tagged_user_id %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%=h @vtag.video_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_vtag_path(@vtag) %> |
+<%= link_to 'Back', vtags_path %>

@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @vdig.user_id %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%=h @vdig.video_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_vdig_path(@vdig) %> |
+<%= link_to 'Back', vdigs_path %>

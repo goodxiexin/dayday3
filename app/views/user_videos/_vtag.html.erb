@@ -1,0 +1,4 @@
+<div new_record=<%= vtag.new_record?%> tagged_user_id=<%= vtag.tagged_user_id %> tag_id=<%= vtag.new_record? ? 0: vtag.id %>>
+  <p><%= user_icon(vtag.tagged_user) %></p>
+  <p><%= link_to_user vtag.tagged_user %> | <%= link_to_function 'delete', "video_builder.remove_tag(#{vtag.tagged_user_id})" %></p>
+</div>

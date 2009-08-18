@@ -1,0 +1,22 @@
+<h1>Listing vdigs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Video</th>
+  </tr>
+
+<% @vdigs.each do |vdig| %>
+  <tr>
+    <td><%=h vdig.user_id %></td>
+    <td><%=h vdig.video_id %></td>
+    <td><%= link_to 'Show', vdig %></td>
+    <td><%= link_to 'Edit', edit_vdig_path(vdig) %></td>
+    <td><%= link_to 'Destroy', vdig, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vdig', new_vdig_path %>

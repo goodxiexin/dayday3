@@ -1,4 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :vtags
+
+  map.resources :vdigs
+
+  map.resources :vcomments
+
+  map.resources :videos
 
   map.resources :pages
 
@@ -87,6 +94,10 @@ ActionController::Routing::Routes.draw do |map|
 
     users.resources :tagged_photos
 
+    users.resources :videos,
+                    :controller => 'user_videos',
+                    :member => {:confirm_destroy => :get}
+
     users.resource :profile
 
     users.resource :basic_info,
@@ -123,6 +134,17 @@ ActionController::Routing::Routes.draw do |map|
                      :controller => 'album_photos',
                      :member => {:confirm_destroy => :get, :cover => :post}, 
                      :collection => {:update_multiple => :put, :edit_multiple => :get, :create_multiple => :post}
+  end
+
+  map.resources :videos do |videos|
+    videos.resources :comments,
+                     :controller => 'video_comments'
+    
+    videos.resources :tags,
+                     :controller => 'video_tags'
+
+    videos.resources :digs,
+                     :controller => 'video_digs'
   end
 
 

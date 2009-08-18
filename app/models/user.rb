@@ -75,6 +75,9 @@ class User < ActiveRecord::Base
   has_many :albums,
            :order => 'updated_at DESC'
 
+  has_many :videos,
+           :order => 'updated_at DESC'
+
   # permissions and roles
   has_many :permissions
   has_many :roles, :through => :permissions

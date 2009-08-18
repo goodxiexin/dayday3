@@ -1,0 +1,38 @@
+<p>
+  <b>User:</b>
+  <%=h @video.user_id %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%=h @video.game_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @video.title %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @video.url %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%=h @video.link %>
+</p>
+
+<p>
+  <b>Digs count:</b>
+  <%=h @video.digs_count %>
+</p>
+
+<p>
+  <b>Comments count:</b>
+  <%=h @video.comments_count %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

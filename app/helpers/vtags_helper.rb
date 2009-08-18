@@ -1,0 +1,2 @@
+module VtagsHelper
+end
