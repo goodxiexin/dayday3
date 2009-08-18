@@ -1,0 +1,2 @@
+module VdigsHelper
+end

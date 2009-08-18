@@ -319,7 +319,7 @@ BlogBuilder = Class.create({
     var length = inputs.length;
     var tagged_users = [];
     for(var i = 0; i < length; i++){
-      if(inputs[i].type == 'checkbox' && inputs[i].checked){
+      if(inputs[i].type == 'checkbox' && inputs[i].checked && !this.btags.get(inputs[i].value)){
         tagged_users.push(inputs[i].value);
       }
     }
@@ -354,8 +354,9 @@ BlogBuilder = Class.create({
           this.btags_div.innerHTML = transport.responseText + this.btags_div.innerHTML;
           this.hide_friends();
           var children = this.btags_div.childElements();
-          for(var i=0;i<tagged_users.length;i++){
-            this.btags.set(tagged_users[i], children[i]);
+          var length = children.length;
+          for(var i=0;i<length;i++){
+            this.btags.set(children[i].readAttribute('tagged_user_id'), children[i]);
           }
         }.bind(this)
       });
@@ -408,8 +409,11 @@ BlogBuilder = Class.create({
       onSuccess: function(transport){
         this.btags_div.innerHTML = transport.responseText + this.btags_div.innerHTML;
         this.tag_input.value = '';
-        // add this new tag to hash 
-        this.btags.set(tagged_user_id, this.btags_div.childElements().last());
+        var children = this.btags_div.childElements();
+        var length = children.length;
+        for(var i=0;i<length;i++){
+          this.btags.set(children[i].readAttribute('tagged_user_id'), children[i]);
+        }
       }.bind(this)
     }); 
   },

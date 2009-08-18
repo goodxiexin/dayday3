@@ -3,16 +3,12 @@
 
 <div id=<%= comment_divid %>>
   <%= user_icon(user) %>
-
   <%= ftime bcomment.created_at %> <br/>
-
   <%= bcomment.content %>
-
   <% if current_user == user %>
-    <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => blog_comment_url(:blog_id => bcomment.blog, :id => bcomment), :method => :delete %>
+    <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => blog_comment_url(bcomment.blog, bcomment), :method => :delete %>
   <% else %>
     <%= link_to_function 'comment', "$('bcomment_content').value='reply to #{user.login}: '; $('bcomment_content').focus();" %>
   <% end %>
-
 </div>
 

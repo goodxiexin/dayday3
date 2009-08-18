@@ -1,0 +1,48 @@
+<table> 
+  <tr>
+    <td> <%= user_icon(@user) %></td>
+    <td> <%= @user.login %> Videos <br/> <%= link_to 'back to video list', user_videos_url %> | <%= link_to 'personal page', new_user_wall_message_url %> </td>
+  </tr>
+</table>
+
+<% ret = Video.next_prev_video(@user, @video)
+    @next_video = ret[0]
+    @prev_video = ret[1]
+    @cur_video_idx = ret[2] + 1 %>
+
+<%= link_to "Next: #{truncate(@next_video.title, 15)}", user_video_url(@user, @next_video), :style => "float:right" %>
+<%= link_to "Prev: #{truncate(@prev_video.title, 15)}", user_video_url(@user, @video), :style => "float:left" %>
+
+<table cellpadding='3px'> 
+  <tr >
+    <td><strong><%= @video.title %></strong><br/><%= ftime @video.updated_at %></td>
+    <td><%= link_to @video.game.name %><br/><%= link_to 'edit', edit_user_video_url(@user, @video)%> | 
+        <%= link_to 'delete', confirm_destroy_user_video_url(@user, @video), :rel => 'facebox' %></td>
+  </tr>
+  <tr>
+    <td align='center'><%= @video.link %></td>
+  </tr>
+</table>
+
+<div id='tags'>
+  Tags: <%= render :partial => 'user_blogs/name_tag', :collection => @video.tags %>
+</div>
+
+<div>
+  <%= link_to_function "Comment", "$('vcomment_content').focus();" %>(<%= label_tag 'nil', "#{@video.comments.count}", :id => 'comments_count' %>) |
+  <%= link_to_remote "Dig", :url => video_digs_url(@video), :method => :post%>(<%= label_tag nil, "#{@video.digs.count}", :id => "digs_count_#{@video.id}" %>)
+</div>
+<hr/>
+
+<div id='vcomments'>
+  <%= render :partial => 'video_comments/vcomment', :collection => @video.comments %>
+</div>
+
+<% form_remote_for :vcomment,
+                   :position => :bottom,
+                   :update => 'vcomments',
+                   :complete => "$('vcomment_content').value='';",
+                   :url => video_comments_url(@video) do |form| %>
+  <p><%= form.text_area 'content', :cols => 70, :rows => 6 %></p>
+  <p><%= form.label "whisper?" %><%= form.check_box 'whisper' %><%= form.submit 'comment' %></p>
+<% end %>

@@ -1,5 +1,7 @@
 class BlogDigsController < ApplicationController
 
+  before_filter :login_required
+
   def create
     @blog = Blog.find(params[:blog_id])
    

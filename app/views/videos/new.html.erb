@@ -1,0 +1,39 @@
+<h1>New video</h1>
+
+<% form_for(@video) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :game_id %><br />
+    <%= f.text_field :game_id %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.label :link %><br />
+    <%= f.text_area :link %>
+  </p>
+  <p>
+    <%= f.label :digs_count %><br />
+    <%= f.text_field :digs_count %>
+  </p>
+  <p>
+    <%= f.label :comments_count %><br />
+    <%= f.text_field :comments_count %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', videos_path %>

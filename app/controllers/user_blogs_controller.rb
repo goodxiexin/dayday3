@@ -36,7 +36,7 @@ class UserBlogsController < ApplicationController
       end unless params[:tagged_users].blank?
     end
     render :update do |page|
-      page.redirect_to user_blogs_url(:user_id => current_user, :draft => params[:blog][:draft])
+      page.redirect_to user_blogs_url(current_user, :draft => params[:blog][:draft])
     end
   rescue # transaction aborts
     flash.now[:error] = "There was an error while saving this blog"

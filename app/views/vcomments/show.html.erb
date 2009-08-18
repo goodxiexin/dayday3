@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @vcomment.user_id %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%=h @vcomment.video_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @vcomment.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_vcomment_path(@vcomment) %> |
+<%= link_to 'Back', vcomments_path %>
