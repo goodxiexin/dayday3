@@ -398,32 +398,34 @@ function validate_game_character(){
   var area_id = null;
 
   if(!validate_server_id(server_id)) error = true;
+  alert(1);
   if(!validate_race_id(race_id)) error = true;
+  alert(2);
   if(!validate_profession_id(profession_id)) error = true;
-  if($('area_id') != null){
-    area_id = $('area_id').value;
+  alert(3);
+  if($('character_area_id') != null){
+    area_id = $('character_area_id').value;
     if(!validate_area_id(area_id)) error = true;
   }
-  
+  alert(4);
   return error;
 }
 
 function construct_game_character_element(){
-  var error = false;
-  var game_id = $('game_id').value;
-  var name = $('name').value;
-  var level = $('level').value;
-  var server_id = $('server_id').value;
-  var race_id = $('race_id').value;
-  var profession_id = $('profession_id').value;
+  var game_id = $('character_game_id').value;
+  var name = $('character_name').value;
+  var level = $('character_level').value;
+  var server_id = $('character_server_id').value;
+  var race_id = $('character_race_id').value;
+  var profession_id = $('character_profession_id').value;
   var area_id = null;
-
+  
   // construct a character element that will show on registration page
   // html code looks like:
   // <li character_attributes> character_name <a href='#' onClick='edit_character'>edit</a> <a href='#' onClick='delete_character'>edit</a></li>
   var li = new Element('li', {id: 'character'+nr, game_id: game_id, name: name, level: level, server_id: server_id, race_id: race_id, profession_id: profession_id});
-  if($('area_id') != null){
-    area_id = $('area_id').value;
+  if($('character_area_id') != null){
+    area_id = $('character_area_id').value;
     li.writeAttribute({area_id: area_id});
   }
 
@@ -431,12 +433,10 @@ function construct_game_character_element(){
   var label = new Element('label').update(name);
 
   // construct url
-  var parameters = 'id='+nr+'&character[game_id]='+game_id+'&character[name]='+name+'&character[level]='+level+'&character[server_id]='+server_id+'&character[race_id]='+race_id+'&character[profession_id]='+profession_id;
-  if(area_id != null)
-    parameters += '&character[area_id]=' + area_id;
+  var parameters = 'id='+nr+'&' +$('character_form').serialize();
   var url = '/game_characters/edit_new?' + parameters;
   var edit_link = new Element('a', { href: url, rel: 'facebox'}).update('edit');
-
+  alert(url);
   // construct delete link and its event
   var delete_link = new Element('a', { href: '#'}).update('delete');
   delete_link.observe('click', function(event){

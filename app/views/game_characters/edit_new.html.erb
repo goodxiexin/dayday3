@@ -13,19 +13,20 @@
 <% profession_array = [['---', '---']] %>
 <% @professions.each { |profession| profession_array << [profession.name, profession.id] } %>
 
+<% form_for :character, @game_character, :html => {:id => 'character_form'} do |f| %>
 <div>
   <%= label 'game_id', "Game Name: " %>
-  <%= select_tag 'game_id', options_for_select(game_array, @game_character.game_id), :onchange => "validate_game_id(this.value)"%>
+  <%= select_tag 'character[game_id]', options_for_select(game_array, @game_character.game_id), :onchange => "validate_game_id(this.value)"%>
   <div id='game_id_info'></div>
 </div>
 <div>
   <%= label '', "Character ID: " %>
-  <%= text_field_tag 'name', @game_character.name, :size => 10, :onfocus => "show_name_requirement()", :onblur => "validate_name(this.value)" %>
+  <%= f.text_field 'name', :size => 10, :onfocus => "show_name_requirement()", :onblur => "validate_name(this.value)" %>
   <div id='name_info'></div>
 </div>
 <div>
   <%= label_tag '', "Character level: " %>
-  <%= text_field_tag 'level', @game_character.level, :size => 10, :onfocus => "show_level_requirement()", :onblur => "validate_level(this.value)" %>
+  <%= f.text_field 'level', :size => 10, :onfocus => "show_level_requirement()", :onblur => "validate_level(this.value)" %>
   <div id='level_info'></div>
 </div>
 
@@ -33,27 +34,27 @@
   <% unless @game.no_areas %>
     <div id='areas'>
       <%= label_tag '', 'Game Area: '%>
-      <%= select_tag 'area_id', options_for_select(area_array, @game_character.area_id), :onchange => "validate_area_id(this.value)" %>
+      <%= select_tag 'character[area_id]', options_for_select(area_array, @game_character.area_id), :onchange => "validate_area_id(this.value)" %>
       <div id='area_id_info'></div>
     </div>
   <% end %>
   <div id='servers'>
     <%= label_tag '', 'Game Server: '%>
-    <%= select_tag 'server_id', options_for_select(server_array, @game_character.server_id), :onchange => "validate_server_id(this.value)"%>
+    <%= select_tag 'character[server_id]', options_for_select(server_array, @game_character.server_id), :onchange => "validate_server_id(this.value)"%>
     <div id='server_id_info'></div>
   </div>
   <div id='races'>
     <%= label_tag '', 'Game Race: '%>
-    <%= select_tag 'race_id', options_for_select(race_array, @game_character.race_id), :onchange => "validate_race_id(this.value)" %>
+    <%= select_tag 'character[race_id]', options_for_select(race_array, @game_character.race_id), :onchange => "validate_race_id(this.value)" %>
     <div id='race_id_info'></div>
   </div>
   <div id='professions'>
     <%= label_tag '', 'profession: '%>
-    <%= select_tag 'profession_id', options_for_select(profession_array, @game_character.profession_id), :onchange => "validate_profession_id(this.value)" %>
+    <%= select_tag 'character[profession_id]', options_for_select(profession_array, @game_character.profession_id), :onchange => "validate_profession_id(this.value)" %>
     <div id='profession_id_info'></div>
   </div>
 </div>
 
-
+<% end %>
 
 <%= link_to_function 'update', "update_character(#{params[:id]})" %>

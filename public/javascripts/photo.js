@@ -52,8 +52,8 @@ PhotoTag = Class.create({
     } 
 
     // set photo mouseover event
-    this.photo.observe('mouseover', function(event){
-      
+    this.photo.observe('mousemove', function(event){
+      this.show_nearest_tag_with_name(event);
     }.bind(this));
   },
 
@@ -62,7 +62,7 @@ PhotoTag = Class.create({
    * this function is only used for debugging
    */
   add_log: function(str){
-    this.log.innerHTML += (str + '<br/>');
+    this.log.innerHTML += (str+ ' ');
   },
 
   /*
@@ -87,6 +87,9 @@ PhotoTag = Class.create({
       this.create_square();   
       this.create_tag_input();
     } 
+
+    // stop listening to mousemove event on photo
+    this.photo.stopObserving('mousemove');
 
     // add onClick event to photo
     Event.observe(this.photo, 'click', function(event){
@@ -482,13 +485,11 @@ PhotoTag = Class.create({
     this.inner_textfield = new Element('input', {type: 'text', id: 'tagged_user_name'});
     this.friend_list = new Element('div');
     this.tag_input_bot = new Element('div');
-    //this.confirm_button = new Element('button').update('confirm');
     this.cancel_button = new Element('button').update('cancel');
 
     this.tag_input_hidden.appendChild(this.hidden_textfield);
     this.tag_input_top.appendChild(this.label);
     this.tag_input_top.appendChild(this.inner_textfield);
-    //this.tag_input_bot.appendChild(this.confirm_button);
     this.tag_input_bot.appendChild(this.cancel_button);
     this.tag_input.appendChild(this.tag_input_hidden);
     this.tag_input.appendChild(this.tag_input_top);
@@ -606,7 +607,6 @@ PhotoTag = Class.create({
           'tag[height]=' + this.square.getHeight() + '&' +
           'tag[tagged_user_id]=' + tagged_user_id + '&' +
           'tag[photo_id]=' + this.photo_id;
-    
     // send ajax request to store photo tag
     new Ajax.Request(url, {
       method: 'post',
@@ -727,14 +727,16 @@ PhotoTag = Class.create({
    * delete one tag
    */
   delete: function(tag_id){
+    if(!this.ptags.unset(tag_id)) return;
+
     var square = $('square_' + tag_id);
     var tag_link = $('tag_'+tag_id);
+    var name = $('name_' + tag_id);
 
-    // delete square
     if(square)
       square.remove();
-
-    // delete tag link
+    if(name)
+      name.remove();
     tag_link.remove();
   },
 
@@ -747,11 +749,20 @@ PhotoTag = Class.create({
   },
 
   /*
+   * hide tag with name
+   */
+  hide_tag_with_name: function(tag_id){
+    var square = $('square_' + tag_id);
+    var name = $('name_' + tag_id);
+    if(square) square.hide();
+    if(name) name.hide();
+  },
+
+  /*
    * show one tag
    */
   show_tag: function(tag_id){
     var square = $('square_'+tag_id);
-
     // if it's first time we visit this tag, create a new square
     // otherwise, just show the old square
     if(square){
@@ -770,7 +781,6 @@ PhotoTag = Class.create({
     var height = ptag.readAttribute('height');
     var top = parseInt(y) + this.pos.top;
     var left = parseInt(x) + this.pos.left;
-    
     // create new square
     square = new Element('div', {className: 'square-class', id: 'square_' + tag_id});
     
@@ -786,11 +796,102 @@ PhotoTag = Class.create({
     // append square
     document.body.appendChild(square);
   
-    // add mouseout event to tag link
-    Event.observe(tag_link, 'mouseout', function(){
-      var square = $('square_' + tag_id);
-      square.hide();
-    });
+  },
+
+  /*
+   * show tag with name next to it
+   */
+  show_tag_with_name: function(tag_id){
+    var ptag = this.ptags.get(tag_id);
+    if(!ptag) return;    
+
+    var square = $('square_'+tag_id);
+    
+    if(square){
+      square.show();
+    }else{
+      // calculate x, y, width, height
+      // here, we just save these values as element attributes
+      // rather than connect server
+      var x = ptag.readAttribute('x');
+      var y = ptag.readAttribute('y');
+      var width = ptag.readAttribute('width');
+      var height = ptag.readAttribute('height');
+      var top = parseInt(y) + this.pos.top;
+      var left = parseInt(x) + this.pos.left;
+      
+      // create new square
+      square = new Element('div', {className: 'square-class', id: 'square_' + tag_id});
+      square.setStyle({
+        position: 'absolute',
+        width: width + 'px',
+        height: height + 'px',
+        left: left + 'px',
+        top: top + 'px',
+        zIndex: 3});
+
+      // append square
+      document.body.appendChild(square);
+    }
+
+    var name = $('name_' + tag_id);
+
+    if(name){
+      name.show();
+    }else{
+      var left = parseInt(ptag.readAttribute('x')) + parseInt(ptag.readAttribute('width')) + this.pos.left + 10;
+      var top = parseInt(ptag.readAttribute('y')) + this.pos.top;
+      
+      // create new element
+      name = new Element('div', {id: 'name_' + tag_id}).update(ptag.readAttribute('name'));
+      name.setStyle({
+        position: 'absolute',
+        color: 'white',
+        background: 'black',
+        left: left + 'px',
+        top: top + 'px',
+        zIndex: 3});
+      document.body.appendChild(name); 
+    }
+  
+  },
+
+  /*
+   * show nearest tag with name 
+   */ 
+  show_nearest_tag_with_name: function(event){
+    var distance = 100000000;
+    var tag_id = -1;
+    var photo_x = this.pos.left;
+    var photo_y = this.pos.top;
+    var mouse_x = event.pointerX();
+    var mouse_y = event.pointerY();
+
+    this.ptags.each(function(pair){
+      var x = photo_x + parseInt(pair.value.readAttribute('x'));
+      var width = parseInt(pair.value.readAttribute('width'));
+      var y = photo_y + parseInt(pair.value.readAttribute('y'));
+      var height = parseInt(pair.value.readAttribute('height'));
+      if(mouse_x >= x && mouse_x <= x + width && mouse_y >=y && mouse_y <= y + height){
+        var delta_x = (x + width/2) - mouse_x; //alert(delta_x);
+        var delta_y = (y + height/2) - mouse_y; //alert(delta_y);
+        var delta = ((x + width/2) - mouse_x) * ((x + width/2) - mouse_x) + ((y + height/2) - mouse_y) * ((y + height/2) - mouse_y);
+        if(delta < distance){
+          distance = delta;
+          tag_id = pair.key;
+        }
+      }else{
+        if(pair.key == this.current_tag_id){
+          this.hide_tag_with_name(this.current_tag_id);
+          this.current_tag_id = -1;
+        }
+      }
+    }.bind(this));
+    
+    if(tag_id >= 0){
+      this.current_tag_id = tag_id;
+      this.show_tag_with_name(tag_id);
+    }
   },
 
   /*
@@ -805,7 +906,12 @@ PhotoTag = Class.create({
     this.hide_tag_input();
 
     // stop listening for photo click event
-    this.photo.stopObserving('click'); 
+    this.photo.stopObserving('click');
+
+    // start listening for mousemove event
+    this.photo.observe('mousemove', function(event){
+      this.show_nearest_tag_with_name(event);
+    }.bind(this));
   }
 });
 

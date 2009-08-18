@@ -16,13 +16,14 @@
   <%= link_to 'next', album_photo_url(@album, @next_photo) %> 
 </p>
 
+<div align='center'>
+<%= image_tag @photo.public_filename, :id => "photo_#{@photo.id}" %>
+</div>
+
 <div id='complete_panel' style="display:none">
 After you finish tagging, close this<%= button_to_function 'complete', "photo_tag.complete();" %>
 </div>
 
-<p align='center'>
-<%= image_tag @photo.public_filename, :id => "photo_#{@photo.id}" %>
-</p>
 
 notation: <%= @photo.notation %>
 
