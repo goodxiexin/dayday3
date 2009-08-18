@@ -21,7 +21,7 @@ development:
   database: dayday3_development
   pool: 5
   username: root
-  password: 20041065
+  password: 123456
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -34,7 +34,7 @@ test:
   database: dayday3_test
   pool: 5
   username: root
-  password:
+  password: 123456
   socket: /var/run/mysqld/mysqld.sock
 
 production:
@@ -44,5 +44,5 @@ production:
   database: dayday3_production
   pool: 5
   username: root
-  password: 
+  password: 123456
   socket: /var/run/mysqld/mysqld.sock

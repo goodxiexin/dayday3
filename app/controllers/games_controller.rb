@@ -14,6 +14,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.xml
   def show
+    @is_show = params[:show]
     @game = Game.find(params[:id])
     if @game.no_areas
       @servers = @game.areas

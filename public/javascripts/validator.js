@@ -1,3 +1,4 @@
+
 function show_qq_requirement(){
   $('qq_info').innerHTML = '<span style="color:grey">input your real qq</span>';
 }
@@ -277,7 +278,15 @@ function game_onchange(game_id){
   if(game_id == '---'){
     $('details').innerHTML = '';
   }else{
-    new Ajax.Updater('details', '/games/' + game_id, {method: 'get'});
+    new Ajax.Updater('details', '/games/' + game_id + '?show=1', {method: 'get'});
+  }
+}
+
+function game_onchange_event(game_id){
+  if(game_id == '---'){
+    $('game_details').innerHTML = '';
+  }else{
+    new Ajax.Updater('game_details', '/games/' + game_id+'?show=0', {method: 'get'});
   }
 }
 
@@ -344,11 +353,11 @@ function validate_area_id(area_id){
   }
 }
 
-function area_onchange(area_id){
+function area_onchange(area_id,showValue){
   if(area_id == '---'){
     $('servers').innerHTML = '<label style="width:125px;float:left">Game Server:</label><select id="server_id" name="server_id"><option value="---">---</option></select>';
   }else{
-    new Ajax.Updater('servers', '/game_areas/' + area_id, {method: 'get'});
+    new Ajax.Updater('servers', '/game_areas/' + area_id +'?show='+showValue, {method: 'get'});
   }
 }
 

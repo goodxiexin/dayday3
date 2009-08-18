@@ -1,0 +1,2 @@
+class EventWallMessagesController < ApplicationController
+end

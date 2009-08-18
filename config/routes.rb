@@ -125,6 +125,7 @@ ActionController::Routing::Routes.draw do |map|
                      :collection => {:update_multiple => :put, :edit_multiple => :get, :create_multiple => :post}
   end
 
+  map.resources :events
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

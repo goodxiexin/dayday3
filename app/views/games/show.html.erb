@@ -1,4 +1,5 @@
-<% if @game.no_areas %>
+<% if (@is_show==1) %>
+  <% if @game.no_areas %>
   <% server_array = [['---', '---']] %>
   <% @servers.each { |server| server_array << [server.name, server.id] } %>
   <div id='servers'>
@@ -6,12 +7,12 @@
     <%= select_tag 'character[server_id]', options_for_select(server_array), :onchange => "validate_server_id(this.value)"%>
     <a id='server_id_info'></a>
   </div>
-<% else %>
+  <% else %>
   <% area_array = [['---','---']] %>
   <% @areas.each { |area| area_array << [area.name, area.id] } %>
   <div id='areas'>
     <%= label_tag '', 'Game Area: ', :style => "width:125px;float:left"%>
-    <%= select_tag 'character[area_id]', options_for_select(area_array), :onchange => "validate_area_id(this.value);area_onchange(this.value)" %>
+    <%= select_tag 'character[area_id]', options_for_select(area_array), :onchange => "validate_area_id(this.value);area_onchange(this.value,1)" %>
     <a id='area_id_info'></a>
   </div>
   <div id='servers'>
@@ -19,7 +20,7 @@
     <%= select_tag 'character[server_id]', options_for_select([['---', '---']]) %>
     <a id='server_id_info'></a>
   </div> 
-<% end %>
+  <% end %>
 
 <% race_array = [['---', '---']] %>
 <% @races.each { |race| race_array << [race.name, race.id] } %>
@@ -36,3 +37,24 @@
   <%= select_tag 'character[profession_id]', options_for_select(profession_array), :onchange => "validate_profession_id(this.value)" %>
   <a id='profession_id_info'></a>
 </div>
+<% else %>
+
+  <% if @game.no_areas %>                                                       
+  <div id='servers'>
+    <%= label_tag '', 'Game Server: ', :style => "width:125px;float:left"%>   
+    <%= collection_select :event, :game_server_id, @servers, :id, :name, {:prompt => '---'}, :onchange => "validate_server_id(this.value)"%>
+    <a id='server_id_info'></a>                                               
+  </div>                                                                      
+  <% else %>
+  <div id='areas'> 
+    <%= label_tag '', 'Game Area: ', :style => "width:125px;float:left"%>     
+    <%= collection_select :event, :game_area_id, @areas, :id, :name, {:prompt => '---'}, :onchange => "validate_area_id(this.value);area_onchange(this.value,0)" %>
+    <a id='area_id_info'></a>
+  </div>                                                                      
+  <div id='servers'>
+    <%= label_tag '', 'Game Server: ', :style => "width:125px;float:left"%>
+    <%= select_tag 'event[server_id]', options_for_select([['---', '---']]) %>
+    <a id='server_id_info'></a>
+  </div>
+  <% end %>
+<% end %>

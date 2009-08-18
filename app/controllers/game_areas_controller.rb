@@ -14,6 +14,7 @@ class GameAreasController < ApplicationController
   # GET /game_areas/1
   # GET /game_areas/1.xml
   def show
+    @is_show = params[:show]
     @game_area = GameArea.find(params[:id])
     @servers = @game_area.servers
 

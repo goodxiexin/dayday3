@@ -1,0 +1,22 @@
+<% form_for @event, events_path do |f| %>
+<div>
+<%= f.label "title" %>
+<%= collection_select :event, :game_id, @games, :id, :name, {:prompt => '---'}, {:onchange => "validate_game_id(this.value);game_onchange_event(this.value)"} %>
+<a id='game_id_info'></a>
+</div>
+<div id=game_details></div>
+<div>
+<%= f.label "starting Date and Time" %>
+<%= datetime_select :event, :time %>
+<a id='event_time_form'></a>
+</div>
+<div>
+<%= f.label "description:" %><br/>
+<%= f.text_area :description %>
+<a id='event_description_form'></a>
+</div>
+<div>
+<%= f.submit "Next Step" %>
+<a id='event_submit'></a>
+</div>
+<% end %>

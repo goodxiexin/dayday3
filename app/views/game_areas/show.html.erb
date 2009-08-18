@@ -1,5 +1,10 @@
+<% if (@is_show==1) %>
 <% server_array = [['---', '---']] %>
 <% @servers.each { |server| server_array << [server.name, server.id] } %>
 <%= label_tag '', 'Game Server: ', :style => "width: 125px;float:left" %>
 <%= select_tag 'character[server_id]', options_for_select(server_array), :onchange => "validate_server_id(this.value)" %>
 <a id='server_id_info'></a>
+<% else %>
+<%= label_tag '', 'Game Server: ', :style => "width: 125px;float:left" %>
+<%= collection_select :event, :game_server_id, @servers, :id, :name, {:prompt => '---'}, :onchange => "validate_server_id(this.value)"%>
+<% end %>
