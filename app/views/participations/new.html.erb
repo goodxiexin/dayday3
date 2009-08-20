@@ -1,0 +1,8 @@
+<%= javascript_include_tag 'participation.js' %>
+<%= javascript_tag "participation_builder = new ParticipationBuilder(#{@user.id}, 0);" %>
+<div id="participation_left_box">
+<p><%= text_field_with_auto_complete :event, :participations, {}, {:after_update_element => 'after_select' } %></p>
+</div> 
+<div id="participation_right_box">
+<div id="participations"></div>
+</div>

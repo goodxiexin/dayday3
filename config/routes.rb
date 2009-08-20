@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :participations
+
   map.resources :pages
 
   map.resources :sessions
@@ -74,6 +76,10 @@ ActionController::Routing::Routes.draw do |map|
                     :controller => 'user_blogs', 
                     :member => {:confirm_destroy => :get}, 
                     :collection => {:destroy_multiple => :delete}
+    
+    users.resources :videos,
+                    :controller => 'user_videos',
+                    :member => {:confirm_destroy => :get}
 
     users.resources :blog_feeds
 

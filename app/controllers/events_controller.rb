@@ -10,13 +10,17 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find_by_id(params[:id])   
   end
 
   def create
     @event = Event.new(params[:event])
+    event_album = Album.new
+    @event.album_id = event_album.id
+    @event.poster_id = current_user.id
     @event.save
     flash[:notice] = "Event is successfully created"
-    redirect_to root_url
+    redirect_to "/participations/new?event_id="+String(@event.id)
   end
 
   def update

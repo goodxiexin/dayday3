@@ -298,6 +298,44 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.datetime "updated_at"
   end
 
+  create_table "vcomments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "video_id"
+    t.text     "content"
+    t.boolean  "whisper",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vdigs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "video_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "videos", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "title"
+    t.string   "url"
+    t.text     "link"
+    t.integer  "digs_count",     :default => 0
+    t.integer  "comments_count", :default => 0
+    t.integer  "tags_count",     :default => 0
+    t.string   "privilege"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vtags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tagged_user_id"
+    t.integer  "video_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "wall_messages", :force => true do |t|
     t.integer  "user_id"
     t.integer  "poster_id"
