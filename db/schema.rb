@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
   end
 
   create_table "participations", :force => true do |t|
+    t.integer  "inviter_id"
     t.integer  "participant_id"
     t.integer  "event_id"
     t.integer  "event_status",   :default => 1

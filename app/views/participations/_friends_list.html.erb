@@ -1,0 +1,12 @@
+<% i = 0 %>
+<table cellpadding='5px'>
+<% friends_list.each do |f| %>
+  <% "<tr>" if i == 0 %>
+  <td width='100px'> <%= check_box_tag '', f.id, false %> <%= f.login %> <%= user_icon(f) %></td>
+  <% i = i + 1 %>
+  <% if i == 3 %>
+    </tr>
+    <% i = 0 %>
+  <% end %>
+<% end %>
+</table>

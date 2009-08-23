@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :participations
+  map.resources :participations, :collection => {:new_participation => :get, :friends_list => :get}
 
   map.resources :pages
 

@@ -1,8 +1,5 @@
-
 function after_select(input_field, selected_li){
-  alert('hello4');
   participation_builder.new_participation(selected_li.readAttribute('user_id'));
-  alert('hello5');
   $('event_participations').value = '';
 }
 
@@ -12,11 +9,8 @@ ParticipationBuilder = Class.create({
     this.user_id = user_id;
     this.event_id = event_id;
 
-    alert('hello');
     this.participation_input = $('event_participations');
-    alert('hello1');
     this.participation_input.value = 'please tag your friend here';
-    alert('hello2');
 
     this.participation_input.observe('focus', function(event){
       this.value = '';
@@ -27,6 +21,7 @@ ParticipationBuilder = Class.create({
     });
 
     this.participations_div = $('participations');
+    this.friends_list=$('friends');
 
     this.participations = new Hash();
     var current_participations = this.participations_div.childElements();
@@ -68,6 +63,61 @@ ParticipationBuilder = Class.create({
       new Ajax.Request('/participations/' + participation.readAttribute('participation_id'), {method: 'delete'});
 
     participation.remove();
+  },
+
+  game_select: function(game_id){
+    new Ajax.Request('/participations/friends_list?game_id=' + game_id, {
+      method: 'get',
+      onSuccess: function(transport){
+        this.friends_list.innerHTML = transport.responseText;
+      }.bind(this)
+    });
+  },
+
+  get_selected_users: function(){
+    var inputs = $$('input');
+    var length = inputs.length;
+    var selected_users = [];
+    for(var i = 0; i < length; i++){
+      if(inputs[i].type == 'checkbox' && inputs[i].checked && !this.participations.get(inputs[i].value)){
+        selected_users.push(inputs[i].value);
+      }
+    }
+    return selected_users;
+  },
+
+  confirm_event: function(){
+    var selected_users = this.get_selected_users();
+    if (selected_users.length != 0 ){
+      var url = '/participations/new_participation?';
+      for(var i=0;i<selected_users.length;i++){
+        url += "participants[]=" + selected_users[i] + "&";
+      }
+
+      new Ajax.Request(url, {
+        method: 'get',
+        onSuccess: function(transport){
+          this.participations_div.innerHTML = transport.responseText + this.participations_div.innerHTML;
+          var children = this.participations_div.childElements();
+          var length = children.length;
+          for(var i=0;i<length;i++){
+            this.participations.set(children[i].readAttribute('participant_id'), children[i]);
+          }
+        }.bind(this)
+      });
+    }
+  },
+
+  save: function(event_id){
+    // construct url
+    // appending participant inputs
+    var url = '/participations?event_id='+event_id+'&';
+    this.participations.each(function(pair){
+      if(pair.value.readAttribute('new_record') == 'true')
+        url += "participants[]=" + pair.key + "&";
+    });
+    // send ajax request
+    new Ajax.Request(url, {method: 'post'});
   },
 
 });
