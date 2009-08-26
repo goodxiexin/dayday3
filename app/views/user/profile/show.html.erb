@@ -1,0 +1,23 @@
+<div style="margin-right: 20px">
+<h3>Basic Information</h3>
+<hr/>
+<div id='basic_info'>
+<%= render :partial => 'user/basic_info/show' %>
+</div>
+
+<h3>Contact Information</h3>
+<hr/>
+<div id='contact_info'>
+<%= render :partial => 'user/contact_info/show' %>
+</div>
+
+<h3>Game Information</h3>
+<hr/>
+<div id='characters'>
+<%= render :partial => 'user/characters/character', :collection => @user.game_characters %>
+</div>
+<% if @user == current_user %>
+<%= link_to 'add', new_user_character_url(@user), :style => "float:right", :rel => 'facebox' %>
+<% end %>
+
+<%= javascript_tag "facebox.watchClickEvents()" %>

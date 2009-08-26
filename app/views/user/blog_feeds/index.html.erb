@@ -1,0 +1,8 @@
+<%= render :partial => 'user/blogs/blog_menu' %><br/>
+
+<div id="feeds">
+<%= render :partial => 'bfeed', :collection => @blogs %>
+</div>
+<div id="more_feeds" style="float:">
+<%= link_to_remote "More..", :url => get_user_blog_feeds_url(@user, :idx => @idx), :method => :get %>
+</div>

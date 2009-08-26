@@ -15,11 +15,12 @@ module Taggable
     end
 
     # get resources where you are tagged in the order of time
-    self.metaclass.send(:define_method, 'tagged') do |user_id, page, per_page|
+    self.metaclass.send(:define_method, 'tagged') do |user_id|
+      privilege = " and (#{type_p}.privilege = 'all' or #{type_p}.privilege = 'friend')" if self.column_names.include?(privilege)
       sql = "select DISTINCT #{type_p}.* FROM #{type_p} INNER JOIN #{tag_type_p} " +
-            "where #{tag_type_p}.tagged_user_id = #{user_id} and #{tag_type_p}.#{type}_id = #{type_p}.id " +
+            "where #{tag_type_p}.tagged_user_id = #{user_id} and #{tag_type_p}.#{type}_id = #{type_p}.id #{privilege}" +
             "ORDER BY updated_at DESC"
-      eval("#{type}").paginate_by_sql sql, :page => page, :per_page => per_page
+      eval("#{type}").find_by_sql sql
     end
   end
 end

@@ -1,0 +1,23 @@
+<% owner = (@user == current_user)? 'my':"#{@user.login}'s" %>
+
+<div class='show-header'>
+  <%= user_icon @user %>
+  <%= "#{owner} album - #{@album.title}" %><br/>
+  <%= link_to "#{owner} personal page", user_personal_url(@user) %> 
+  <% if @user == current_user %>
+    <%= link_to "upload photo", new_album_photo_url(@album) %>
+  <% end %>
+</div>
+
+<p>
+  <%= page_entries_info @photos, :entry_name => 'photo' %> |
+  <% if @user == current_user %> 
+    <%= link_to_edit_album @album %> |
+  <% end %>
+  <%= link_to "back to #{owner} albums", user_albums_url(@user)%>
+</p>
+
+<div class='album'>
+  <%= render :partial => 'photos', :object => @photos %>
+  <%= will_paginate @photos %>
+</div> 

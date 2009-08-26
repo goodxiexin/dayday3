@@ -1,0 +1,11 @@
+<% albums.each do |album| %>
+  <% album_divid = "album_#{album.id}" %>
+  <div class='album-cover' id=<%= album_divid %>>
+    <%= album_cover(album) %>
+    <%= link_to_album album %><br/>
+    <%= "totally #{album.photos.count} photos" %><br/>
+    <%= "updated at #{ftime album.updated_at}" %><br/>
+    <%= "created at #{ftime album.created_at}" %><br/>
+    <%= link_to 'edit album', edit_user_album_url(@user, album) %> | <%= link_to 'view album', user_album_url(@user, album) %><br/>
+  </div>
+<% end %>

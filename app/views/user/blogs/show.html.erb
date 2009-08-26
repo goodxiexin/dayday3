@@ -1,0 +1,48 @@
+<%= javascript_include_tag 'blog.js' %>
+<%= stylesheet_link_tag 'popup.css' %>
+
+<% owner = (@user == current_user)? 'my' : "#{@user.login}'s" %>
+
+<div class='show-header'>
+  <%= user_icon @user %>
+  <%= owner %> Blogs <br/>
+  <%= link_to "#{owner} blogs", user_blogs_url(@user) %> |
+  <%= link_to "#{owner} personal page", user_personal_url(@user) %>
+</div>
+
+<div class='prev-next'>
+<%= "#{@user.blogs.count - @blog.position + 1} of #{@user.blogs.count} blogs" %>
+<%= link_to 'prev', user_blog_url(@user, @blog.lower_item) %> |
+<%= link_to 'next', user_blog_url(@user, @blog.higher_item) %> <br/>
+</div>
+
+<div class='blog'>
+  <div class='blog-title'>
+    <strong><%= link_to @blog.title, user_blog_url(@user, @blog) %></strong>
+    <% if @user == current_user %>
+      <span class='blog-operation'>
+        <%= link_to 'edit', edit_user_blog_url(@user, @blog) %> | <%= link_to 'delete', confirm_destroy_user_blog_url(@user, @blog, :draft => 0), :rel => 'facebox' %>
+      </span>
+    <% end %>
+    <span class='blog-tiny'><%= ftime @blog.created_at %></span>
+    <span class='blog-category'>(<%= link_to_game @blog.game %>)</span>
+  </div>
+  <div class='blog-content'>
+    <%= h @blog.content %>
+  </div>
+  <div class='blog-tags'>
+    <strong>Tags:</strong> <%= render :partial => 'user/personal/name_tag', :collection => @blog.tags %>
+  </div>
+  <div class='blog-menus'>
+    <%= link_to_function "Comment", "$('bcomment_content_#{@blog.id}').focus();" %>(<%= label_tag 'nil', "#{@blog.comments.count}", :id => 'comments_count' %>)
+    <%= link_to_remote "Dig", :url => blog_digs_url(@blog), :method => :post%>(<%= label_tag nil, "#{@blog.digs_count}", :id => "digs_count_#{@blog.id}" %>)
+  </div>
+</div>
+
+<div id='bcomments_<%= @blog.id%>'>
+  <%= render :partial => 'user/bcomments/bcomment', :collection => @blog.comments %>
+</div>
+
+<%= render :partial => 'user/bcomments/new', :locals => {:blog => @blog} %>
+
+<%= javascript_tag "popup_manager = new PopupManager();" %>

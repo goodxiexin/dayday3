@@ -1,0 +1,27 @@
+<%= page_entries_info videos, :entry_name => 'video' %>
+
+<% videos.each do |v| %>
+  <div class='video'>
+    <div class='video-header'>
+      <strong><%= link_to v.title, user_video_url(@user, v) %></strong>
+      <% if @user == current_user %>
+        <span class='video-operation'>
+          <%= link_to 'edit', edit_user_video_url(@user, v) %> | <%= link_to 'delete', confirm_destroy_user_video_url(@user, v), :rel => 'facebox'%>
+        </span>
+      <% end %>
+      <span class='video-tiny'><%= ftime v.created_at %></span>
+      <span class='video-category'>(<%= link_to_game v.game %>)</span>
+    </div>
+    <div id=<%= "video_#{v.id}" %>>
+      <%= image_tag 'blank_video.png', :onclick => "play_video(#{v.id}, '#{v.link}')" %>
+    </div>
+    <div class='video-url'>
+      <%= link_to h(truncate(v.url,40)), v.url, :popup => true %>
+    </div>
+  </div>
+  <div class='video-menus'>
+    <%= link_to 'comment', user_video_url(@user, v) %>(<%= v.comments.count %>) | 
+    <%= link_to_remote 'dig', :url => video_digs_url(v), :method => :post %>(<%= label_tag nil, v.digs.count, :id => "digs_count_#{v.id}" %>)
+  </div>
+<% end %>
+<%= will_paginate videos %>

@@ -1,0 +1,16 @@
+ <% i = 0 %>
+<table cellpadding="10" >
+<% icons.each do |icon| %>
+  <% if i == 0 %> 
+    <tr> 
+  <% end %>
+  <% image_divid = "icon_#{icon.id}" %>
+  <td align='center'><%= link_to (image_tag icon.public_filename(:medium), :onmouseover => "this.setStyle({ border: '5px grey solid'});", :onmouseout => "this.setStyle({ border: '5px white solid'});", :style => "border:5px white solid"), user_icon_url(@user, icon)%></td>
+  <% i = i + 1 %>
+  <% if i == 4 %>
+    </tr>
+    <% i = 0 %>
+  <% end %>
+<% end %>
+</table>
+<%= will_paginate icons%>

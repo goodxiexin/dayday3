@@ -108,8 +108,8 @@ var Facebox = Class.create({
 		
 		var pageScroll = document.viewport.getScrollOffsets();
 		this.facebox.setStyle({
-			'top': pageScroll.top + (document.viewport.getHeight() / 10) + 'px',
-			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px'
+			'top': document.viewport.getHeight()/2 - (this.facebox.getHeight()/2) + 'px',
+			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px',
 		});
 		
     Event.observe(document, 'keypress', this.keyPressListener);
@@ -123,8 +123,8 @@ var Facebox = Class.create({
 		
 		contentWrapper = $$('#facebox .content').first();
 		if (klass) contentWrapper.addClassName(klass);
-		contentWrapper.insert({bottom: data});
-		
+		//contentWrapper.insert({bottom: data});
+		contentWrapper.innerHTML = data;
     $$('#facebox .body').first().childElements().each(function(elem,i){
      elem.show();
     });
@@ -132,7 +132,8 @@ var Facebox = Class.create({
 		if(!this.facebox.visible()) new Effect.Appear(this.facebox, {duration: .3});
 		this.facebox.setStyle({
                         position: 'absolute',
-			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px'
+			'top': document.viewport.getHeight()/2 - (this.facebox.getHeight()/2) + 'px',
+			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px',
 		});
 		
     Event.observe(document, 'keypress', this.keyPressListener);

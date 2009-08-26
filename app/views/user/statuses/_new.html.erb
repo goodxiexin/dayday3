@@ -1,0 +1,15 @@
+<div class='status'>
+  <%= user_icon @user %>
+  <div id='form'>
+  <% form_remote_for :status, :url => user_statuses_url(@user) do |form| %>
+    <%= form.text_area 'content', :cols => 50, :rows => 3, :style => "margin:3px 6px" %>
+    <%= image_submit_tag 'submit.gif', :style => "margin-right:0px" %><br/>
+    <div id='latest_status' style="float:left;margin-left:6px">
+      <% unless @user.latest_status.nil? %>
+        <%= distance_of_time_in_words_to_now(@user.latest_status.created_at) %> ago: 
+        <%= @user.latest_status.content %>
+      <% end %>
+    </div><br/>
+  <% end %>
+  </div>
+</div>

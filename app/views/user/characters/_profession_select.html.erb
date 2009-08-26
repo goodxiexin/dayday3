@@ -1,0 +1,8 @@
+<% profession_array = [['---', '---']] %>
+<% professions.each { |profession| profession_array << [profession.name, profession.id] } %>
+
+<div id='professions'>
+  <%= label_tag '', 'profession: '%>
+  <%= select_tag 'character[profession_id]', options_for_select(profession_array, profession_id), :onchange => "validate_profession_id(this.value)" %>
+  <a id='profession_id_info'></a>
+</div>

@@ -1,0 +1,6 @@
+<%= render :partial => 'user/blogs/blog_menu' %><br/>
+
+<%= page_entries_info @blogs, :entry_name => 'blog' %>
+<%= render :partial => 'user/tagged_blogs/tagged_blog', :collection => @blogs %>
+<div style="float:left"><%= will_paginate @blogs %></div>
+

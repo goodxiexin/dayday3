@@ -1,0 +1,11 @@
+<div class='game-character'>
+  <p><%= label_tag '', 'name: '%><%= @character.name %></p>
+  <p><%= label_tag '', 'level: '%><%= @character.level %></p>
+  <p><%= label_tag '', 'game: '%><%= @character.game.name %></p>
+<% unless @character.game.no_areas %>
+  <p><%= label_tag '', 'areas: '%><%= @character.area.name %></p>
+<% end %>
+  <p><%= label_tag '', 'server: '%><%= @character.server.name %></p>
+  <p><%= label_tag '', 'race: '%><%= @character.race.name %></p>
+  <p><%= label_tag '', 'profession: '%><%= @character.profession.name %></p>
+</div>

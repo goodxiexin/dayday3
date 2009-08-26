@@ -1,0 +1,24 @@
+<h1>Editing visitor_records</h1>
+
+<% form_for(@visitor_records) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :visitor_id %><br />
+    <%= f.text_field :visitor_id %>
+  </p>
+  <p>
+    <%= f.label :register %><br />
+    <%= f.check_box :register %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @visitor_records %> |
+<%= link_to 'Back', visitor_records_path %>

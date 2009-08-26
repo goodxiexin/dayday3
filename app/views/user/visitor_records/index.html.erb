@@ -1,0 +1,26 @@
+<%= link_to 'personal page', new_user_wall_message_url(@user) %> | <%= "who viewed your pages?" %>
+<br/>
+
+<%= page_entries_info @visitor_records %>
+<div style="background-color: #f7f7f7;margin-top:15px">
+  <table cellpadding='10px'>
+  <% i=0 %>
+  <% @visitor_records.each do |record| %>
+    <% if i == 0 %>
+      <tr>
+    <% end %>
+    <td class='record'>
+    <%= user_icon record.visitor %><br/>
+    <%= link_to_user record.visitor %>
+    </td>
+    <% i = i + 1 %>
+    <% if i == 7 %>
+      </tr>
+      <% i = 0 %>
+    <% end %>
+  <% end %>
+  </table>
+</div>
+<%= will_paginate @visitor_records %>
+
+

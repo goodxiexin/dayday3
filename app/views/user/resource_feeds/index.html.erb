@@ -1,0 +1,19 @@
+<% content_for :left do %>
+  <%= render :partial => 'menu' %><br/>
+  <%= render :partial => 'user/home/digs_menu' %>
+<% end %>
+
+<% content_for :right do %>
+  <%= render :partial => 'user/personal/visitor_history', :object => @user.visitor_records[0..8] %><br/>
+  <%= render :partial => 'user/home/friend_suggestions', :locals => {:friends => @friends} %><br/>
+  <%= render :partial => 'user/home/pending_requests' %><br/>
+<% end %>
+
+<%= render :partial => 'user/statuses/new' %>
+
+<div id='feeds'>
+  <%= render :partial => 'resource_feed', :collection => @resource_feeds %>
+</div>
+<div id='more_feeds' style="float:left">
+  <%= link_to_remote "More..", :url => get_user_resource_feeds_url(@user, :idx => @idx), :method => :get %>
+</div>

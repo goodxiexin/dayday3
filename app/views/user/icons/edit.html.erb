@@ -1,0 +1,16 @@
+<p><%= "edit album - Icon album" %></p>
+<p><%= link_to 'back to icon album', user_icons_url(@user) %></p>
+
+<% form_for :icon, :url => user_icon_url(@user, @icon), :html => {:method => :put} do |form| %>
+  <table>
+  <tr>
+    <td vAlign='top'><%= form.label 'notation:' %></td>
+    <td vAlign='top'><%= form.text_area 'notation', :rows => 5, :cols => 50 %></td>
+    <td vAlign='top'>
+      <%= image_tag @icon.public_filename(:medium) %><br/>
+    </td>
+  </tr>
+  </table>
+  <%= submit_tag 'update' %>
+<% end %>
+

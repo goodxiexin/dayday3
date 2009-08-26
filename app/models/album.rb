@@ -14,24 +14,10 @@ class Album < ActiveRecord::Base
 
   # each album has many photos
   has_many :photos,
+           :order => 'position DESC',
            :dependent => :destroy
 
-  # return [next photo, prev photo, current photo index]
-  def next_prev_photo(cur_photo)
-    size = self.photos.count
-    next_photo_idx = 0
-    prev_photo_idx = 0
-    cur_photo_idx = 0
-    self.photos.each_with_index do |photo, i|
-      if cur_photo == photo
-        next_photo_idx = (i + 1) % size
-        prev_photo_idx = (i - 1 + size) % size
-        cur_photo_idx = i + 1
-        break
-      end
-    end
-    [self.photos[next_photo_idx], self.photos[prev_photo_idx], cur_photo_idx] 
-  end
+  acts_as_resource_feeder
 
   # reset the cover of the album
   def reset_cover(new_cover_id)
@@ -45,5 +31,34 @@ class Album < ActiveRecord::Base
     end
   end
 
+  def self.find_public_viewable(*args)
+    with_public_viewable { find(*args) }
+  end
+
+  def self.find_friend_viewable(*args)
+    with_friend_viewable { find(*args) }
+  end
+
+  def self.with_creation_order
+    with_scope(:find => {:order => "created_at DESC"}) do
+      yield
+    end
+  end
+
+  def self.with_public_viewable
+    with_creation_order do
+      with_scope(:find => {:conditions => ["privilege = 'all'"]}) do
+        yield
+      end
+    end
+  end
+
+  def self.with_friend_viewable
+    with_creation_order do
+      with_scope(:find => {:conditions => ["(privilege = 'all' OR privilege = 'friends')"]}) do
+        yield
+      end
+    end
+  end
 
 end

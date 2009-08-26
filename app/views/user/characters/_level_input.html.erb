@@ -1,0 +1,4 @@
+<%= label_tag '', "level: " %>
+<%= text_field_tag 'character[level]', level, :size => 10, :onfocus => "show_level_requirement()", :onblur => "validate_level(this.value)" %>
+<a id='level_info'></a><br/>
+

@@ -1,0 +1,7 @@
+<div class='visitors'>
+  <h3>You have: <%= link_to_function 'fold', "$('request_table').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='request_table' style="list-style:none;font-size:9px">
+    <li>One request</li>
+    <li>Two notifications</li>
+  </div>
+</div>

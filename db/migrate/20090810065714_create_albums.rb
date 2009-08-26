@@ -6,7 +6,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.integer :photos_count, :default => 0
       t.string :title
       t.text :description
-      t.string :privilege
+      t.string :privilege, :default => 'all'
       t.timestamps
     end
   end

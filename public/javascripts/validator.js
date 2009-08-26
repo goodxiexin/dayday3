@@ -176,7 +176,7 @@ function validate_email(email){
     });
     return true;
   }else{
-    info.innderHTML = '<span style="color: red">invalid email format</span>';
+    info.innerHTML = '<span style="color: red">invalid email format</span>';
     return false;
   }
 }
@@ -277,7 +277,7 @@ function game_onchange(game_id){
   if(game_id == '---'){
     $('details').innerHTML = '';
   }else{
-    new Ajax.Updater('details', '/games/' + game_id, {method: 'get'});
+    new Ajax.Updater('details', '/register/game_details?game_id=' + game_id, {method: 'get'});
   }
 }
 
@@ -348,7 +348,7 @@ function area_onchange(area_id){
   if(area_id == '---'){
     $('servers').innerHTML = '<label style="width:125px;float:left">Game Server:</label><select id="server_id" name="server_id"><option value="---">---</option></select>';
   }else{
-    new Ajax.Updater('servers', '/game_areas/' + area_id, {method: 'get'});
+    new Ajax.Updater('servers', '/register/area_details?area_id=' + area_id, {method: 'get'});
   }
 }
 
@@ -398,16 +398,13 @@ function validate_game_character(){
   var area_id = null;
 
   if(!validate_server_id(server_id)) error = true;
-  alert(1);
   if(!validate_race_id(race_id)) error = true;
-  alert(2);
   if(!validate_profession_id(profession_id)) error = true;
-  alert(3);
   if($('character_area_id') != null){
     area_id = $('character_area_id').value;
     if(!validate_area_id(area_id)) error = true;
   }
-  alert(4);
+  
   return error;
 }
 
@@ -431,21 +428,30 @@ function construct_game_character_element(){
 
   // construct label
   var label = new Element('label').update(name);
+  label.setStyle({
+    float:'left',
+    width: '125px'
+  });
 
-  // construct url
+  // construct url and edit link
   var parameters = 'id='+nr+'&' +$('character_form').serialize();
-  var url = '/game_characters/edit_new?' + parameters;
+  var url = '/register/edit_character?' + parameters;
   var edit_link = new Element('a', { href: url, rel: 'facebox'}).update('edit');
-  alert(url);
+  
+  // construct seperator
+  var seperator = new Element('label').update(' | ')
+
   // construct delete link and its event
   var delete_link = new Element('a', { href: '#'}).update('delete');
   delete_link.observe('click', function(event){
-    this.parentNode.remove();
+    if(confirm('are you sure?'))
+      this.parentNode.remove();
   });
 
   // append elements to li
   li.appendChild(label);
   li.appendChild(edit_link);
+  li.appendChild(seperator);
   li.appendChild(delete_link);
   nr++;
 

@@ -1,0 +1,7 @@
+<p>
+<%= link_to character.name, user_character_url(@user, character), :rel => 'facebox', :id => "character_#{character.id}" %>
+<% if @user == current_user %>
+<%= link_to 'edit', edit_user_character_url(@user, character), :rel => 'facebox' %>|
+<%= link_to 'delete', confirm_destroy_user_character_url(@user, character), :rel => 'facebox'%>
+<% end %>
+</p>

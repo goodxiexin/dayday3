@@ -546,7 +546,7 @@ PhotoTag = Class.create({
    * get all friends
    */
   get_friends: function(){
-    new Ajax.Request('/album_photos/friends', {
+    new Ajax.Request('/user/photos/friends', {
       method: 'get',
       onSuccess: function(transport){
         this.friend_list.innerHTML = transport.responseText;

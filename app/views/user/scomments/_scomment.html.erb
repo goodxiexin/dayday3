@@ -1,0 +1,15 @@
+<% user = scomment.user %>
+<% comment_divid = "scomment_#{scomment.id}" %>
+
+<div id=<%= comment_divid %> class='comment-box'>
+  <%= user_icon(user) %>
+  <strong><%= link_to_user user %></strong>
+  <span class="comment-box-tiny"><%= ftime scomment.created_at %></span><br/>
+  <%= scomment.content %><br/>
+  <% if current_user == user %>
+    <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => status_comment_url(scomment.status, scomment), :method => :delete %>
+  <% else %>
+    <%= link_to_function 'comment', "$('scomment_content_#{scomment.status.id}').value='reply to #{user.login}: '; $('scomment_content_#{scomment.status.id}').focus();" %>
+  <% end %>
+</div>
+

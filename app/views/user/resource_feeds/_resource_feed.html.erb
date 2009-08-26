@@ -1,0 +1,3 @@
+<% resource_type = resource_feed.class.to_s.downcase %>
+<% initial = resource_type[0..0] %>
+<%= render :partial => "user/#{resource_type}_feeds/#{initial}feed", :object => resource_feed %>

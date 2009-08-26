@@ -1,0 +1,13 @@
+<h3> New Game Character </h3>
+
+<div class='game-character'>
+<% form_for :character, :html => {:id => 'character_form'} do |f| %>
+  <%= render :partial => 'game_select', :locals => {:games => @games, :game_id => nil} %>
+  <%= render :partial => 'name_input', :locals => {:name => nil} %>
+  <%= render :partial => 'level_input', :locals => {:level => nil} %>
+  <div id=details></div>
+<% end %>
+</div>
+
+<%= link_to_function 'complete', "add_user_character(#{@user.id})" %>
+

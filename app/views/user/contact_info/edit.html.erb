@@ -1,0 +1,23 @@
+<div class='game-character'>
+<% form_for :user, :html => {:id => 'contact_form'} do |f| %>
+  <p>
+    <%= f.label 'qq', 'qq', :style => "width:60px;float:left" %>
+    <%= f.text_field 'qq', :size => 20, :onfocus => "show_qq_requirement()", :onblur => "validate_qq(this.value)" %>
+    <a id='qq_info'></a>
+  </p>
+
+  <p>
+    <%= f.label 'mobile', 'mobile', :style => "width:60px;float:left" %>
+    <%= f.text_field 'mobile', :size => 20, :onfocus => "show_mobile_requirement()", :onblur => "validate_mobile(this.value)" %>
+    <a id='mobile_info'></a>
+  </p>
+
+  <p>
+    <%= f.label 'website', 'website', :style => "width:60px;float:left" %>
+    <%= f.text_field 'website', :size => 20, :onfocus => "show_website_requirement()", :onblur => "validate_website(this.value)" %>
+    <a id='website_info'></a>
+  </p>
+
+<% end %>
+</div>
+<%= link_to_function 'update', "update_contact_info(#{@user.id})" %>

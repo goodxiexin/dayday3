@@ -1,0 +1,10 @@
+<div class='fby'>
+  <h3>resources: <%= link_to_function 'fold',  "$('side_resources').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_resources'>
+    <li><%= image_tag 'blog.gif' %><%= @user.blogs.count %> blogs</li>
+    <li><%= image_tag 'album.gif' %><%= @user.albums.count %> albums</li>
+    <li><%= image_tag 'video.gif' %><%= @user.videos.count %> videos</li>
+    <li><%= image_tag 'status.gif' %><%= @user.statuses.count %> statuses</li>
+  </div>
+</div>
+  

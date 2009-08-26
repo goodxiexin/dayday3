@@ -1,0 +1,7 @@
+<%= render :partial => 'album_menu' %><br/>
+
+<%= page_entries_info @albums, :entry_name => 'album' %>
+<div class='album-covers'>
+<%= render :partial => 'albums', :object => @albums %>
+</div>
+<%= will_paginate @albums %>

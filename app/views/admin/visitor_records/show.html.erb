@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @visitor_records.user_id %>
+</p>
+
+<p>
+  <b>Visitor:</b>
+  <%=h @visitor_records.visitor_id %>
+</p>
+
+<p>
+  <b>Register:</b>
+  <%=h @visitor_records.register %>
+</p>
+
+
+<%= link_to 'Edit', edit_visitor_records_path(@visitor_records) %> |
+<%= link_to 'Back', visitor_records_path %>

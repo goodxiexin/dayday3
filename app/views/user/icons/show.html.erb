@@ -1,0 +1,56 @@
+<%= javascript_include_tag 'photo.js' %>
+<%= stylesheet_link_tag 'photo_tag.css' %>
+
+<% ret = @user.next_prev_icon(@icon)
+   @cur_photo_idx = ret[2]
+   @next_photo = ret[0]
+   @prev_photo = ret[1] %>
+
+<p>
+  <%= "#{@cur_photo_idx} of #{@user.icons.count} photos" %> | 
+  <%= link_to 'back to icon album', user_icons_url(@user) %> | 
+  <%= link_to 'my albums', user_albums_url(@user)%>
+</p>
+<p>
+  <%= link_to 'prev', user_icon_url(@user, @prev_photo) %> | 
+  <%= link_to 'next', user_icon_url(@user, @next_photo) %> 
+</p>
+
+<div align='center'>
+<%= image_tag @icon.public_filename, :id => "photo_#{@icon.id}" %>
+</div>
+
+<div id='complete_panel' style="display:none">
+After you finish tagging, close this<%= button_to_function 'complete', "photo_tag.complete();" %>
+</div>
+
+
+notation: <%= @icon.notation %>
+
+<div id='photo_tags'>
+  Tags: <%= render :partial => 'photo_tags/ptag', :collection => @icon.tags %> 
+</div>
+
+<%= render :partial => 'icon_menu' %>
+
+<div>
+  <%= link_to_function "Comment", "$('comment_content').focus();" %>(<%= label_tag 'nil', "#{@icon.comments.count}", :id => 'comments_count' %>) |
+  <%= link_to_remote "Dig", :url => photo_digs_url(:photo_id => @icon) %>(<%= label_tag nil, "#{@icon.digs.count}", :id => 'digs_count' %>)
+</div>
+<hr/>
+<div id='comments'>
+  <%= render :partial => 'pcomment', :collection => @icon.comments %>
+</div>
+
+<% form_remote_for :comment, 
+                   :position => :bottom,
+                   :update => 'comments',
+                   :complete => "$('comment_content').value='';",
+                   :url => photo_comments_url(:photo_id => @icon) do |form| %>
+
+  <p><%= form.text_area 'content', :cols => 70, :rows => 6 %></p>
+  <p><%= form.label "whisper?" %><%= form.check_box 'whisper' %></p>
+  <%= form.submit 'comment' %>
+<% end %>
+
+<%= javascript_tag "var photo_tag = new PhotoTag(#{@icon.id}, #{@user.id});" %>

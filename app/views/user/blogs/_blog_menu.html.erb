@@ -1,0 +1,10 @@
+<% owner = (@user == current_user)? 'my':"#{@user.login}'s" %>
+<%= link_to "#{owner} blogs", user_blogs_url(@user, :draft => 0)%> |
+<% if (@user == current_user) %>
+<%= link_to "friends' blogs", user_blog_feeds_url(@user) %> |
+<% end %>
+<%= link_to "tagged blogs", user_tagged_blogs_url(@user) %> |
+<% if (@user == current_user) %>
+<%= link_to "new blog", new_user_blog_url(@user) %> |
+<% end %>
+<%= link_to "#{owner} personal page", user_personal_url(@user) %>

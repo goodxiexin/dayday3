@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @scomment.user_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @scomment.status_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @scomment.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_scomment_path(@scomment) %> |
+<%= link_to 'Back', scomments_path %>

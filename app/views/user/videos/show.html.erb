@@ -1,0 +1,42 @@
+<% owner = (@user == current_user)? 'my' : @user.login %>
+
+<div class='show-header'>
+  <%= user_icon @user %>
+  <%= owner %> Videos <br/>
+  <%= link_to "#{owner}'s videos", user_videos_url(@user) %> |
+  <%= link_to "#{owner}'s personal page", user_personal_url(@user) %>
+</div>
+
+
+<%= link_to "Next: #{truncate(@video.higher_item.title, 15)}", user_video_url(@user, @video.higher_item), :style => "float:right" %>
+<%= link_to "Prev: #{truncate(@video.lower_item.title, 15)}", user_video_url(@user, @video.lower_item), :style => "float:left" %>
+
+<div class='video'>
+  <div class='video-header'>
+    <strong><%= link_to @video.title, user_video_url(@user, @video) %></strong>
+    <% if @user == current_user %>
+      <span class='video-operation'>
+        <%= link_to 'edit', edit_user_video_url(@user, @video) %> | <%= link_to 'delete', confirm_destroy_user_video_url(@user, @video), :rel => 'facebox'%>
+      </span>
+    <% end %>
+    <span class='video-tiny'><%= ftime @video.created_at %></span>
+    <span class='video-category'>(<%= link_to_game @video.game %>)</span>
+  </div>
+  <div class='video-body' id=<%= "video_#{@video.id}" %>>
+    <%= @video.link %>
+  </div>
+  <div class='video-tags' id='tags'>
+    Tags: <%= render :partial => 'user/personal/name_tag', :collection => @video.tags %>
+  </div>
+</div>
+<div class='video-menus'>
+  <%= link_to_function "Comment", "$('vcomment_content_#{@video.id}').focus();" %>(<%= label_tag 'nil', "#{@video.comments.count}", :id => 'comments_count' %>) |
+  <%= link_to_remote "Dig", :url => video_digs_url(@video), :method => :post%>(<%= label_tag nil, "#{@video.digs.count}", :id => "digs_count_#{@video.id}" %>)
+</div>
+
+
+<div id='vcomments_<%= @video.id %>'>
+  <%= render :partial => 'user/vcomments/vcomment', :collection => @video.comments %>
+</div>
+
+<%= render :partial => 'user/vcomments/new', :locals => {:video => @video } %>

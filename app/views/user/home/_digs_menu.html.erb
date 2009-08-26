@@ -1,0 +1,27 @@
+<div class='fby'>
+  <h3>Dig: <%= link_to_function 'fold', "$('dig_menus').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='dig_menus'>
+    <li>
+      <%= image_tag 'all.gif' %>
+      <%= link_to_function 'all', "get_all_feeds(#{@user.id})" %>
+    </li>
+    <li>
+      <%= image_tag 'status.gif' %>
+      <%= link_to_function 'statuses', "get_status_feeds(#{@user.id})" %>
+    </li>
+    <li>
+      <%= image_tag 'blog.gif' %>
+      <%= link_to_function 'blogs', "get_blog_feeds(#{@user.id})" %>
+    </li>
+    <li>
+      <%= image_tag 'video.gif' %>
+      <%= link_to_function 'videos', "get_video_feeds(#{@user.id})" %>
+    </li>
+    <li>
+      <%= image_tag 'album.gif' %>
+      <%= link_to_function 'videos', "get_album_feeds(#{@user.id})" %>
+    </li>
+  </div>
+</div>
+
+

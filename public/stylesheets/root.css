@@ -35,3 +35,9 @@
 #menu {
 text-align: right;
 }
+
+.game-character label{
+width: 125px;
+float: left;
+}
+

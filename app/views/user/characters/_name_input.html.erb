@@ -1,0 +1,4 @@
+<%= label_tag '', "Character ID: " %>
+<%= text_field_tag 'character[name]', name, :size => 10, :onfocus => "show_name_requirement()", :onblur => "validate_name(this.value)" %>
+<a id='name_info'></a><br/>
+

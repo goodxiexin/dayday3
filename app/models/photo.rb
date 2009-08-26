@@ -1,7 +1,9 @@
 class Photo < ActiveRecord::Base
 
+  belongs_to :user
+
   # we use counter_cache technique here
-  belongs_to :album, 
+  belongs_to :album,
              :counter_cache => true
 
   # your friends can comment on single photo
@@ -37,4 +39,6 @@ class Photo < ActiveRecord::Base
 
   acts_as_commentable
 
+  # improves performance of next, prev functionality
+  acts_as_list :scope => :album
 end

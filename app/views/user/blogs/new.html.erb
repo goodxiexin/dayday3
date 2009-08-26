@@ -1,0 +1,22 @@
+<% content_for :right do %>
+<p><%= text_field_with_auto_complete :blog, :tags, {}, {:after_update_element => 'after_tag' } %></p>
+<p><%= link_to_function "unfold", "blog_builder.show_friends()", :id => 'unfold' %></p>
+<div id='btags'></div>
+<%= javascript_tag "blog_builder = new BlogBuilder(#{@user.id}, 0);" %>
+<% end %>
+
+<%= javascript_include_tag 'blog.js' %>
+
+<%= "New Blog" %> |
+<%= link_to "back to blogs index", user_blogs_url(:user_id => current_user, :draft => 0) %>
+
+<% form_for :blog, :html => {:id => 'blog_input'} do |form| %>
+  <p><%= form.label "title" %></p>
+  <p><%= form.text_field 'title' %></p>
+  <p><%= form.text_area 'content', :cols => 80 %></p>
+  <p><%= form.label "category: " %><%= select_tag 'blog[game_id]', options_from_collection_for_select(@user.games, :id, :name) %></p>
+  <p><%= form.label "privilege: "%><%= privilege_select_tag(:blog, 'all') %></p>
+<% end %>
+
+<%= link_to_function 'save', "blog_builder.save_blog()" %>
+<%= link_to_function "save as draft", "blog_builder.save_draft()" %>

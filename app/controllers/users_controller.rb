@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
+    return if User.find_by_email(params[:user][:email])
     @user = User.new(params[:user])
     @user.save!
     params[:cs].each do |args|

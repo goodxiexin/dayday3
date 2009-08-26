@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem 
 
+  include VisitorRecordSystem
+
   def new_validation_image
     validation_image = ValidationImage.new
     session[:validation_text] = validation_image.text

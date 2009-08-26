@@ -1,0 +1,15 @@
+<% form_remote_for :vcomment,
+                   :position => :bottom,
+                   :update => "vcomments_#{video.id}",
+                   :complete => "$('vcomment_content_#{video.id}').value = '';",
+                   :url => video_comments_url(video) do |form| %>
+  <div class='comment-box'>
+    <%= user_icon(current_user) %>
+    <%= text_area_tag 'vcomment[content]', '', :cols => 40, :rows => 3, :id => "vcomment_content_#{video.id}" %><br/>
+    <div style="float:right; margin-right:15px">
+      <%= form.label "whisper?" %><%= form.check_box 'whisper' %>
+      <%= form.submit 'comment' %>
+    </div>
+  </div>
+<% end %>
+

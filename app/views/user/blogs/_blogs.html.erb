@@ -1,0 +1,25 @@
+<%= page_entries_info blogs, :entry_name => 'blog' %>
+
+<% blogs.each do |blog| %>
+  <div class='blog'>
+    <div class='blog-title'>
+      <strong><%= link_to blog.title, user_blog_url(@user, blog) %></strong>
+      <% if blog.user == current_user %>
+        <span class='blog-operation'>
+          <%= link_to 'edit', edit_user_blog_url(@user, blog) %> | <%= link_to 'delete', confirm_destroy_user_blog_url(@user, blog, :draft => 0), :rel => 'facebox' %>
+        </span>
+      <% end %>
+      <span class='blog-tiny'><%= ftime blog.created_at %></span>
+      <span class='blog-category'>(<%= link_to_game blog.game %>)</span>
+    </div>
+    <div class='blog-content'>
+      <%= h truncate(blog.content, 200) %>
+    </div>
+    <div class='blog-menus'>
+      <%= link_to "comment", user_blog_url(@user, blog) %>(<%= label_tag 'nil', "#{blog.comments_count}", :id => 'comments_count' %>) | 
+      <%= link_to_remote "Dig", :url => blog_digs_url(blog), :method => :post%>(<%= label_tag nil, "#{blog.digs_count}", :id => "digs_count_#{blog.id}" %>)
+    </div>
+  </div>
+<% end %>
+
+<%= will_paginate blogs %>

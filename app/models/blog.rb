@@ -1,5 +1,5 @@
 class Blog < ActiveRecord::Base
-
+  
   # the owner of this blog
   belongs_to :user
 
@@ -26,20 +26,40 @@ class Blog < ActiveRecord::Base
 
   acts_as_commentable
 
-  # get [next blog, prev blog, current blog index]
-  def self.next_prev_blog(user, blog)
-    size = user.blogs.count
-    next_blog_idx = 0
-    prev_blog_idx = 0
-    cur_blog_idx = 0
-    user.blogs.each_with_index do |b, i|
-      if blog == b
-        cur_blog_idx = i
-        next_blog_idx = (i + 1) % size
-        prev_blog_idx = (i - 1 + size) % size
+  # improves performance of next, prev functionality
+  acts_as_list :scope => 'user_id = #{user_id} AND draft = 0'
+
+  # thus we can call more_feeds(user_id, how_many) method to get blog feeds
+  acts_as_resource_feeder :scope => 'draft = 0'
+
+  def self.find_public_viewable(*args)
+    with_public_viewable { find(*args) }
+  end
+
+  def self.find_friend_viewable(*args)
+    with_friend_viewable { find(*args) }
+  end
+
+  def self.with_position_order
+    with_scope(:find => {:order => 'position DESC'}) do
+      yield
+    end
+  end
+
+  def self.with_public_viewable
+    with_position_order do
+      with_scope(:find => {:conditions => ["draft = 0 AND privilege = 'all'"]}) do
+        yield
       end
     end
-    [user.blogs[next_blog_idx], user.blogs[prev_blog_idx], cur_blog_idx]
+  end
+
+  def self.with_friend_viewable
+    with_position_order do 
+      with_scope(:find => {:conditions => ["draft = 0 AND (privilege = 'all' OR privilege = 'friends')"]}) do
+        yield
+      end
+    end
   end
 
 end

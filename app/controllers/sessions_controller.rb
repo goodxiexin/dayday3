@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
       if current_user.has_role?('Administrator')
         redirect_back_or_default('/pages')
       else
-        redirect_back_or_default(user_blogs_url(:user_id => current_user, :draft => 0))
+        redirect_back_or_default(user_personal_url(current_user))
       end
       flash[:notice] = "Logged in successfully"
     end

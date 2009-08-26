@@ -1,0 +1,17 @@
+<% content_for :left do %>
+  <%= render :partial => 'user/personal/icon_left' %><br/>
+  <%= render :partial => 'user/personal/character_left' %><br/>
+<% end %>
+
+<% content_for :right do %>
+  <%= render :partial => 'user/personal/resources_right' %><br/>
+<% end %>
+
+<strong><%= @user.login %>:</strong> <%= @user.latest_status.content %><br/>
+<div class='yellow-info'>
+  <% form_tag user_friends_url(@user) do %>
+    <strong><%= label_tag '', 'do you want to know more about him?' %></strong><br/>
+    <%= image_submit_tag 'add_friend.gif' %>
+  <% end %>
+</div>
+

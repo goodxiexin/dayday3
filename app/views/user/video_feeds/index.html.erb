@@ -1,0 +1,9 @@
+<%= render :partial => 'user/videos/video_menu' %><br/>
+
+<div id="feeds">
+<%= render :partial => 'vfeed', :collection => @videos %>
+</div>
+<div id="more_feeds" style="float:">
+<%= link_to_remote "More..", :url => get_user_video_feeds_url(@user, :idx => @idx), :method => :get %>
+</div>
+
