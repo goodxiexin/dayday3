@@ -1,0 +1,13 @@
+<p><%= album_cover(@album) %> </p>
+<p>Title:<%= @event.title %></p>
+<p>Organizer: <%= @user.login %></p>
+<p>Starting Time: <%= @event.time %></p>
+<p>Game: <%= @game.name %></p>
+<% unless @game_area.nil? %>
+<p>Area: <%= @game_area.name %></p>
+<% end %>
+<p>Server:<%= @game_server.name %></p>
+<p>Description: <%= @event.description %></p>
+<p><%= link_to "upload photos", new_album_photo_url(@album) %></p>
+<p><%= render :partial => 'user_albums/photos', :object => @photos %></p>
+<%= render :partial => 'messages' %>

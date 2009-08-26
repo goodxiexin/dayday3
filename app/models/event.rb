@@ -9,10 +9,13 @@ class Event < ActiveRecord::Base
   # the location of the activity
   belongs_to :game_server
 
-  # teh wall messages for a event
+  # the album for the event, one-one relation
+  belongs_to :album
+
+  # the wall messages for a event
   has_many :event_wall_messages,
            :dependent => :destroy,
-           :finder_sql => 'select event_wall_messages.* from event_wall_messages where event_wall_messages.user_id = #{id} OR event_wall_messages.receiver_id = #{id} ORDER BY created_at DESC'
+           :finder_sql => 'select event_wall_messages.* from event_wall_messages where event_wall_messages.event_id = #{id} ORDER BY created_at DESC'
 
   # participants of this activity
   has_many :participations,

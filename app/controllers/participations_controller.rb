@@ -17,7 +17,7 @@ class ParticipationsController < ApplicationController
     end unless params[:participants].blank?
     flash[:notice] = "successfully invited your friends"
     render :update do |page|
-      page.redirect_to new_event_url 
+      page.redirect_to event_url(@event)
     end
   end
 
