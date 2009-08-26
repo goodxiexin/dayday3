@@ -1,0 +1,5 @@
+<% class_name = notification.class.to_s.downcase.pluralize %>
+<% idx = class_name.index 'notification' %>
+<% directory = class_name[0..(idx-1)] + '_' + class_name[idx..class_name.size] %>
+<% initial = class_name[0..0] %>
+<%= render :partial => "user/#{directory}/#{initial}notification", :object => notification, :locals => {:delete => delete} %>

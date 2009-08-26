@@ -1,0 +1,14 @@
+<% content_for :left do %>
+<%= render :partial => 'status_menu' %>
+<% end %>
+
+<% if @user == current_user %>
+<% form_remote_for :status, :url => user_statuses_url(@user, :home => 0) do |form| %>
+  <%= form.text_area 'content', :cols => 50, :rows => 3, :style => "margin:3px 6px" %>
+  <%= image_submit_tag 'submit.gif', :style => "margin-right:0px" %><br/>
+<% end %>
+<% end %>
+
+<div id='statuses'>
+<%= render :partial => 'status', :collection => @statuses %> 
+</div>

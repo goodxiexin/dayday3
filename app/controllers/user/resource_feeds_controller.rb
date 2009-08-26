@@ -4,10 +4,10 @@ class User::ResourceFeedsController < ApplicationController
 
   before_filter :login_required
 
-  before_filter :record_visiting
+  before_filter :owner_required
 
   def index
-    @user = User.find(params[:user_id])  
+    @user = resource_owner  
     @friends = @user.friends[0..8]
     # friend suggesion
     # pending request
@@ -21,7 +21,7 @@ class User::ResourceFeedsController < ApplicationController
   end
 
   def get
-    @user = User.find(params[:user_id])
+    @user = resource_owner
     @idx = params[:idx].to_i
     @resource_feeds = []
     if params[:game_id].blank?

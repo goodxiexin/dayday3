@@ -1,7 +1,11 @@
 <% user = bcomment.user %>
-<% comment_divid = "comment_#{bcomment.id}" %>
+<% comment_divid = "bcomment_#{bcomment.id}" %>
 
+<% if bcomment_viewable(bcomment, current_user) %>
 <div id=<%= comment_divid %> class='comment-box'>
+  <% if bcomment.whisper %>
+    <span class='whisper'><strong>whisper</strong></span>
+  <% end %>
   <%= user_icon(user) %>
   <strong><%= link_to_user user %></strong>
   <span class="comment-box-tiny"><%= ftime bcomment.created_at %></span><br/>
@@ -12,4 +16,5 @@
     <%= link_to_function 'comment', "$('bcomment_receiver_#{bcomment.blog.id}').value=#{user.id};$('bcomment_content_#{bcomment.blog.id}').value='reply to #{user.login}: '; $('bcomment_content_#{bcomment.blog.id}').focus();" %>
   <% end %>
 </div>
+<% end %>
 

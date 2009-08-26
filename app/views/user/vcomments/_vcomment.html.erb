@@ -1,7 +1,11 @@
 <% user = vcomment.user %>
-<% comment_divid = "comment_#{vcomment.id}" %>
+<% comment_divid = "vcomment_#{vcomment.id}" %>
 
+<% if vcomment_viewable(vcomment, current_user) %>
 <div id=<%= comment_divid %> class='comment-box'>
+  <% if vcomment.whisper %>
+    <div class='whisper'><strong>whisper</strong></div>
+  <% end %>
   <%= user_icon(user) %>
   <strong><%= link_to_user user %></strong>
   <span class="comment-box-tiny"><%= ftime vcomment.created_at %></span><br/>
@@ -9,6 +13,7 @@
   <% if current_user == user %>
     <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => video_comment_url(vcomment.video, vcomment), :method => :delete %>
   <% else %>       
-    <%= link_to_function 'comment', "$('vcomment_content_#{vcomment.video.id}').value='reply to #{user.login}: '; $('vcomment_content_#{vcomment.video.id}').focus();" %>
+    <%= link_to_function 'comment', "$('vcomment_receiver_#{vcomment.video.id}').value=#{user.id};$('vcomment_content_#{vcomment.video.id}').value='reply to #{user.login}: '; $('vcomment_content_#{vcomment.video.id}').focus();" %>
   <% end %>        
 </div>
+<% end %>

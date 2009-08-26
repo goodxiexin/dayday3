@@ -3,6 +3,7 @@
                    :update => "pcomments_#{photo.id}",
                    :complete => "$('pcomment_content_#{photo.id}').value = '';",
                    :url => photo_comments_url(photo) do |form| %>
+  <p style="display:none"><%= text_field_tag 'pcomment[receiver_id]', photo.album.user_id, :id => "pcomment_receiver_#{photo.id}" %></p>
   <div class='comment-box'>
     <%= user_icon(current_user) %>
     <%= text_area_tag 'pcomment[content]', '', :cols => 40, :rows => 3, :id => "pcomment_content_#{photo.id}" %><br/>

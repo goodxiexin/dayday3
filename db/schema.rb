@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090826033843) do
+ActiveRecord::Schema.define(:version => 20090826063423) do
 
   create_table "admin_pages", :force => true do |t|
     t.string   "title"
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20090826033843) do
 
   create_table "bcomment_notifications", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "commentor_id"
-    t.integer  "blog_id"
+    t.integer  "comment_id"
+    t.boolean  "read",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -184,6 +184,15 @@ ActiveRecord::Schema.define(:version => 20090826033843) do
     t.datetime "updated_at"
   end
 
+  create_table "pcomment_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "commentor_id"
+    t.integer  "comment_id"
+    t.boolean  "read",         :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pcomments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "photo_id"
@@ -254,6 +263,15 @@ ActiveRecord::Schema.define(:version => 20090826033843) do
     t.datetime "updated_at"
   end
 
+  create_table "scomment_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "commentor_id"
+    t.integer  "comment_id"
+    t.boolean  "read",         :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "scomments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "status_id"
@@ -291,6 +309,15 @@ ActiveRecord::Schema.define(:version => 20090826033843) do
     t.integer  "mobile"
     t.string   "website"
     t.datetime "birthday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vcomment_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "commentor_id"
+    t.integer  "comment_id"
+    t.boolean  "read",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

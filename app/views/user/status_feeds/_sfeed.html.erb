@@ -1,7 +1,10 @@
 <div class='blog-feed'>
   <%= user_icon(sfeed.user) %>
   <%= link_to_user sfeed.user %> 
-  <span class='blog-feed-tiny'><%= distance_of_time_in_words_to_now sfeed.created_at %> ago</span><br/>
+  <span class='blog-feed-tiny'><%= distance_of_time_in_words_to_now sfeed.created_at %> ago</span>
+  <% if @more %>
+     <span class='blog-feed-tiny'><%= link_to '(more..)', user_statuses_url(sfeed.user) %></span>
+  <% end %> <br/>
   <%= sfeed.content %>
   <div style="float:right">
     <%= link_to_function "comment", "unfold_scomments(#{sfeed.id})", :id => "unfold_scomments_#{sfeed.id}" %>

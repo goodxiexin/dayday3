@@ -10,7 +10,7 @@ class User::BcommentsController < ApplicationController
     @comment.user = current_user
     @comment.blog = @blog
     if @comment.save
-      BcommentNotification.create(:user_id => current_user.id, :receiver_id => bcomment.receiver_id, :blog_id => bcomment.blog.id)
+      # create a notificaiton
       render :partial => 'bcomment', :object => @comment
     end
   rescue ActiveRecord::RecordNotFound

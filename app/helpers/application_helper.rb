@@ -13,6 +13,10 @@ module ApplicationHelper
     time.strftime("%m-%d") unless time.blank?
   end
 
+  def ftime4(time)
+    time.strftime("%H: %M") unless time.blank?
+  end
+
   def validation_image
     "<img src='/application/new_validation_image' />"
   end

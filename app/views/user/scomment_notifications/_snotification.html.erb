@@ -1,0 +1,14 @@
+<% status = snotification.comment.status %>
+<% owner = status.user %>
+<% commentor = snotification.comment.user %>
+<li id="snotification_<%= snotification.id%>" type='status' type_id='<%= status.id %>' notification_id='<%= snotification.id %>' >
+  <span class='notification-tiny'><%= ftime4 snotification.created_at %></span>
+  <% if delete %>
+    <%= link_to_function 'X', "read_notification('status', '#{status.id}', #{@user.id}, 1)", :style => "float:right;margin-right:5px" %>
+  <% end %>
+  <% style = (snotification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+  <span style='<%= style %>'>
+    <%= link_to_user commentor %> replied to you in status <%= link_to_function (truncate status.content, 20), "read_notification('status', '#{status.id}', #{@user.id}, #{delete ? 1 : 0});window.open('#{user_status_url(owner, status)}');", :popup => true %>
+  </span>
+</li>
+

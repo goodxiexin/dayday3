@@ -153,6 +153,27 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :resource_feeds,
                     :controller => 'user/resource_feeds',
                     :collection => {:get => :get}
+  
+    users.resources :bcomment_notifications,
+                    :controller => 'user/bcomment_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :scomment_notifications,
+                    :controller => 'user/scomment_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :pcomment_notifications,
+                    :controller => 'user/pcomment_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :vcomment_notifications,
+                    :controller => 'user/vcomment_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :comment_notifications,
+                    :controller => 'user/comment_notifications',
+                    :collection => {:read_multiple => :post}
+
   end  
 
   map.resources :statuses do |statuses|

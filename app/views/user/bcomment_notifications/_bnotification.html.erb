@@ -1,0 +1,13 @@
+<% blog = bnotification.comment.blog %>
+<% owner = blog.user %>
+<% commentor = bnotification.comment.user %>
+<li id="bnotification_<%= bnotification.id%>" type='blog' type_id='<%= blog.id %>' notification_id='<%= bnotification.id%>'>
+  <span class='notification-tiny'><%= ftime4 bnotification.created_at %></span>
+  <% if delete %>
+    <%= link_to_function 'X', "read_notification('blog', '#{blog.id}', #{@user.id}, 1);", :style => "float:right;margin-right:5px" %>
+  <% end %>
+  <% style = (bnotification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+  <span style='<%= style %>'>
+    <%= link_to_user commentor %> replied to you in blog <%= link_to_function (truncate blog.title, 20), "read_notification('blog','#{blog.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_blog_url(owner, blog)}');", :popup => true %>
+  </span>
+</li>

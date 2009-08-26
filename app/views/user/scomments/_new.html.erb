@@ -3,6 +3,7 @@
                    :update => "scomments_#{status.id}",
                    :complete => "$('scomment_content_#{status.id}').value = '';",
                    :url => status_comments_url(status) do |form| %>
+  <p style="display:none"><%= text_field_tag 'scomment[receiver_id]', status.user_id, :id => "scomment_receiver_#{status.id}" %></p>
   <div class='comment-box'>
     <%= user_icon(current_user) %>
     <%= text_area_tag 'scomment[content]', '', :cols => 40, :rows => 3, :id => "scomment_content_#{status.id}" %><br/>

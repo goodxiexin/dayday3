@@ -111,10 +111,15 @@ font-weight: bold;
 font-size:12px;
 font-weight:normal;
 color:#000;
-width: 550px;
+width: 580px;
 padding: 5px;
 border-bottom: 1px solid #B7B7B7;
 float: left;
+}
+
+.blog-feed .comments {
+float:left;
+margin-left:75px;
 }
 
 .blog-feed img {
@@ -151,7 +156,7 @@ text-decoration:none;
 font-size:12px;
 font-weight:normal;
 color:#000;
-width: 550px;
+width: 580px;
 padding: 5px;
 border-bottom: 1px solid #B7B7B7;
 float: left;
@@ -194,6 +199,11 @@ float:right;
 .fby {
 width:180px;
 border:1px solid #eee;
+}
+
+.fby-tiny {
+font-size:9px;
+color; #777;
 }
 
 .fby a {
@@ -241,7 +251,7 @@ margin-bottom: 2px;
 }
 
 .status {
-width: 550px; 
+width: 580px; 
 }
 
 .status img {
@@ -585,4 +595,97 @@ padding: 10px;
 margin-top: 10px;
 margin-bottom: 10px;
 
+}
+
+.comment-notification {
+width:580px;
+margin-top: 15px;
+margin-bottom: 10px;
+border:1px solid #eee;
+background: white;
+}
+
+.comment-notification h3 {
+font-size:11px;
+color:#3B5998;
+background:#d8dfea;
+border-top: 1px solid #3B5998;
+padding: 3px 10px;
+margin: 0px;
+}
+
+.comment-notification li {
+font-size:11px;
+font-weight: normal;
+margin-left: 5px;
+padding: 3px;
+list-style:none;
+border-bottom:1px solid #ccc;
+}
+
+.comment-notification .view-all{
+text-align:right;
+margin-right: 2px;
+margin-bottom: 2px;
+}
+
+.notification-tiny {
+float:right;
+font-size:9px;
+color: #777;
+}
+
+.notification-board {
+padding-left:10px;
+padding-right:10px;
+padding-bottom:10px;
+background: #f2f3f8;
+margin-top: 10px;
+border-top: 1px solid #B7B7B7;
+}
+
+.whisper {
+float:right;
+font-size:9px;
+}
+
+.status-show {
+width:580px;
+margin-top: 15px;
+margin-bottom: 10px;
+border:1px solid #eee;
+background: white;
+}
+
+.status-show h3 {
+font-size:11px;
+color:#3B5998;
+background:#d8dfea;
+border-top: 1px solid #3B5998;
+padding: 3px 10px;
+margin: 0px;
+}
+
+.status-show li {
+font-size:11px;
+font-weight: normal;
+margin-left: 5px;
+padding: 3px;
+list-style:none;
+border-bottom:1px solid #ccc;
+}
+
+.status-show .view-all{
+text-align:right;
+margin-right: 5px;
+margin-bottom: 2px;
+}
+
+.status-show-tiny {
+font-size:9px;
+color: #777;
+}
+
+.status-show .content {
+margin-left:5px;
 }
