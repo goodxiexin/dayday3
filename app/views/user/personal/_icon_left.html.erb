@@ -1,0 +1,9 @@
+<div class='fby'>
+  <h3>Icon: <%= link_to_function 'fold', "$('side_icon').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_icon' style="text-align:center">
+    <p id='user_icon'><%= user_icon(@user, :medium) %></p>
+  </div>
+  <% if @user == current_user %>
+    <div class='view-all'><%= link_to 'my icons', new_user_icon_url(@user), :rel => 'facebox' %></div>
+  <% end %>
+</div>

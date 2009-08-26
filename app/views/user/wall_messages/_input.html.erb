@@ -1,0 +1,10 @@
+<% form_remote_for :wall_message,
+                   :position => :top,
+                   :update => 'wall_messages',
+                   :complete => "$('wall_message_content').value='';",
+                   :url => user_wall_messages_url(@user) do |form| %>
+  <p style="display:none"><%= text_field_tag 'wall_message[receiver_id]', @user.id %></p>
+  <p><%= form.text_area 'content', :rows => 5, :cols => 55 %></p>
+  <p><%= form.label "whisper?" %><%= form.check_box 'whisper' %><%= form.submit 'leave a message' %></p>
+<% end %>
+

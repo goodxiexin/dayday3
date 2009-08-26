@@ -1,0 +1,6 @@
+<h3>Wall: <%= link_to "all wall messages", user_wall_messages_url(@user) %></h3>
+<%= render :partial => 'input' %>
+
+<div id='wall_messages'>
+  <%= render :partial => 'wall_message', :collection => @wall_messages %>
+</div>

@@ -1,0 +1,15 @@
+<div class='blog-feed'>
+  <%= user_icon(sfeed.user) %>
+  <%= link_to_user sfeed.user %> 
+  <span class='blog-feed-tiny'><%= distance_of_time_in_words_to_now sfeed.created_at %> ago</span><br/>
+  <%= sfeed.content %>
+  <div style="float:right">
+    <%= link_to_function "comment", "unfold_scomments(#{sfeed.id})", :id => "unfold_scomments_#{sfeed.id}" %>
+    <%= link_to_function "fold", "fold_scomments(#{sfeed.id})", :style => "display:none", :id => "fold_scomments_#{sfeed.id}" %> 
+    (<%= sfeed.comments_count %>)
+  </div>
+  <div id='scomments_<%= sfeed.id%>' style="margin-left:75px;float:left"></div>
+  <div id='scomments_form_<%= sfeed.id%>' style="margin-left:75px;float:left;display:none">
+    <%= render :partial => 'user/scomments/new', :locals => {:status => sfeed} %>
+  </div>
+</div>

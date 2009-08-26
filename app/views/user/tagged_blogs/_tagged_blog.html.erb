@@ -1,0 +1,20 @@
+<% bfeed = tagged_blog %>
+<div class='blog-feed'>
+  <%= user_icon(bfeed.user) %>
+  <h3><%= link_to bfeed.title, user_blog_url(bfeed.user, bfeed) %></h3>
+  <%= link_to_user bfeed.user %> <span class='blog-feed-tiny'><%= ftime bfeed.created_at %></span><br/>
+  <%= h(truncate(bfeed.content, 80)) %><br/>
+  <div style="float:left;margin-left:40px">
+    Tags:  <%= render :partial => 'user/personal/name_tag', :collection => bfeed.tags %>
+  </div>
+  <div style="float:right">
+    <%= link_to_function "comment", "unfold_bcomments(#{bfeed.id})", :id => "unfold_#{bfeed.id}" %>
+    <%= link_to_function "fold", "fold_bcomments(#{bfeed.id})", :style => "display:none", :id => "fold_#{bfeed.id}" %> 
+    (<%= bfeed.comments_count %>) |
+    <%= link_to_remote 'dig', :url => blog_digs_url(bfeed), :method => :post%>(<%= label_tag nil, bfeed.digs_count, :id => "digs_count_#{bfeed.id}" %>)
+  </div>
+  <div id='bcomments_<%= bfeed.id%>' style="margin-left:75px;float:left"></div>
+  <div id='bcomments_form_<%= bfeed.id%>' style="margin-left:75px;float:left;display:none">
+    <%= render :partial => 'user/bcomments/new', :locals => {:blog => bfeed} %>
+  </div>
+</div>

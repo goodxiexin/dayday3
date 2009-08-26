@@ -1,0 +1,25 @@
+<div class='visitors'>
+  <h3>Recent Visitors: <%= link_to_function 'fold', "$('visitor_table').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <table id='visitor_table'>
+  <% i=0 %>
+  <% visitor_history.each do |record| %>
+    <% if i == 0 %>
+      <tr>
+    <% end %>
+    <td class='record'>
+    <%= user_icon record.visitor %><br/>
+    <%= link_to_user record.visitor %>
+    </td>
+    <% i = i + 1 %>
+    <% if i == 3 %>
+      </tr>
+      <% i = 0 %>
+    <% end %>
+  <% end %>
+  </table>
+  <% if @user == current_user %>
+    <div class='view-all'>
+      <%= link_to 'view all', user_visitor_records_url(@user) %>
+    </div>
+  <% end %>
+</div>

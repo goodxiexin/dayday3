@@ -1,0 +1,5 @@
+<% game_array = [['---', '---']] %>
+<% games.each { |game| game_array << [game.name, game.id] } %>
+<%= label_tag 'game_id', "Game Name: "%>
+<%= select_tag 'character[game_id]', options_for_select(game_array, game_id), :onchange => "validate_game_id(this.value);game_onchange(this.value)"%>
+<a id='game_id_info'></a><br/>

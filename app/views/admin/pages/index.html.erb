@@ -2,21 +2,23 @@
 
 <table>
   <tr>
-    <th>permalink</th>
-    <th>title</th>
+    <th>Title</th>
+    <th>Permalink</th>
+    <th>Body</th>
   </tr>
 
-<% @pages.each do |page| %>
+<% @pages.each do |pages| %>
   <tr>
-    <td><%=h page.permalink %></td>
-    <td><%=h page.title %></td>
-    <td><%= link_to 'Show', admin_page_url(page) %></td>
-    <td><%= link_to 'Edit', edit_admin_page_path(page) %></td>
-    <td><%= link_to 'Destroy', admin_page_url(page), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h pages.title %></td>
+    <td><%=h pages.permalink %></td>
+    <td><%=h pages.body %></td>
+    <td><%= link_to 'Show', pages %></td>
+    <td><%= link_to 'Edit', edit_admin_page_path(pages) %></td>
+    <td><%= link_to 'Destroy', pages, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New page', new_admin_page_path %>
+<%= link_to 'New pages', new_admin_page_path %>

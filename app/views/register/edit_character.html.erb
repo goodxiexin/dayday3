@@ -1,0 +1,20 @@
+<h2> Edit Game Character </h2>
+
+<div class='game-character'>
+<% form_for :character, :html => {:method => :put, :id => 'character_form'} do |f| %>
+  <%= render :partial => 'user/characters/game_select', :locals => {:games => @games, :game_id => @game.id} %>
+  <%= render :partial => 'user/characters/name_input', :locals => {:name => @character.name} %>
+  <%= render :partial => 'user/characters/level_input', :locals => {:level => @character.level} %>
+  <div id=details>
+    <% unless @game.no_areas %>
+      <%= render :partial => 'user/characters/area_select', :locals => {:areas => @areas, :area_id => @character.area_id} %>
+    <% end %>
+    <%= render :partial => 'user/characters/server_select', :locals => {:servers => @servers, :server_id => @character.server_id} %>
+    <%= render :partial => 'user/characters/race_select', :locals => {:races => @races, :race_id => @character.race_id} %>
+    <%= render :partial => 'user/characters/profession_select', :locals => {:professions => @professions, :profession_id => @character.profession_id} %>
+  </div>
+<% end %>
+</div>
+
+<%= link_to_function 'update', "update_character(#{params[:id]})" %>
+

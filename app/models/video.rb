@@ -26,6 +26,11 @@ class Video < ActiveRecord::Base
 
   acts_as_commentable
 
+  # improve performance of next, prev performance
+  acts_as_list :scope => :user
+
+  acts_as_resource_feeder
+
   class VideoURLNotValid < StandardError; end
 
   def self.generate_link(url)
@@ -44,20 +49,34 @@ class Video < ActiveRecord::Base
     end
   end
 
-  # get [next blog, prev blog, current blog index]
-  def self.next_prev_video(user, video)
-    size = user.videos.count
-    next_video_idx = 0
-    prev_video_idx = 0
-    cur_video_idx = 0
-    user.videos.each_with_index do |b, i|
-      if video == b
-        cur_video_idx = i
-        next_video_idx = (i + 1) % size
-        prev_video_idx = (i - 1 + size) % size
+  def self.find_public_viewable(*args)
+    with_public_viewable { find(*args) }
+  end
+
+  def self.find_friend_viewable(*args)
+    with_friend_viewable { find(*args) }
+  end
+
+  def self.with_position_order
+    with_scope(:find => {:order => 'position DESC'}) do
+      yield
+    end
+  end
+
+  def self.with_public_viewable
+    with_position_order do
+      with_scope(:find => {:conditions => ["privilege = 'all'"]}) do
+        yield
       end
     end
-    [user.videos[next_video_idx], user.videos[prev_video_idx], cur_video_idx]
-  end 
- 
+  end
+
+  def self.with_friend_viewable
+    with_position_order do
+      with_scope(:find => {:conditions => ["(privilege = 'all' OR privilege = 'friends')"]}) do
+        yield
+      end
+    end
+  end
+
 end

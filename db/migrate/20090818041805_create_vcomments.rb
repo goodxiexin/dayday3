@@ -3,6 +3,7 @@ class CreateVcomments < ActiveRecord::Migration
     create_table :vcomments, :force => true do |t|
       t.integer :user_id
       t.integer :video_id
+      t.integer :receiver_id
       t.text :content
       t.boolean :whisper, :default => false
       t.timestamps

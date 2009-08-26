@@ -39,7 +39,7 @@ PopupManager = Class.create({
     this.pos.left += linker.getWidth();
 
     // send ajax request to server to retrieve user info
-    new Ajax.Request("/user_blogs/show_popup_tag?tagged_user_id="+user_id, {
+    new Ajax.Request("/user/blogs/show_popup_tag?tagged_user_id="+user_id, {
       method: 'get',
       onSuccess: function(transport){
         this.user_info.innerHTML = transport.responseText;
@@ -132,6 +132,9 @@ function after_tag(input_field, selected_li){
 BlogBuilder = Class.create({
 
   initialize: function(user_id, blog_id){
+    // save rich text editor
+    this.editor = new nicEditor({iconsPath:'/images/nicEditorIcons.gif'}).panelInstance('blog_content'); 
+    
     // save user id and blog id
     this.user_id = user_id;
     this.blog_id = blog_id; // this field is only valid when updating blog
@@ -173,7 +176,6 @@ BlogBuilder = Class.create({
    */
   save: function(type){
     // construct url
-    // appending form inputs and tag inputs
     var url = '/users/' + this.user_id + '/blogs?';
     if(type == 'blog')
       url += "blog[draft]=0&"
@@ -183,6 +185,13 @@ BlogBuilder = Class.create({
       if(pair.value.readAttribute('new_record') == 'true')
         url += "tagged_users[]=" + pair.key + "&";
     });
+
+    // this code guarantees that the content of textarea are passed to server
+    for(var i=0;i<this.editor.nicInstances.length;i++){
+      this.editor.nicInstances[i].saveContent();
+    }
+
+    // get form parameter
     url += this.form.serialize();
     
     // send ajax request
@@ -195,7 +204,6 @@ BlogBuilder = Class.create({
    */
   update: function(type, id){
     // construct url
-    // appending form inputs and tag inputs
     var url = '/users/' + this.user_id + '/blogs/' + id + '?';
     if(type == 'blog')
       url += "blog[draft]=0&"
@@ -205,6 +213,13 @@ BlogBuilder = Class.create({
       if(pair.value.readAttribute('new_record') == 'true')
         url += "tagged_users[]=" + pair.key + "&";
     });
+
+    // this code guarantees that the content of textarea are passed to server
+    for(var i=0;i<this.editor.nicInstances.length;i++){
+      this.editor.nicInstances[i].saveContent();
+    }  
+ 
+    // get form parameter
     url += this.form.serialize();
 
     // send ajax request
@@ -341,7 +356,7 @@ BlogBuilder = Class.create({
       }
 
       // construct parameters and url
-      var url = '/user_blogs/new_tag?';
+      var url = '/user/blogs/new_tag?';
       for(var i=0;i<tagged_users.length;i++){
         url += "tagged_users[]=" + tagged_users[i] + "&";
       }
@@ -368,7 +383,7 @@ BlogBuilder = Class.create({
    */
   get_games: function(){
     // send ajax request to retrieve all the games
-    new Ajax.Request('/user_blogs/games_list', {
+    new Ajax.Request('/user/blogs/games_list', {
       method: 'get',
       onSuccess: function(transport){
         // fill in selecter with retreived game options
@@ -387,7 +402,7 @@ BlogBuilder = Class.create({
    * return friends within same game
    */
   get_friends: function(game_id){
-    new Ajax.Request('/user_blogs/friends_list?game_id=' + game_id, {
+    new Ajax.Request('/user/blogs/friends_list?game_id=' + game_id, {
       method: 'get',
       onSuccess: function(transport){
         this.friends_list.innerHTML = transport.responseText;
@@ -404,7 +419,7 @@ BlogBuilder = Class.create({
     if(this.btags.get(tagged_user_id)) return;
 
     // send ajax request to retrieve user information(icon, name ... so on)
-    new Ajax.Request('/user_blogs/new_tag?tagged_users[]=' + tagged_user_id, {
+    new Ajax.Request('/user/blogs/new_tag?tagged_users[]=' + tagged_user_id, {
       method: 'get',
       onSuccess: function(transport){
         this.btags_div.innerHTML = transport.responseText + this.btags_div.innerHTML;

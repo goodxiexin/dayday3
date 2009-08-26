@@ -1,0 +1,10 @@
+<% owner = (@user == current_user)? 'my' : "#{@user.login}'s" %>
+<%= link_to "#{owner} albums", user_albums_url(@user) %> |
+<% if @user == current_user %>
+<%= link_to "friends' albums", user_album_feeds_url(@user) %> |
+<% end %>
+<%= link_to "tagged photos", user_tagged_photos_url(@user) %> |
+<% if @user == current_user %>
+<%= link_to "upload photo", new_user_album_url(@user) %> |
+<% end %>
+<%= link_to "#{owner} personal page", user_personal_url(@user) %>

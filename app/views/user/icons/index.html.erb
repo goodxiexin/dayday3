@@ -1,0 +1,12 @@
+<p>
+  <%= "#{@user.login}'s Icon Album" %>
+</p>
+<p>
+  <%= page_entries_info @icons, :entry_name => 'icon' %> | 
+  <%= link_to 'change icon', new_user_icon_url(@user, :album => 1), :rel => 'facebox' %> | 
+  <%= link_to 'back to albums list', user_albums_url(@user)%>
+</p>
+
+<div id='icons'>
+  <%= render :partial => 'icons', :object => @icons %>
+</div> 

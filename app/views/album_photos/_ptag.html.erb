@@ -1,4 +1,0 @@
-<span id=<%= "tag_#{ptag.id}" %> name=<%= ptag.tagged_user.login %> tag_id=<%= ptag.id %> x=<%= ptag.x %> y=<%= ptag.y %> width=<%= ptag.width %> height=<%= ptag.height %>>
-  <%= link_to ptag.tagged_user.login, user_url(ptag.tagged_user), :onmouseover => "photo_tag.show_tag(#{ptag.id})", :onmouseout => "photo_tag.hide_tag(#{ptag.id})" %>
-  <%= link_to_remote "(delete)", :complete => "photo_tag.delete(#{ptag.id})", :url => photo_tag_url(ptag.photo, ptag), :method => :delete %>
-</span>

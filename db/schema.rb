@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090818062911) do
+ActiveRecord::Schema.define(:version => 20090826033843) do
+
+  create_table "admin_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "permalink"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "albums", :force => true do |t|
     t.integer  "user_id"
@@ -17,16 +25,25 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "photos_count", :default => 0
     t.string   "title"
     t.text     "description"
-    t.string   "privilege"
+    t.string   "privilege",    :default => "all"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bcomment_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "commentor_id"
+    t.integer  "blog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bcomments", :force => true do |t|
-    t.integer  "user_id",                       :null => false
-    t.integer  "blog_id",                       :null => false
+    t.integer  "user_id"
+    t.integer  "blog_id"
+    t.integer  "receiver_id"
     t.text     "content"
-    t.boolean  "whisper",    :default => false
+    t.boolean  "whisper",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,9 +64,10 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "comments_count",                     :default => 0
     t.integer  "tags_count",                         :default => 0
     t.boolean  "draft",                              :default => true
-    t.string   "privilege"
+    t.string   "privilege",                          :default => "all"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "btags", :force => true do |t|
@@ -78,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "poster_id"
     t.integer  "receiver_id"
     t.text     "content"
-    t.boolean  "whisper",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -206,8 +223,9 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
   create_table "pcomments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "photo_id"
+    t.integer  "receiver_id"
     t.text     "content"
-    t.boolean  "whisper",    :default => false
+    t.boolean  "whisper",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -232,6 +250,8 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "comments_count", :default => 0
     t.integer  "album_id"
     t.boolean  "cover",          :default => false
+    t.integer  "user_id"
+    t.boolean  "current_icon",   :default => false
     t.text     "notation"
     t.integer  "parent_id"
     t.string   "content_type"
@@ -242,6 +262,7 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "height"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "provinces", :force => true do |t|
@@ -269,9 +290,20 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.datetime "updated_at"
   end
 
+  create_table "scomments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "status_id"
+    t.integer  "receiver_id"
+    t.text     "content"
+    t.boolean  "whisper",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "statuses", :force => true do |t|
     t.integer  "user_id"
     t.text     "content"
+    t.integer  "comments_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -302,8 +334,9 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
   create_table "vcomments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "video_id"
+    t.integer  "receiver_id"
     t.text     "content"
-    t.boolean  "whisper",    :default => false
+    t.boolean  "whisper",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -324,7 +357,16 @@ ActiveRecord::Schema.define(:version => 20090818062911) do
     t.integer  "digs_count",     :default => 0
     t.integer  "comments_count", :default => 0
     t.integer  "tags_count",     :default => 0
-    t.string   "privilege"
+    t.string   "privilege",      :default => "all"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  create_table "visitor_records", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "visitor_id"
+    t.boolean  "register",   :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

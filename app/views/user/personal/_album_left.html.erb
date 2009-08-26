@@ -1,0 +1,15 @@
+<div class='side-albums'>
+  <h3>Albums: <%= link_to_function 'fold', "$('side_albums').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_albums'>
+    <% @user.albums[0..4].each do |a| %>
+      <div class='side-album-cover'>
+      <%= album_cover a, :small %><br/>
+      <span class='side-albums-tiny'><%= ftime3 a.created_at %></span><br/>
+      <span class='side-albums-title'><%= a.title %></span>
+      </div>
+    <% end %>
+  </div>
+  <div class='view-more' style="float:right;margin-left:160px">
+    <%= link_to 'more..', user_albums_url(@user) %>
+  </div>
+</div>

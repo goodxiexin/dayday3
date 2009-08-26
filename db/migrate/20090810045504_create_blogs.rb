@@ -9,7 +9,7 @@ class CreateBlogs < ActiveRecord::Migration
       t.integer :comments_count, :default => 0
       t.integer :tags_count, :default => 0
       t.boolean :draft, :default => true
-      t.string :privilege
+      t.string :privilege, :default => 'all'
 
       t.timestamps
     end

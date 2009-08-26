@@ -34,8 +34,6 @@ VideoBuilder = Class.create({
     for(var i=0;i<vtags.length;i++){
       this.vtags.set(vtags[i].readAttribute('tagged_user_id'), vtags[i]);
     }
-
-    alert('done');
   },
 
   /*
@@ -140,7 +138,7 @@ VideoBuilder = Class.create({
       }
 
       // construct parameters and url
-      var url = '/user_videos/new_tag?';
+      var url = '/user/videos/new_tag?';
       for(var i=0;i<tagged_users.length;i++){
         url += "tagged_users[]=" + tagged_users[i] + "&";
       }
@@ -167,7 +165,7 @@ VideoBuilder = Class.create({
    */
   get_games: function(){
     // send ajax request to retrieve all the games
-    new Ajax.Request('/user_blogs/games_list', {
+    new Ajax.Request('/user/blogs/games_list', {
       method: 'get',
       onSuccess: function(transport){
         // fill in selecter with retreived game options
@@ -186,7 +184,7 @@ VideoBuilder = Class.create({
    * return friends within same game
    */
   get_friends: function(game_id){
-    new Ajax.Request('/user_blogs/friends_list?game_id=' + game_id, {
+    new Ajax.Request('/user/blogs/friends_list?game_id=' + game_id, {
       method: 'get',
       onSuccess: function(transport){
         this.friends_list.innerHTML = transport.responseText;
@@ -203,7 +201,7 @@ VideoBuilder = Class.create({
     if(this.vtags.get(tagged_user_id)) return;
 
     // send ajax request to retrieve user information(icon, name ... so on)
-    new Ajax.Request('/user_videos/new_tag?tagged_users[]=' + tagged_user_id, {
+    new Ajax.Request('/user/videos/new_tag?tagged_users[]=' + tagged_user_id, {
       method: 'get',
       onSuccess: function(transport){
         this.vtags_div.innerHTML = transport.responseText + this.vtags_div.innerHTML;

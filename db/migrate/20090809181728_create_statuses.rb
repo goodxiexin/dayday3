@@ -3,6 +3,7 @@ class CreateStatuses < ActiveRecord::Migration
     create_table :statuses, :force => true do |t|
       t.integer :user_id
       t.text :content
+      t.integer :comments_count, :default => 0
       t.timestamps
     end
   end

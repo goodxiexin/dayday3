@@ -2,6 +2,9 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
 
+  has_many :visitor_records,
+           :order => 'created_at DESC'
+
   belongs_to :city
 
   belongs_to :province
@@ -34,6 +37,10 @@ class User < ActiveRecord::Base
            :order => 'login ASC',
            :through => :friendships
 
+  def has_friend(user)
+    self.friends.include?(user)
+  end
+
   has_many :game_characters,
            :dependent => :destroy
   
@@ -47,13 +54,39 @@ class User < ActiveRecord::Base
            :uniq => true
 
   has_many :icons,
+           :class_name => 'Photo',
            :order => 'created_at DESC',
            :dependent => :destroy
 
   has_one :current_icon,
-          :class_name => 'Icon',
+          :class_name => 'Photo',
           :order => 'created_at DESC',
-          :conditions => {:current => true}
+          :conditions => {:current_icon => true}
+
+  def next_prev_icon(cur_icon)
+    size = self.icons.count
+    next_icon_idx = 0
+    prev_icon_idx = 0
+    cur_icon_idx = 0
+    self.icons.each_with_index do |icon, i|
+      if cur_icon == icon
+        next_icon_idx = (i + 1) % size
+        prev_icon_idx = (i - 1 + size) % size
+        cur_icon_idx = i + 1
+        break
+      end
+    end
+    [self.icons[next_icon_idx], self.icons[prev_icon_idx], cur_icon_idx]
+  end
+
+  def reset_icon(new_icon)
+    old_icon = self.current_icon
+    unless new_icon == old_icon
+      old_icon.update_attribute(:current_icon, false) unless old_icon.blank?
+      new_icon.current_icon = true
+      new_icon.user_id = self.id
+    end
+  end
 
   has_many :statuses,
            :order => 'created_at DESC',
@@ -64,9 +97,24 @@ class User < ActiveRecord::Base
           :order => 'created_at DESC'
 
   has_many :blogs,
-           :order => 'updated_at DESC',
+           :order => 'position DESC',
            :conditions => {:draft => false}
-  
+
+  has_many :bcomment_notifications,
+           :order => 'created_at DESC'
+ 
+  def can_view(blog)
+    return true if blog.user == self 
+    case blog.privilege
+    when 'all'
+      return true
+    when 'myself'
+      return (blog.user == self)
+    when 'only friends'
+      return blog.user.has_friend(self)
+    end
+  end
+ 
   has_many :drafts,
            :class_name => 'Blog',
            :order => 'updated_at DESC',
@@ -76,7 +124,7 @@ class User < ActiveRecord::Base
            :order => 'updated_at DESC'
 
   has_many :videos,
-           :order => 'updated_at DESC'
+           :order => 'position DESC'
 
   # permissions and roles
   has_many :permissions

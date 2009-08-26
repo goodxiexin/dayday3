@@ -1,0 +1,10 @@
+Wall:
+<%= render :partial => 'input' %>
+
+<div id='wall_messages'>
+  <%= render :partial => 'wall_message', :collection => @wall_messages %>
+  <div style="float:left">
+    <%= page_entries_info @wall_messages %>
+    <%= will_paginate @wall_messages %>
+  </div>
+</div>

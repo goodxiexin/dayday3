@@ -1,0 +1,9 @@
+<%= render :partial => 'user/albums/album_menu' %>
+
+<div id="feeds">
+<%= render :partial => 'afeed', :collection => @albums %>
+</div>
+<div id="more_feeds" style="float:">
+<%= link_to_remote "More..", :url => get_user_album_feeds_url(@user, :idx => @idx), :method => :get %>
+</div>
+

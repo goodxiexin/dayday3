@@ -1,0 +1,9 @@
+<% race_array = [['---', '---']] %>
+<% races.each { |race| race_array << [race.name, race.id] } %>
+
+<div id='races'>
+  <%= label_tag '', 'Game Race: '%>
+  <%= select_tag 'character[race_id]', options_for_select(race_array, race_id), :onchange => "validate_race_id(this.value)" %>
+  <a id='race_id_info'></a>
+</div>
+

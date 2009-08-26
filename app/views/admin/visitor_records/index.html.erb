@@ -1,0 +1,24 @@
+<h1>Listing visitor_records</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Visitor</th>
+    <th>Register</th>
+  </tr>
+
+<% @visitor_records.each do |visitor_records| %>
+  <tr>
+    <td><%=h visitor_records.user_id %></td>
+    <td><%=h visitor_records.visitor_id %></td>
+    <td><%=h visitor_records.register %></td>
+    <td><%= link_to 'Show', visitor_records %></td>
+    <td><%= link_to 'Edit', edit_visitor_records_path(visitor_records) %></td>
+    <td><%= link_to 'Destroy', visitor_records, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New visitor_records', new_visitor_records_path %>

@@ -1,0 +1,24 @@
+<div class='visitors'>
+  <h3>You might know: <%= link_to_function 'fold', "$('friend_table').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <table id='friend_table'>
+  <% i=0 %>
+  <% friends.each do |friend| %>
+    <% if i == 0 %>
+      <tr>
+    <% end %>
+    <td class='record'>
+    <%= user_icon friend, :small %><br/>
+    <%= link_to_user friend %>
+    </td>
+    <% i = i + 1 %>
+    <% if i == 3 %>
+      </tr>
+      <% i = 0 %>
+    <% end %>
+  <% end unless friends.blank?%>
+  </table>
+  <div class='view-all'>
+    <%= link_to 'More...' %>
+  </div>
+</div>
+

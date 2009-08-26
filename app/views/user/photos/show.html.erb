@@ -1,0 +1,43 @@
+<%= javascript_include_tag 'photo.js' %>
+<%= stylesheet_link_tag 'photo_tag.css' %>
+
+<% owner = (@user == current_user)? 'my':"#{@user.login}'s" %>
+
+<p>
+  <%= "#{@album.photos.count - @photo.position + 1} of #{@album.photos.count} photos" %> | 
+  <%= link_to "back to album", user_album_url(@user, @album) %> |
+  <%= link_to "#{owner} albums", user_albums_url(@user)%> |
+  <%= link_to "#{owner} personal page", user_personal_url(@user) %>
+</p>
+
+<p>
+  <%= link_to 'prev', album_photo_url(@album, @photo.lower_item) %> | 
+  <%= link_to 'next', album_photo_url(@album, @photo.higher_item) %> 
+</p>
+
+<div class='album-photo'>
+  <%= image_tag @photo.public_filename, :id => "photo_#{@photo.id}" %>
+  <div id='complete_panel' style="display:none">
+    After you finish tagging, close this<%= button_to_function 'complete', "photo_tag.complete();" %>
+  </div>
+  <div class='notation'>
+    notation: <%= @photo.notation %>
+  </div>
+  <div class='tags' id='photo_tags'>
+    Tags: <%= render :partial => 'user/ptags/ptag', :collection => @photo.tags %> 
+  </div>
+  <div class='operations'>
+    <%= link_to_function "Comment", "$('pcomment_content_#{@photo.id}').focus();" %>(<%= label_tag 'nil', "#{@photo.comments_count}", :id => 'comments_count' %>) |
+    <%= link_to_remote "Dig", :url => photo_digs_url( @photo) %>(<%= label_tag nil, "#{@photo.digs_count}", :id => 'digs_count' %>)
+  </div>
+</div>
+
+<%= render :partial => 'photo_menu' %>
+
+<div id='pcomments_<%= @photo.id%>'>
+  <%= render :partial => 'user/pcomments/pcomment', :collection => @photo.comments %>
+</div>
+
+<%= render :partial => 'user/pcomments/new', :locals => {:photo => @photo} %>
+
+<%= javascript_tag "var photo_tag = new PhotoTag(#{@photo.id}, #{current_user.id});" %>

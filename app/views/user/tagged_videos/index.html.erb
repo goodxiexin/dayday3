@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'video' %>
+<%= javascript_include_tag 'vfeed' %>
+
+<%= render :partial => 'user/videos/video_menu' %>
+
+<div id='videos'>
+  <%= render :partial => 'user/tagged_videos/tagged_video', :collection => @videos %>
+</div>
+

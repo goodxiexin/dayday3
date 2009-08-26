@@ -1,0 +1,6 @@
+<%= link_to_remote :wall, :update => 'personal_container', :url => new_user_wall_message_url(@user), :method => :get %>
+<%= link_to_remote :profile, :update => 'personal_container', :url => user_profile_url(@user), :method => :get %>
+<%= link_to :blog, user_blogs_url(@user, :draft => 0) %>
+<%= link_to :photo, user_albums_url(@user) %>
+<%= link_to :video, user_videos_url(@user) %>
+<%= link_to :calendar %> <br/>

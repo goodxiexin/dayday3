@@ -1,0 +1,11 @@
+<div class='fby'>
+  <h3>Activities: <%= link_to_function 'fold', "$('side_activity').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_activity'>
+    <li>Actitivty One</li>
+    <li>Activity Two</li>
+    <li>Activity Three</li>
+  </div>
+  <div class='view-more' style="text-align:right">
+    <%= link_to 'more..' %>
+  </div>
+</div>

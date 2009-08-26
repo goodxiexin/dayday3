@@ -1,0 +1,10 @@
+<div class='fby'>
+  <h3>characters: <%= link_to_function 'fold', "$('side_characters').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_characters'>
+    <% @user.game_characters.each do |c| %>
+      <li><%= link_to c.name, user_character_url(@user, c), :rel => 'facebox' %><%= link_to "(#{c.game.name})" %></li>
+    <% end %> 
+  </div>
+</div>
+
+

@@ -1,0 +1,16 @@
+<% form_remote_for :bcomment,
+                   :position => :bottom,
+                   :update => "bcomments_#{blog.id}",
+                   :complete => "$('bcomment_content_#{blog.id}').value = '';",
+                   :url => blog_comments_url(blog) do |form| %>
+  <p style="display:none"><%= text_field_tag 'bcomment[receiver_id]', blog.user.id, :id => "bcomment_receiver_#{blog.id}" %></p>
+  <div class='comment-box'>
+    <%= user_icon(current_user) %>
+    <%= text_area_tag 'bcomment[content]', '', :cols => 40, :rows => 3, :id => "bcomment_content_#{blog.id}" %><br/>
+    <div style="float:right; margin-right:15px">
+      <%= form.label "whisper?" %><%= form.check_box 'whisper' %>
+      <%= form.submit 'comment' %>
+    </div>
+  </div>
+<% end %>
+

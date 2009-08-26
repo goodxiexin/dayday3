@@ -1,0 +1,27 @@
+<% vfeed = tagged_video %>
+<div class='video-feed'>
+  <%= user_icon(vfeed.user) %>
+  <h3><%= link_to_user vfeed.user %></h3>
+  published at <span class='video-feed-tiny'><%= ftime vfeed.created_at %></span><br/>
+  <div id='video_<%= vfeed.id %>' style="margin-left:75px">
+    <%= image_tag 'blank_video.png', :onclick => "play_video(#{vfeed.id}, '#{vfeed.link}');$('video_title_#{vfeed.id}').setStyle({float:'left', marginLeft: '75px'});" %>
+  </div>
+  <div id='video_title_<%= vfeed.id %>'>
+    <%= link_to vfeed.title, user_video_url(@user, vfeed) %><br/>
+    <%= link_to vfeed.url, vfeed.url, :popup => true %>
+  </div><br/>
+  <div id='video_tags_<%= vfeed.id %>' style="float:left;margin-left:40px">
+    Tags: <%= render :partial => 'user/personal/name_tag', :collection => vfeed.tags %>
+  </div>
+  <div style="float:right">
+    <%= link_to_function "comment", "unfold_vcomments(#{vfeed.id})", :id => "unfold_#{vfeed.id}" %>
+    <%= link_to_function "fold", "fold_vcomments(#{vfeed.id})", :style => "display:none", :id => "fold_#{vfeed.id}" %> 
+    (<%= vfeed.comments_count %>) |
+    <%= link_to_remote 'dig', :url => video_digs_url(vfeed), :method => :post%>(<%= label_tag nil, vfeed.digs_count, :id => "digs_count_#{vfeed.id}" %>)
+  </div>
+  <div id='vcomments_<%=vfeed.id%>' style="margin-left:75px;float:left"></div>
+  <div id='vcomments_form_<%= vfeed.id%>' style="margin-left:75px;float:left;display:none">
+    <%= render :partial => 'user/vcomments/new', :locals => {:video => vfeed} %>  
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+<ul id='icon_operations'>
+  <li> <%= link_to_function 'tag your friends', "photo_tag.init();" %> </li>
+  <li> <%= link_to_remote 'make it current icon', :url => set_user_icon_url(@user, @icon), :confirm => 'are you sure?', :method => :post %> </li>
+  <li> <%= link_to 'edit icon',  edit_user_icon_url(@user, @icon) %> </li>
+<% unless (@icon.current_icon or @user.icons.count == 1) %>
+  <li> <%= link_to 'delete photo', confirm_destroy_user_icon_url(@user, @icon), :rel => 'facebox' %> </li>
+<% end %>
+</ul>
+

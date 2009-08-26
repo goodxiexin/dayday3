@@ -1,0 +1,11 @@
+<div class='video-feed'>
+  <%= user_icon(afeed.user) %>
+  <h3><%= link_to_user afeed.user %></h3>
+  published <span class='video-feed-tiny'><%= distance_of_time_in_words_to_now afeed.created_at %> ago</span><br/>
+  <div id='album_<%= afeed.id %>' style="margin-left:75px">
+    <%= album_cover afeed %>
+  </div>
+  <%= link_to afeed.title, user_album_url(@user, afeed) %><br/>
+  <div class='video-feed-tiny'> totally <%= afeed.photos_count %> photos </div>
+</div>
+

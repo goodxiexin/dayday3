@@ -18,6 +18,56 @@ module AuthenticatedSystem
       @current_user = new_user || false
     end
 
+    # of course, this is ugly.. but it's the best solution I can come up with right now T_T
+    def resource
+      return @resource unless @resource.blank?
+      controller = params[:controller]
+      idx = controller.index '/' 
+      resource_type = controller[(idx+1)..(controller.size)]
+      case resource_type
+      when 'photos'
+        @resource = Album.find(params[:album_id])
+      when 'pcomments'
+        @resource = Pcomment.find(params[:id])
+      when 'ptags'
+        @resource = Photo.find(params[:photo_id]).album
+      when 'bcomments'
+        @resource = Bcomment.find(params[:id])
+      when 'btags'
+        @resource = Blog.find(params[:blog_id])
+      when 'vcomments'
+        @resource = Vcomment.find(params[:id])
+      when 'vtags'
+        @resource = Video.find(params[:video_id])
+      when 'scomments'
+        @resource = Scomment.find(params[:id])
+      end
+      @resource
+    end
+
+    def resource_owner
+      return @resource_owner unless @resource_owner.blank?
+      unless params[:user_id].blank?
+        @resource_owner = User.find(params[:user_id])
+      else
+        @resource_owner = resource.user
+      end
+      @resource_owner
+    end
+
+    def relationship
+      return @relationship unless @relationship.blank?
+      return nil if resource_owner.blank?
+      if resource_owner == current_user
+        @relationship = 'owner'
+      elsif resource_owner.has_friend(current_user)
+        @relationship = 'friend'
+      else
+        @relationship = 'stranger'
+      end
+      @relationship
+    end
+
     # Check if the user is authorized
     #
     # Override this method in your controllers if you want to restrict access
@@ -52,6 +102,10 @@ module AuthenticatedSystem
       authorized? || access_denied
     end
 
+    def owner_required
+      (resource_owner == current_user) || ownership_denied
+    end
+
     def login_prohibited
       !logged_in? || permission_denied
     end
@@ -74,6 +128,10 @@ module AuthenticatedSystem
           request_http_basic_authentication 'Web Password'
         end
       end
+    end
+
+    def ownership_denied
+      render :text => "You are not the owner of this resource, thus you cannot commit that operation"
     end
 
     def permission_denied

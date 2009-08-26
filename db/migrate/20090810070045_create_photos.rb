@@ -6,6 +6,8 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :comments_count, :default => 0
       t.integer :album_id
       t.boolean :cover, :default => false
+      t.integer :user_id
+      t.boolean :current_icon, :default => false
       t.text :notation
 
       # attachment_fu fields

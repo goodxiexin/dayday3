@@ -1,0 +1,10 @@
+<% owner = (@user == current_user)? 'my':"#{@user.login}'s" %>
+<%= link_to "#{owner} videos", user_videos_url(@user) %> |
+<% if @user == current_user %>
+<%= link_to 'friends videos', user_video_feeds_url(@user) %> |
+<% end %>
+<%= link_to 'tagged video', user_tagged_videos_url(@user) %> |
+<% if @user == current_user %>
+<%= link_to 'share a video', new_user_video_url(@user) %> |
+<% end %>
+<%= link_to "#{owner} personal page", user_personal_url(@user) %>

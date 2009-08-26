@@ -1,0 +1,15 @@
+<% form_remote_for :scomment,
+                   :position => :bottom,
+                   :update => "scomments_#{status.id}",
+                   :complete => "$('scomment_content_#{status.id}').value = '';",
+                   :url => status_comments_url(status) do |form| %>
+  <div class='comment-box'>
+    <%= user_icon(current_user) %>
+    <%= text_area_tag 'scomment[content]', '', :cols => 40, :rows => 3, :id => "scomment_content_#{status.id}" %><br/>
+    <div style="float:right; margin-right:15px">
+      <%= form.label "whisper?" %><%= form.check_box 'whisper' %>
+      <%= form.submit 'comment' %>
+    </div>
+  </div>
+<% end %>
+

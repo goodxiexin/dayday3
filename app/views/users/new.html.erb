@@ -33,7 +33,7 @@
 <p> Game Characters: </p>
 <div id='character_info'></div>
 <ul id='characters'></ul>
-<%= link_to 'add game character', new_game_character_url, :rel => 'facebox' %>
+<%= link_to 'add game character', {:controller => :register, :action => 'new_character'}, :rel => 'facebox' %>
 
 <% end -%>
 

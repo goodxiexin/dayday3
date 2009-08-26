@@ -19,6 +19,14 @@ class Game < ActiveRecord::Base
   has_many :races,
            :class_name => 'GameRace',
            :dependent => :destroy
-  
+
+  has_many :blogs,
+           :order => 'digs_count DESC'
+
+  has_many :videos,
+           :order => 'digs_count DESC'
+
+  has_many :photos,
+           :order => 'digs_count DESC'  
 
 end

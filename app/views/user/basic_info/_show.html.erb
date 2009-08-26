@@ -1,0 +1,9 @@
+<%= label_tag 'login', 'virtual name ', :style => "width:200px;float:left"%><%= @user.login %><br/>
+<%= label_tag 'gender', 'gender ', :style => "width:200px;float:left"%><%= @user.gender %><br/>
+<%= label_tag 'birthday', 'birthday ', :style => "width:200px;float:left"%><%= ftime2 @user.birthday %><br/>
+<%= label_tag 'country', 'country ', :style => "width:200px;float:left"%><%= @user.country %><br/>
+<%= label_tag 'city', 'province & city', :style => "width:200px;float:left"%><%= "#{@user.province}-#{@user.city}" %></br>
+<% if @user == current_user %>
+  <%= link_to 'edit', edit_user_basic_info_url(@user), :rel => 'facebox', :style => "float:right"%><br/>
+<% end %>
+

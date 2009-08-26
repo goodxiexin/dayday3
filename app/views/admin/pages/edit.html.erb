@@ -1,11 +1,15 @@
-<h1>Editing page</h1>
+<h1>Editing pages</h1>
 
-<% form_for :page, :url => admin_page_url(@page), :html => {:method => :put} do |f| %>
+<% form_for(@pages) do |f| %>
   <%= f.error_messages %>
 
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :permalink %><br />
+    <%= f.text_field :permalink %>
   </p>
   <p>
     <%= f.label :body %><br />
@@ -16,5 +20,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', admin_page_url(@page) %> |
-<%= link_to 'Back', admin_pages_path %>
+<%= link_to 'Show', @pages %> |
+<%= link_to 'Back', pages_path %>

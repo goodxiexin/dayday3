@@ -1,0 +1,6 @@
+<% unless @game.no_areas %>
+  <%= render :partial => 'user/characters/area_select', :locals => {:areas => @areas, :area_id => nil} %>
+<% end %>
+<%= render :partial => 'user/characters/server_select', :locals => {:servers => @servers, :server_id => nil} %>
+<%= render :partial => 'user/characters/race_select', :locals => {:races => @races, :race_id => nil} %>
+<%= render :partial => 'user/characters/profession_select', :locals => {:professions => @professions, :profession_id => nil} %>
