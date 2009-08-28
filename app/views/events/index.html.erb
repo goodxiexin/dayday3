@@ -1,0 +1,9 @@
+<% content_for :left do %>
+  <%= render :partial => 'event_menu' %>
+<% end %>
+<% content_for :right do%>
+  <%= link_to 'create an event', new_event_url %>
+<% end %>
+<div id='events'>
+  <%= render :partial => 'events', :object => @events %>
+</div>

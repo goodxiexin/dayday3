@@ -1,6 +1,14 @@
 class ParticipationsController < ApplicationController
   layout 'event'
   def index
+    @event = Event.find(params[:event_id])
+    @type = params[:type]
+    @people_participations = case @type
+      when '1' then @event.invitee_participations.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
+      when '2' then @event.refuser_participations.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
+      when '3' then @event.maybe_attender_participations.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
+      when '4' then @event.must_attender_participations.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
+      end
   end
 
   def new
@@ -13,7 +21,7 @@ class ParticipationsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     params[:participants].each do |participant_id|
-      @event.participations.create(:participant_id => participant_id, :inviter_id => current_user.id)
+      @event.participations.create(:participant_id => participant_id, :inviter_id => current_user.id, :event_status => 1)
     end unless params[:participants].blank?
     flash[:notice] = "successfully invited your friends"
     render :update do |page|
@@ -45,5 +53,10 @@ class ParticipationsController < ApplicationController
     @friends = @user.friends.find_all {|f| f.login.include?(params[:event][:participations]) }
     render :partial => 'friends' 
   end     
+
+  def destroy
+    @participation = Participation.find(params[:id])
+    @participation.destroy
+  end
 
 end

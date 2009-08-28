@@ -1,0 +1,5 @@
+<p><%= "Are you sure to delete this photo?" %></p>
+<% form_remote_tag :url => event_photo_url(@event, @photo), :method => :delete do %>
+  <p>Validation code: <%= text_field_tag 'validation_text', '', :size => 4 %><%= submit_tag 'submit'%></p>
+  <p><%= validation_image %></p>
+<% end %>

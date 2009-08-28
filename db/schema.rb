@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(:version => 20090826033843) do
     t.integer  "inviter_id"
     t.integer  "participant_id"
     t.integer  "event_id"
-    t.integer  "event_status",   :default => 1
+    t.integer  "event_status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

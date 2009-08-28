@@ -1,0 +1,8 @@
+<% area_array = [['---','---']] %>
+<% areas.each { |area| area_array << [area.name, area.id] } %>
+
+<div id='areas'>
+  <%= label_tag '', 'Game Area: '%>
+  <%= select_tag 'event[game_area_id]', options_for_select(area_array, area_id), :onchange => "validate_area_id(this.value);event_area_onchange(this.value)" %>
+  <a id='area_id_info'></a>
+</div>

@@ -1,4 +1,4 @@
-class EventWallMessagesController < ApplicationController
+class Event::WallMessagesController < ApplicationController
 
   def index
   end

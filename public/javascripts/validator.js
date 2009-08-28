@@ -274,18 +274,17 @@ function validate_game_id(game_id){
   }
 }
 
-function game_onchange(game_id){
-  if(game_id == '---'){
-    $('details').innerHTML = '';
+function event_game_onchange(game_id){
+  if(game_id == ''){
+    $('game_details').innerHTML = '';
   }else{
-<<<<<<< HEAD:public/javascripts/validator.js
-    new Ajax.Updater('details', '/games/' + game_id + '?show=1', {method: 'get'});
+    new Ajax.Updater('game_details', '/events/game_details?game_id=' + game_id, {method: 'get'});
   }
 }
 
 function game_onchange_event(game_id){
   if(game_id == '---'){
-    $('game_details').innerHTML = '';
+    $('details').innerHTML = '';
   }else{
     new Ajax.Updater('details', '/register/game_details?game_id=' + game_id, {method: 'get'});
   }
@@ -354,11 +353,19 @@ function validate_area_id(area_id){
   }
 }
 
-function area_onchange(area_id,showValue){
+function area_onchange(area_id){
   if(area_id == '---'){
     $('servers').innerHTML = '<label style="width:125px;float:left">Game Server:</label><select id="server_id" name="server_id"><option value="---">---</option></select>';
   }else{
     new Ajax.Updater('servers', '/register/area_details?area_id=' + area_id, {method: 'get'});
+  }
+}
+
+function event_area_onchange(area_id){
+  if(area_id == ''){
+    $('servers').innerHTML = '<label style="width:125px;float:left">Game Server:</label><select id="server_id" name="server_id"><option value="---">---</option></select>';
+  }else{
+    new Ajax.Updater('servers', '/events/area_details?area_id=' + area_id, {method: 'get'});                                                               
   }
 }
 

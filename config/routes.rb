@@ -1,6 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :events
+  map.resources :events, :member =>{:confirm_destroy => :get}, :collection => {:game_details => :get, :area_details => :get} do |events|
+    events.resource :album,
+                    :controller => 'event/album',
+                    :member => {:confirm_destroy => :get}
+
+    events.resources :photos,
+                     :controller => 'event/photos',
+                     :member => {:confirm_destroy => :get, :cover => :post},
+                     :collection => {:update_multiple => :put, :edit_multiple => :get, :create_multiple => :post}
+
+    events.resources :wall_messages,
+                     :controller => 'event/wall_messages'
+  end
 
   map.resources :participations, :collection => {:new_participation => :get, :friends_list => :get}
 

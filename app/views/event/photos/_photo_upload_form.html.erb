@@ -1,0 +1,7 @@
+<% photo = photo_upload_form %>
+<div class='photo'>
+<% fields_for "photos[]", photo do |form| %>
+  <%= form.file_field :uploaded_data %>
+  <%= link_to_function "delete", "$(this).up('.photo').remove();" %>
+<% end %>
+</div>

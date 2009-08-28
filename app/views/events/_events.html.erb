@@ -1,0 +1,16 @@
+<% if events.blank? %>    
+  no events is found.
+<% else %>
+  <% events.each do |event| %>
+    <% event_divid = "event_#{event.id}" %>
+    <div id=<%= event_divid %>>
+      <%= event_album_cover(event) %>
+      <%= link_to event.title, event_url(event)%>
+    </div> 
+  <% end %>                                                                   
+  <% if @remote %>                                                            
+    <%= will_paginate events, :renderer => 'RemoteLinkRenderer', :remote => @remote %>
+  <% else %>
+    <%= will_paginate events %>                                              
+  <% end %>
+<% end %>

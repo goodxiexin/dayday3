@@ -20,7 +20,43 @@ class Event < ActiveRecord::Base
   # participants of this activity
   has_many :participations,
            :dependent => :destroy
+  has_many :requests,
+           :class_name => 'Participation',
+           :conditions => 'event_status = 0',
+           :dependent => :destroy
+  has_many :invitee_participations,
+           :class_name => 'Participation',                                   
+           :conditions => 'event_status = 1',
+           :dependent => :destroy
+  has_many :refuser_participations,
+           :class_name => 'Participation',                                   
+           :conditions => 'event_status = 2',
+           :dependent => :destroy
+  has_many :maybe_attender_participations,
+           :class_name => 'Participation',
+           :conditions => 'event_status = 3',
+           :dependent => :destroy
+  has_many :must_attender_participations,
+           :class_name => 'Participation',                                 
+           :conditions => 'event_status = 4',
+           :dependent => :destroy
   has_many :participants,
+           :uniq => true,
+           :through => :participations  
+  has_many :requesters,
+           :conditions => 'event_status = 0',
+           :through => :participations
+  has_many :invitees,
+           :conditions => 'event_status = 1',
+           :through => :participations
+  has_many :refusers,
+           :conditions => 'event_status = 2',
+           :through => :participations
+  has_many :maybe_attenders,
+           :conditions => 'event_status = 3',
+           :through => :participations
+  has_many :must_attenders,
+           :conditions => 'event_status = 4',
            :through => :participations
 
   # others can comment your activity

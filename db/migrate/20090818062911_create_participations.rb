@@ -4,7 +4,7 @@ class CreateParticipations < ActiveRecord::Migration
       t.integer :inviter_id
       t.integer :participant_id
       t.integer :event_id
-      t.integer :event_status, :default => 1
+      t.integer :event_status
       t.timestamps
     end
   end

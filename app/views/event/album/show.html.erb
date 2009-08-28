@@ -1,0 +1,20 @@
+<div class='show-header'>
+  <%= event_album_cover(@event) %>
+  <%= @album.title %><br/>
+  <%= link_to " back to event", event_url(@event) %> 
+  <% if @user == current_user %>
+    <%= link_to "upload photo", new_event_photo_url(@event) %>
+  <% end %>
+</div>
+
+<p>
+  <%= page_entries_info @photos, :entry_name => 'photo' %> |
+  <% if @user == current_user %> 
+    <%= link_to 'edit album', edit_event_album_url(@event) %> |
+  <% end %>
+</p>
+
+<div class='album'>
+  <%= render :partial => 'photos', :object => @photos %>
+  <%= will_paginate @photos %>
+</div> 

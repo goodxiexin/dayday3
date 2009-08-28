@@ -1,0 +1,9 @@
+<p><%= "edit album - #{@album.title}" %></p>
+<p><%= link_to 'back to album', event_album_url(@event) %></p>
+
+<% form_tag update_multiple_event_photos_url(@event), :method => :put do %>
+  <div id='photo'>
+    <%= render :partial => 'edition', :collection => @photos %> 
+  </div>
+  <%= submit_tag 'update' %>
+<% end %>

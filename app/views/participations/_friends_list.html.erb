@@ -1,3 +1,4 @@
+<p><%= select_tag 'select', options_for_select([['---', '^_^'], ['all','all'],['none', 'none']], "---"), :onchange => "participation_builder.select_dropdown_onchange(this.value)" %></p>
 <% i = 0 %>
 <table cellpadding='5px'>
 <% friends_list.each do |f| %>

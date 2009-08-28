@@ -1,0 +1,4 @@
+<% unless @game.no_areas %>
+  <%= render :partial => 'area_select', :locals => {:areas => @areas, :area_id => nil} %>
+<% end %>
+<%= render :partial => 'server_select', :locals => {:servers => @servers, :server_id => nil} %>

@@ -1,0 +1,5 @@
+<%= link_to "upload", new_event_photo_url(@event) %> |
+<%= link_to "edit", edit_event_album_url(@event) %> |
+<%= link_to "delete", confirm_destroy_event_album_url(@event), :method => 'get' %> |
+<%= link_to "back to event", event_url(@event) %>
+

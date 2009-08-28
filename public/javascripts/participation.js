@@ -74,6 +74,33 @@ ParticipationBuilder = Class.create({
     });
   },
 
+  uncheck_all_checkboxes: function(){
+  var inputs = $$('input');
+    for(var i=0;i<inputs.length;i++){
+      if(inputs[i].type == 'checkbox'){
+        inputs[i].checked = false;
+      }
+    }
+  },
+
+  select_all_checkboxes: function(){
+    var inputs = $$('input');
+    for(var i=0;i<inputs.length;i++){
+      if(inputs[i].type == 'checkbox'){
+        inputs[i].checked = true;
+      }
+    }
+  },
+
+  select_dropdown_onchange: function(selector) {
+
+    this.uncheck_all_checkboxes();
+
+    if(selector == 'all'){
+      this.select_all_checkboxes();
+    }
+  },
+
   get_selected_users: function(){
     var inputs = $$('input');
     var length = inputs.length;

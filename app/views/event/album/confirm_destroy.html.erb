@@ -1,0 +1,11 @@
+<p><%= "Edit album - #{@album.title}" %></p>
+<p><%= render :partial => 'edit_menu' %></p>
+
+<p><%= "Are you sure to delete #{link_to @album.title, event_album_url(@event)}?" %></p>
+
+<p><%= event_album_cover(@event) %></p>
+<% form_tag event_album_url(@event), :method => :delete do %>
+  <p>Validation code: <%= text_field_tag 'validation_text', '', :size => 4 %><%= submit_tag 'submit'%></p>
+  <p><%= validation_image %></p> 
+<% end %>
+

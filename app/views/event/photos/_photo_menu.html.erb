@@ -1,0 +1,8 @@
+<ul id='photo_operations'>
+  <li> <%= link_to_function 'tag your friends', "photo_tag.init();" %> </li>
+  <% if @user == current_user %>
+    <li> <%= link_to_remote 'make it cover', :url => cover_event_photo_url(@event, @photo), :confirm => 'are you sure?', :method => :post %> </li>
+    <li> <%= link_to 'edit photo',  edit_event_photo_url(@event, @photo) %> </li>
+    <li> <%= link_to 'delete photo', confirm_destroy_event_photo_url(@event, @photo), :rel => 'facebox' %> </li>
+  <% end %>
+</ul>

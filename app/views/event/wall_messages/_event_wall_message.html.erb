@@ -7,7 +7,7 @@
   <%= ftime message.created_at %> <br/>
   <%= message.content %>
   <% if current_user == message.poster %>
-    <%= link_to_remote 'delete', :complete => "$('#{wall_message_divid}').remove();",:url => {:controller => 'event_wall_messages', :action => 'destroy', :id => message.id }, :confirm => 'are you sure' %>
+    <%= link_to_remote 'delete', :complete => "$('#{wall_message_divid}').remove();",:url => {:controller => 'event/wall_messages', :action => 'destroy', :id => message.id }, :confirm => 'are you sure' %>
   <% else %>
     <%= link_to_function 'comment', "$('event_wall_message_content').value='reply to #{message.poster.login}: ';$('event_wall_message_content').focus();$('event_wall_message_receiver_id').value=#{message.poster.id};$('event_wall_message_event_id').value=#{@event.id}" %>
   <% end %>             

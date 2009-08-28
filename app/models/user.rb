@@ -53,6 +53,14 @@ class User < ActiveRecord::Base
            :through => :game_characters,
            :uniq => true
 
+  has_many :participations,
+           :foreign_key => 'participant_id',
+           :dependent => :destroy
+
+  has_many :events,
+           :through => :participations,
+           :uniq => true
+
   has_many :icons,
            :class_name => 'Photo',
            :order => 'created_at DESC',

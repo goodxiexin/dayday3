@@ -2,7 +2,7 @@
                    :position => :top,
                    :update => 'event_wall_messages',
                    :complete => "$('event_wall_message_content').value='';",
-                   :url => {:controller => 'event_wall_messages', :action => 'create'} do |form| %>
+                   :url => {:controller => 'event/wall_messages', :action => 'create'} do |form| %>
   <p style="display:none"><%= form.text_field 'event_id' %></p>
   <p style="display:none"><%= form.text_field 'receiver_id' %></p>
   <p><%= form.text_area 'content', :rows => 8, :cols => 80 %></p>

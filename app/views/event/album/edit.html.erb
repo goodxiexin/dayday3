@@ -1,0 +1,22 @@
+<p><%= "Edit album - #{@album.title}" %></p>
+<p><%= render :partial => 'edit_menu' %></p>
+
+<table cellpadding=10>
+<% form_for :album, :url => event_album_url(@event, @album), :html => {:method => :put} do |form| %> 
+  <tr>
+    <td><%= form.label 'title' %></td>
+    <td><%= form.text_field 'title' %></td>
+  </tr>
+  <tr vAlign='top'>
+    <td><%= form.label 'description' %></td>
+    <td><%= form.text_area 'description', :rows => 8, :cols => 60 %></td>
+  </tr>
+  <tr>
+    <td><%= form.label 'privilege' %></td>
+    <td><%= privilege_select_tag :album, @album.privilege %></td>
+  </tr>
+  <tr>
+    <td></td><td><%= form.submit 'update' %></td>
+  </tr>
+<% end %>
+</table>

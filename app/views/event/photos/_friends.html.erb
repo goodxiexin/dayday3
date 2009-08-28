@@ -1,0 +1,5 @@
+<% friends.each do |f| %>
+  <div id=<%= f.id %> name=<%= f.login %>>
+    <%= check_box_tag '', f.id, false %><%= f.login %><br/>
+  </div>
+<% end %>

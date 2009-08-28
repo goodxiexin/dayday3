@@ -1,0 +1,15 @@
+<% photo = edition %>
+<% fields_for 'photos[]', photo do |form| %>
+<table>
+  <tr>
+    <td vAlign='top'><%= form.label 'notation:' %></td>
+    <td vAlign='top'><%= form.text_area 'notation', :rows => 5, :cols => 50 %></td>
+    <td vAlign='top'>
+      <%= image_tag photo.public_filename(:medium) %><br/>
+      <%= form.label 'cover: ' %> <%= form.radio_button 'cover', true %><br/>
+      <%= form.label 'move to: ' %>
+      <%= select_tag "photos[#{photo.id}][album_id]", options_from_collection_for_select(@user.albums, :id, :title, photo.album_id) %> <br/>
+    </td>
+  </tr>
+</table>
+<% end %>

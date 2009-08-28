@@ -8,6 +8,17 @@
 <% end %>
 <p>Server:<%= @game_server.name %></p>
 <p>Description: <%= @event.description %></p>
-<p><%= link_to "upload photos", new_album_photo_url(@album) %></p>
-<p><%= render :partial => 'user_albums/photos', :object => @photos %></p>
+<p><%= link_to "delete this event", confirm_destroy_event_url(@event), :rel => 'facebox' %></p>
+<p><%= link_to "upload photos", new_event_photo_url(@event) %></p>
+<p><%= render :partial => 'user/albums/photos', :object => @photos %></p>
+<p><%= link_to "More...", event_album_url(@event) %></p>
+<p><%= link_to "invite more people", new_participation_url(:event_id => @event.id) %></p>
+invited:
+<p><%= render :partial => 'invited_lists', :object => @event.invitees[0..2], :locals => {:type => 1} %></p>
+Not attend:
+<p><%= render :partial => 'invited_lists', :object => @event.refusers[0..2], :locals => {:type => 2}%></p>
+Maybe attend:
+<p><%= render :partial => 'invited_lists', :object => @event.maybe_attenders[0..2], :locals => {:type => 3}%></p>
+will attend:
+<p><%= render :partial => 'invited_lists', :object => @event.must_attenders[0..2], :locals => {:type => 4}%></p> 
 <%= render :partial => 'messages' %>

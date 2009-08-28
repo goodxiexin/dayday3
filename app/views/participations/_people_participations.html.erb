@@ -1,0 +1,17 @@
+<% if people_participations.blank? %>
+  no one is on this list
+<% else %>
+  <% people_participations.each do |participation| %>
+    <% participation_divid = "participation_#{participation.id}" %>
+    <div id=<%= participation_divid %>>
+      <%= user_icon(participation.participant) %>
+      <%= link_to_user participation.participant%>
+      <%= link_to_remote 'delete', :complete => "$('#{participation_divid}').remove()", :url => participation_url(participation), :method => :delete %>
+    </div>
+  <% end %>
+  <% if @remote %>
+    <%= will_paginate people_participations, :renderer => 'RemoteLinkRenderer', :remote => @remote %>
+  <% else %>
+    <%= will_paginate people_participations %>
+  <% end %>
+<% end %>

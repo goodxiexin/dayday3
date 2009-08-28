@@ -1,0 +1,4 @@
+<% photos.each do |photo| %>
+  <% image_divid = "photo_#{photo.id}" %>
+  <%= link_to (image_tag photo.public_filename(:medium), :onmouseover => "this.setStyle({ border: '5px grey solid'});", :onmouseout => "this.setStyle({ border: '5px white solid'});", :style => "border:5px white solid"), event_photo_url(@event, photo)%>
+<% end %>

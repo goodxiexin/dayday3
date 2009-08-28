@@ -5,7 +5,7 @@
 </div>
 <div>
 <%= f.label "game:" %>
-<%= collection_select :event, :game_id, @games, :id, :name, {:prompt => '---'}, {:onchange => "validate_game_id(this.value);game_onchange_event(this.value)"} %>
+<%= collection_select :event, :game_id, @games, :id, :name, {:prompt => '---'}, {:onchange => "validate_game_id(this.value);event_game_onchange(this.value)"} %>
 <a id='game_id_info'></a>
 </div>
 <div id=game_details></div>

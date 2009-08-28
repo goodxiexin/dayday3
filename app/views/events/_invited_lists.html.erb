@@ -1,0 +1,22 @@
+<div class='invited_list'>
+  <table id='friend_table'>
+  <% i=0 %>
+  <% invited_lists.each do |person| %>
+    <% if i == 0 %>
+      <tr>
+    <% end %>
+    <td class='record'>
+    <%= user_icon person, :small %><br/>
+    <%= link_to_user person %>
+    </td>
+    <% i = i + 1 %>
+    <% if i == 3 %>
+      </tr>
+      <% i = 0 %>
+    <% end %>
+  <% end unless invited_lists.blank?%>
+  </table>
+  <div class='view-all'>
+    <%= link_to 'More...', "/participations?event_id=#{@event.id}&type=#{type}" %>
+  </div>
+</div>

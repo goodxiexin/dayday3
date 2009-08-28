@@ -2,6 +2,7 @@
 <%= link_to 'Home page', user_resource_feeds_url(current_user) %>
 <%= link_to 'Personal Page', user_personal_url(current_user) %>
 <%= link_to 'friends', user_friends_url(current_user, :term => 'name') %>
+<%= link_to 'events', events_url(:term => 'up_coming') %>
 <%= link_to 'group/guild' %>
 <%= link_to 'mailbox', user_mails_url(current_user, :type => 'recv') %>
 <%= link_to 'settings' %>

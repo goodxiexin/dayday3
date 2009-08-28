@@ -1,0 +1,11 @@
+<ul>                                                                          
+  <li><%= link_to "all up coming events", events_url(:term => 'up_coming') %></li>
+  <ul>                                                                        
+    <div id="game_list">                                                      
+      <% @user.games.each do |game| %>                                        
+        <li><%= link_to game.name, events_url(@user, :term => 'game', :game_id => game)  %></li>
+      <% end %> 
+    </div>
+  </ul>
+  <li><%= link_to "my events", events_url(:term => 'mine') %></li>
+</ul>
