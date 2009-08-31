@@ -1,7 +1,6 @@
 <% user = pcomment.user %>
 <% comment_divid = "pcomment_#{pcomment.id}" %>
 
-<% if pcomment_viewable(pcomment, current_user) %>
 <div id=<%= comment_divid %> class='comment-box'>
   <% if pcomment.whisper %>
     <div class='whisper'><strong>whisper</strong></div>
@@ -16,4 +15,3 @@
     <%= link_to_function 'comment', "$('pcomment_receiver_#{pcomment.photo.id}').value=#{user.id};$('pcomment_content_#{pcomment.photo.id}').value='reply to #{user.login}: '; $('pcomment_content_#{pcomment.photo.id}').focus();" %>
   <% end %>        
 </div>
-<% end %>

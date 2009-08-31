@@ -6,7 +6,9 @@ class User::VideosController < ApplicationController
 
   before_filter :owner_required, :only => [:new, :create, :edit, :update, :confirm_destroy, :destroy]
 
-  before_filter :record_visiting
+  before_filter :permission_required, :only => [:index, :show]
+
+  before_filter :record_visiting, :except => [:new_tag]
 
   def index
     @user = resource_owner
@@ -60,6 +62,7 @@ class User::VideosController < ApplicationController
     if @video.privilege == 'myself' and relationship != 'owner'
       render :text => 'you are not allowed to view this video'
     end 
+    @comments = @video.comments.find_user_viewable(current_user.id, :all)
   rescue ActiveRecord::RecordNotFound
     render :text => 'video not found'
   end

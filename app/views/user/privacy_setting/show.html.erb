@@ -1,0 +1,19 @@
+<h2>Privacy Setting</h2>
+<p>default setting: friends or people playing same game can view your personal page</p>
+<div class='privacy-setting'>
+  <li>
+    <h3>personal page</h3>
+    <div class='edit'><%= link_to 'edit', edit_user_privacy_setting_url(@user, :type => 1), :rel => 'facebox' %></div>
+    <div class='show' id='personal_show'><%= show_personal_setting @setting %></div>
+  </li>
+  <li>
+    <h3>friend request</h3>
+    <div class='edit'><%= link_to 'edit', edit_user_privacy_setting_url(@user, :type => 2), :rel => 'facebox' %></div>
+    <div class='show' id='friend_show'><%= show_friend_setting @setting %></div>
+  </li>
+  <li>
+    <h3>search</h3>
+    <div class='edit'><%= link_to 'edit', edit_user_privacy_setting_url(@user, :type => 3), :rel => 'facebox'%></div>
+    <div class='show' id='search_show'><%= show_search_setting @setting %></div>
+  </li>
+</div>

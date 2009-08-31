@@ -6,7 +6,9 @@ class User::BlogsController < ApplicationController
 
   before_filter :owner_required, :only => [:new, :create, :edit, :update, :confirm_destroy, :destroy, :destroy_multiple]
 
-  before_filter :record_visiting
+  before_filter :permission_required, :only => [:index, :show]
+
+  before_filter :record_visiting, :except => [:friends_list, :games_list, :new_tag, :show_popup_tag]
 
   def index
     @user = resource_owner
@@ -28,8 +30,8 @@ class User::BlogsController < ApplicationController
 
   def show
     @user = resource_owner
+    logger.error "owner = #{@user.login}"
     @blog = @user.blogs.find(params[:id])
-    logger.error @blog.privilege
     if @blog.privilege == 'friends' and relationship != 'friend' and relationship != 'owner'
       flash[:error] = "This blog is only viewable for friends"
       redirect_to new_user_friend_url(current_user, :friend_id => @user.id)
@@ -37,6 +39,8 @@ class User::BlogsController < ApplicationController
     if @blog.privilege == 'myself' and relationship != 'owner'
       render :text => 'you dont have permission to view that blog'
     end
+    logger.error "get comments"
+    @comments = @blog.comments.find_user_viewable(current_user.id, :all)
   rescue ActiveRecord::RecordNotFound
     render :text => 'blog not found'
   end

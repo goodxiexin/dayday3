@@ -1,10 +1,15 @@
 <div class='status-show'>
-  <h3> <%= @user.login %> Latest Status  <span class='status-show-tiny'><%= distance_of_time_in_words_to_now @user.latest_status.created_at %> ago</span><%= link_to_function 'fold', "$('latest_status').toggle();if(this.innerHTML == 'unfold') this.update('fold'); else this.update('unfold');", :class => 'hide-all'%></h3>
+  <h3> <%= @user.login %> Latest Status  
+   <% if !@user.latest_status.blank? %> 
+     <span class='status-show-tiny'><%= distance_of_time_in_words_to_now @user.latest_status.created_at %> ago</span>
+   <% end %>
+   <%= link_to_function 'fold', "$('latest_status').toggle();if(this.innerHTML == 'unfold') this.update('fold'); else this.update('unfold');", :class => 'hide-all'%>
+  </h3>
   <div class='content' id='latest_status'>
     <% unless @user.latest_status.blank? %>
       <%= @user.latest_status.content %>
     <% else %>
-      <span style="color:grey">nothing... a lazy boy</span>
+      <span style="color:grey">这家伙什么都没留下</span>
     <% end %>
   </div>
   <div class='view-all'>

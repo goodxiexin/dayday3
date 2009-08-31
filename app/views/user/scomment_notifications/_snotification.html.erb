@@ -8,7 +8,7 @@
   <% end %>
   <% style = (snotification.read)? "font-weight: normal;" : "font-weight: bold;" %>
   <span style='<%= style %>'>
-    <%= link_to_user commentor %> replied to you in status <%= link_to_function (truncate status.content, 20), "read_notification('status', '#{status.id}', #{@user.id}, #{delete ? 1 : 0});window.open('#{user_status_url(owner, status)}');", :popup => true %>
+    <%= link_to_user commentor %> replied to you in status <%= link_to_function (truncate status.content, 20), "read_notification('status', '#{status.id}', #{@user.id}, #{delete ? 1 : 0});window.open('#{user_statuses_url(owner, :status_id => status.id)}');", :popup => true %>
   </span>
 </li>
 

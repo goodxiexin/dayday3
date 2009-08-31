@@ -4,7 +4,7 @@ class User::MailboxesController < ApplicationController
 
   before_filter :login_required
 
-  before_filter :owner_required
+  before_filter :owner_required, :except => [:auto_complete_for_mail_recipients]
 
   def index
     @user = resource_owner
@@ -33,6 +33,11 @@ class User::MailboxesController < ApplicationController
 
   def new
     @user = resource_owner
+    unless params[:receiver_id].blank?
+      @receiver = User.find(params[:receiver_id])
+    end
+  rescue ActiveRecord::RecordNotFound
+    render :text => 'recipient not found'
   end
 
   def create
@@ -156,7 +161,7 @@ class User::MailboxesController < ApplicationController
   end
 
   def auto_complete_for_mail_recipients
-    @user = resource_owner
+    @user = current_user
     @friends = @user.friends.find_all {|f| f.login.include?(params[:mail][:recipients]) }
     render :inline => "<%= auto_complete_result @friends, 'login' %>"
   end

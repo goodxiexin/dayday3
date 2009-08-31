@@ -1,0 +1,44 @@
+<% tag = notification.tag %>
+<% type = tag.class.to_s %>
+<% if type == 'Btag' %>
+  <% blog = tag.blog %>
+  <li id="tag_notification_<%= notification.id%>" type='blog' type_id='<%= blog.id%>' notification_id='<%= notification.id%>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_tag_notification('blog', '#{blog.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span>
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+      <%= link_to_user tag.user %> tag you in blog <%= link_to_function (truncate blog.title, 20), "read_tag_notification('blog', '#{blog.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_blog_url(blog.user, blog)}');", :popup => true %>
+    </span>
+  </li>
+<% elsif type == 'Ptag' %>
+  <% photo = tag.photo %>
+  <% album = photo.album %>
+  <li id="tag_notification_<%= notification.id%>" type='photo' type_id='<%= photo.id%>' notification_id='<%= notification.id%>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_tag_notification('photo', '#{photo.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span> 
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+    <% if album.user_id == @user.id and album.user_id != tag.user_id %>
+      <%= link_to_user tag.user %> tag <%= link_to_user tag.tagged_user %> in your album <%= link_to_function (truncate album.title, 20), "read_tag_notification('photo', '#{photo.id}', #{@user.id}, #{delete ? 1:0});window.open('#{album_photo_url(album, photo)}');", :popup => true %>
+    <% else %>   
+      <%= link_to_user tag.user %> tag you in album <%= link_to_function (truncate album.title, 20), "read_tag_notification('photo', '#{photo.id}', #{@user.id}, #{delete ? 1:0});window.open('#{album_photo_url(album, photo)}');", :popup => true %>
+    <% end %>
+    </span>
+  </li>
+<% elsif type == 'Vtag' %>
+  <% video = tag.video %>
+  <li id="tag_notification_<%= notification.id%>" type='video' type_id='<%= video.id%>' notification_id='<%= notification.id%>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_tag_notification('video', '#{video.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span> 
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+      <%= link_to_user tag.user %> tag you in video <%= link_to_function (truncate video.title, 20), "read_tag_notification('video', '#{video.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_video_url(video.user, video)}');", :popup => true %>
+    </span>
+  </li>
+<% end %>

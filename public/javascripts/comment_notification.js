@@ -1,5 +1,5 @@
-function read_notification(type, type_id, user_id, partial){
-  var lis = $('notifications').childElements();
+function read_comment_notification(type, type_id, user_id, partial){
+  var lis = $('comment_notifications').childElements();
   var length = lis.length;
   var related_items = [];
   
@@ -16,7 +16,7 @@ function read_notification(type, type_id, user_id, partial){
   for(var i=0;i<length;i++){
     params += "ids[]=" + related_items[i].readAttribute('notification_id') + "&";
   }
-  new Ajax.Request('/users/'+user_id+'/'+type[0]+'comment_notifications/read_multiple?' + params, {
+  new Ajax.Request('/users/'+user_id+'/'+'comment_notifications/read_multiple?' + params, {
     method: 'post',
     onSuccess: function(transport){
       for(var i=0;i<length;i++){

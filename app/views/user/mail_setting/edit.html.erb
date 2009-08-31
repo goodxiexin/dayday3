@@ -1,0 +1,143 @@
+<% content_for :left do %>
+  <%= render :partial => 'user/account_setting/menu' %>
+<% end %>
+
+<% content_for :right do %>
+  <%= render :partial => 'menu' %>
+<% end %>
+
+<div class='setting-clarify'>
+<div class='title'>通知</div>
+<div class='content'>
+Dayday3 将会把在 Dayday3 上和您相关的事件通知您。<br/>
+每个 Dayday3 应用程序拥有它自己的通知设置。点击复选框来改变相应应用程序的设置。<br/>
+发送电子邮件通知到：<%= @user.email %>
+</div>
+</div>
+
+<% form_for :setting, :url => user_mail_setting_url(@user), :html => {:method => :put} do |f| %>
+<table class='mail-setting'>
+<tr class='category' id='general'>
+  <td><strong>Dayday3</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>给我发消息</td>
+  <td class='check'><%= f.check_box 'mail_me' %></td>
+</tr>
+<tr>
+  <td class='name'>将我添加为朋友</td>
+  <td class='check'><%= f.check_box 'request_to_be_friend' %></td>
+</tr>
+<tr>
+  <td class='name'>同意我为朋友</td>
+  <td class='check'><%= f.check_box 'confirm_friend' %></td>
+</tr>
+<tr>
+  <td class='name'>生日快到了</td>
+  <td class='check'><%= f.check_box 'birthday' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='status'>
+  <td><strong>状态</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>对我的状态发表评论</td>
+  <td class='check'><%= f.check_box 'comment_my_status' %></td>
+</tr>
+<tr>
+  <td class='name'>在我之后对同一状态发表评论</td>
+  <td class='check'><%= f.check_box 'comment_same_status_after_me' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='wall'>
+  <td><strong>留言版</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>在我的留言版上留言</td>
+  <td class='check'><%= f.check_box 'message_me' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='poke'>
+  <td><strong>招呼</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>对我打招呼</td>
+  <td class='check'><%= f.check_box 'poke_me' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='blog'>
+  <td><strong>博客</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>在一篇博客中圈出了我</td>
+  <td class='check'><%= f.check_box 'tag_me_in_blog' %></td>
+</tr>
+<tr>
+  <td class='name'>评论我的博客</td>
+  <td class='check'><%= f.check_box 'comment_my_blog' %></td>
+</tr>
+<tr>
+  <td class='name'>在我之后对同一篇博客进行评论</td>
+  <td class='check'><%= f.check_box 'comment_same_blog_after_me' %></td>
+</tr>
+<tr>
+  <td class='name'>评论标记了我的博客</td>
+  <td class='check'><%= f.check_box 'comment_blog_contains_me' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='photo'>
+  <td><strong>照片</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>在一张照片中圈出了我</td>
+  <td class='check'><%= f.check_box 'tag_me_in_photo' %></td>
+</tr>
+<tr>
+  <td class='name'>在我的照片上圈人</td>
+  <td class='check'><%= f.check_box 'tag_my_photo' %></td>
+</tr>
+<tr>
+  <td class='name'>评论我的照片</td>
+  <td class='check'><%= f.check_box 'comment_my_photo' %></td>
+</tr>
+<tr>
+  <td class='name'>评论我所在的照片</td>
+  <td class='check'><%= f.check_box 'comment_photo_contains_me' %></td>
+</tr>
+<tr>
+  <td class='name'>在我之后对同一张照片进行评论</td>
+  <td class='check'><%= f.check_box 'comment_same_photo_after_me' %></td>
+</tr>
+<tr class='no-border'><td><br/></td></tr>
+<tr class='category' id='video'>
+  <td><strong>视频</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td class='name'>在一个视频中标记了我</td>
+  <td class='check'><%= f.check_box 'tag_me_in_photo' %></td>
+</tr>
+<tr>
+  <td class='name'>评论我的视频</td>
+  <td class='check'><%= f.check_box 'comment_my_photo' %></td>
+</tr>
+<tr>
+  <td class='name'>评论我被标记的视频</td>
+  <td class='check'><%= f.check_box 'comment_photo_contains_me' %></td>
+</tr>
+<tr>
+  <td class='name'>在我之后对同一个视频进行评论</td>
+  <td class='check'><%= f.check_box 'comment_same_photo_after_me' %></td>
+</tr>
+<tr>
+  <td><%= f.submit '保存修改' %></td>
+</tr>
+
+</table>
+<% end %>

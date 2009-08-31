@@ -1,20 +1,25 @@
 <%= text_field_tag 'search' %>
 <%= observe_field :search,
+                  :complete  => "facebox.watchClickEvents();",
                   :update    => "friends",
                   :frequency => 1,
                   :url       => search_user_friends_url,
                   :with      => "'key='+$('search').value",
                   :method    => :get  %>
 
-<ul>
-  <li><%= link_to "all friends", user_friends_url(@user, :term => 'name') %></li>
-  <ul>
-    <div id="game_list">
-      <% @user.games.each do |game| %>
-        <li><%= link_to game.name, user_friends_url(@user, :term => 'game', :game_id => game)  %></li> 
-      <% end %>
-    </div>
-  </ul>
-  <li><%= link_to "friend suggestion" %></li>
-  <li><%= link_to "recently added friends", user_friends_url(@user, :term => 'time') %></li>
-</ul>
+<div class='fby'>
+  <h3> Friend menu: <%= link_to_function 'fold', "$('friend_menus').toggle();if(this.innerHTML == 'fold') this.update('unfold');else this.update('fold');" %></h3>
+  <div id='friend_menus'>
+    <li>
+      <%= link_to "all friends", user_friends_url(@user, :term => 'name') %>
+      <%= link_to_function '+', "$('game_list').toggle(); if(this.innerHTML == '+') this.update('-');else this.update('+')" %>
+      <div id="game_list" class='fby-submenu' style="display:none">
+        <% @user.games.each do |game| %>
+          <li><%= link_to game.name, user_friends_url(@user, :term => 'game', :game_id => game)  %></li> 
+        <% end %>
+      </div>
+    </li>
+    <li><%= link_to "friend suggestion" %></li>
+    <li><%= link_to "recently added friends", user_friends_url(@user, :term => 'time') %></li>
+  </div>
+</div>

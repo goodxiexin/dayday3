@@ -12,3 +12,11 @@
 <div id='statuses'>
 <%= render :partial => 'status', :collection => @statuses %> 
 </div>
+
+<% unless params[:status_id].blank? %>
+<%= javascript_tag "unfold_scomments(#{params[:status_id]});
+                    $('scomment_content_#{params[:status_id]}').focus();
+                    var offset = $('status_#{params[:status_id]}').positionedOffset();
+                    window.scrollTo(0, offset.top);" %>
+<% end %>
+

@@ -5,5 +5,11 @@
   </div>
   <% if @user == current_user %>
     <div class='view-all'><%= link_to 'my icons', new_user_icon_url(@user), :rel => 'facebox' %></div>
+  <% else %>
+    <li><%= link_to 'send him an email', new_user_mail_url(current_user, :receiver_id => @user.id) %></li>
+    <li><%= link_to 'poke him', new_user_poke_url(current_user, :receiver_id => @user.id), :rel => 'facebox' %></li>
+  <% end %>
+  <% unless @user.has_friend(current_user) %>
+    <li><%= link_to 'request to be friend', new_user_friend_request_url(current_user, :receiver_id => @user.id), :rel => 'facebox'%></li>
   <% end %>
 </div>

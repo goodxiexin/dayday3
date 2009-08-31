@@ -2,6 +2,16 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
 
+  has_many :friend_requests,
+           :foreign_key => 'receiver_id',
+           :order => 'created_at DESC'
+
+  has_many :friend_notifications
+
+  has_one :privacy_setting
+
+  has_one :mail_setting
+
   has_many :visitor_records,
            :order => 'created_at DESC'
 
@@ -96,24 +106,10 @@ class User < ActiveRecord::Base
           :class_name => 'Status',
           :order => 'created_at DESC'
 
-  has_many :scomment_notifications,
-           :order => 'created_at DESC'
-
   has_many :blogs,
            :order => 'position DESC',
            :conditions => {:draft => false}
 
-  has_many :bcomment_notifications,
-           :order => 'created_at DESC'
-
-  def unread_comments_count
-    self.bcomment_notifications.find_all {|x| !x.read}.count
-  + self.vcomment_notifications.find_all {|x| !x.read}.count
-  + self.scomment_notifications.find_all {|x| !x.read}.count
-  + self.pcomment_notifications.find_all {|x| !x.read}.count
-  end
-   
- 
   has_many :drafts,
            :class_name => 'Blog',
            :order => 'updated_at DESC',
@@ -122,13 +118,17 @@ class User < ActiveRecord::Base
   has_many :albums,
            :order => 'updated_at DESC'
 
-  has_many :pcomment_notifications,
-           :order => 'created_at DESC'
-
   has_many :videos,
            :order => 'position DESC'
 
-  has_many :vcomment_notifications,
+  has_many :tag_notifications,
+           :order => 'created_at DESC'
+
+  has_many :comment_notifications,
+           :order => 'created_at DESC'
+
+  has_many :pokes,
+           :foreign_key => 'receiver_id',
            :order => 'created_at DESC'
 
   # permissions and roles

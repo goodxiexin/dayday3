@@ -1,7 +1,9 @@
+<% friend_requests_count = @user.friend_requests.count %>
+<% pokes_count = @user.pokes.count %>
 <div class='visitors'>
-  <h3>You have: <%= link_to_function 'fold', "$('request_table').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
-  <div id='request_table' style="list-style:none;font-size:9px">
-    <li>One request</li>
-    <li>Two notifications</li>
+  <h3>You have: <%= link_to_function 'fold', "$('requests').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='requests' style="list-style:none;font-size:9px">
+    <% unless friend_requests_count == 0%><li><%= link_to "#{friend_requests_count}条好友请求", user_friend_requests_url(@user) %></li><% end %>
+    <% unless pokes_count == 0%><li><%= link_to "#{pokes_count}个招呼", user_pokes_url(@user) %></li><% end %>
   </div>
 </div>

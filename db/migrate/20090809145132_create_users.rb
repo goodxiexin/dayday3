@@ -18,6 +18,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :qq, :mobile
       t.string :website
       t.datetime :birthday
+
       t.timestamps
     end
   end

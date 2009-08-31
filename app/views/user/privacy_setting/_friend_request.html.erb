@@ -1,0 +1,8 @@
+<h3>Friend Request</h3>
+<hr/>
+<% form_remote_tag :url => user_privacy_setting_url(@user, :type => 2), :method => :put do %>
+  <%= label_tag '', 'who can send friend request to you?'%><br/>
+  <%= friend_select_tag(@setting) %>
+  <%= submit_tag 'submit' %>
+<% end %>
+

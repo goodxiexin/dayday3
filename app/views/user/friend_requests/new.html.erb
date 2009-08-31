@@ -1,0 +1,6 @@
+<% form_remote_for :request, :url => user_friend_requests_url(@sender) do |f| %>
+  <%= user_icon @receiver %>
+  <%= text_field_tag 'request[receiver_id]', @receiver.id, :style => "display:none" %>
+  <%= f.text_area 'content', :rows => 5, :cols => 30 %><br/>
+  <%= f.submit 'submit' %>
+<% end %>

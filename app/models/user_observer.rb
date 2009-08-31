@@ -1,6 +1,8 @@
 class UserObserver < ActiveRecord::Observer
 
   def after_create(user)
+    PrivacySetting.create(:user_id => user.id)
+    MailSetting.create(:user_id => user.id)
     UserMailer.deliver_signup_notification(user)
   end
 

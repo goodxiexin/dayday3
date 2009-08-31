@@ -1,0 +1,9 @@
+<% @notifications.each do |n| %>
+  <% if n.content == 'accept' %>
+    accept
+  <% elsif n.content == 'decline' %>
+    decline
+  <% elsif n.content == 'request' %>
+    request
+  <% end %>
+<% end %>

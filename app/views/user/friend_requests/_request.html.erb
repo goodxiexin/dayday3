@@ -1,0 +1,17 @@
+<% sender = request.sender %>
+<div class='friend' id='friend_request_<%= request.id%>'>
+  <%= user_icon sender %>
+  <div class='user-link'>
+    <%= link_to_user sender %><br/>
+    <span class='friend-tiny'>
+      <% sender.games.each do |g| %>
+        <%= link_to g.name %><%= ',' %>
+      <% end %>
+    </span>
+  </div><br/>
+  <div class='details'><%= request.content %> </div>
+  <div class='operation'>
+    <%= link_to '接受', user_friend_request_url(@user, request, :accept => 1), :rel => 'facebox', :method => :delete%> |
+    <%= link_to '拒绝',  confirm_destroy_user_friend_request_url(@user, request), :rel => 'facebox'%>
+  </div>
+</div>

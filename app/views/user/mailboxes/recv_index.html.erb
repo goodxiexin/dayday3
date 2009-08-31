@@ -1,16 +1,14 @@
 <%= javascript_include_tag 'mailbox.js' %>
 
-<p>
-  <%= render :partial => 'mailbox_menu' %>
-</p>
+<%= render :partial => 'mailbox_menu' %><br/>
 
-<p>
+<div class='mailbox-operation'>
   <%= "select: " %>
   <%= mail_select_tag %>
   <%= link_to_function 'read',   "read_mails(#{@user.id})", :id => 'read_mails_link' %> |
   <%= link_to_function 'unread', "unread_mails(#{@user.id})", :id => 'unread_mails_link' %> |
   <%= link_to_function 'delete', "delete_mails(#{@user.id}, 'recv')", :id => 'delete_mails_link' %>
-</p>
+</div>
 
 <div id='recv_mails_count'>
   <%= "totally #{@user.recv_mails.count} mails " %> | <%= "#{@user.unread_recv_mails_count} unread" %>

@@ -1,0 +1,5 @@
+<h3>You have received:</h3>
+
+<%= page_entries_info @pokes, :entry_name => 'poke' %>
+<%= render :partial => 'poke', :collection => @pokes %>
+<%= will_paginate @pokes %>

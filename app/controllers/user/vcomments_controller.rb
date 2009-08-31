@@ -27,7 +27,7 @@ class User::VcommentsController < ApplicationController
 
   def index
     @video = Video.find(params[:video_id])
-    @comments = @video.comments
+    @comments = @video.comments.find_user_viewable(current_user.id, :all)
     render :partial => 'vcomment', :collection => @comments
   rescue ActiveRecord::RecordNotFound
     render :text => 'video not found'

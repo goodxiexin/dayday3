@@ -1,0 +1,28 @@
+<% form_remote_for :poke, :url => user_pokes_url(@user) do |f| %>
+  <%= text_field_tag 'poke[receiver_id]', @receiver.id, :style => "display:none" %>
+  <%= f.label '选择动作' %>
+  <hr/>
+  <table>
+    <tr>
+      <td><%= radio_button_tag 'poke[content]', 'hi' %><%= image_tag 'pokes/hi.png' %>打招呼</td>
+      <td><%= radio_button_tag 'poke[content]', 'shake' %><%= image_tag 'pokes/shake.png' %>握手</td>
+      <td><%= radio_button_tag 'poke[content]', 'cuo' %><%= image_tag 'pokes/cuo.png' %>戳一下</td>
+    </tr>
+    <tr>
+      <td><%= radio_button_tag 'poke[content]', 'victory' %><%= image_tag 'pokes/victory.png' %>胜利</td>
+      <td><%= radio_button_tag 'poke[content]', 'punch' %><%= image_tag 'pokes/punch.png' %>给一拳</td>
+      <td><%= radio_button_tag 'poke[content]', 'smile' %><%= image_tag 'pokes/smile.png' %>微笑</td>
+    </tr>
+    <tr>
+      <td><%= radio_button_tag 'poke[content]', 'se' %><%= image_tag 'pokes/se.png' %>色迷迷</td>
+      <td><%= radio_button_tag 'poke[content]', 'mei' %><%= image_tag 'pokes/mei.png' %>抛媚眼</td>
+      <td><%= radio_button_tag 'poke[content]', 'touch' %><%= image_tag 'pokes/touch.png' %>摸摸头</td>
+    </tr>
+    <tr>
+      <td><%= radio_button_tag 'poke[content]', 'kiss' %><%= image_tag 'pokes/kiss.png' %>飞吻</td>
+      <td><%= radio_button_tag 'poke[content]', 'bolt' %><%= image_tag 'pokes/bolt.png' %>电一下</td>
+      <td><%= radio_button_tag 'poke[content]', 'cai' %><%= image_tag 'pokes/cai.png' %>踩一下</td>
+    </tr>
+  </table>
+  <%= f.submit 'send' %>
+<% end %>

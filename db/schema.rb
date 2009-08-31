@@ -9,7 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090826063423) do
+ActiveRecord::Schema.define(:version => 20090830132411) do
+
+  create_table "account_settings", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admin_pages", :force => true do |t|
     t.string   "title"
@@ -26,14 +31,6 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.string   "title"
     t.text     "description"
     t.string   "privilege",    :default => "all"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bcomment_notifications", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.boolean  "read",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,6 +82,15 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.datetime "updated_at"
   end
 
+  create_table "comment_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.string   "comment_type"
+    t.boolean  "read",         :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "countries", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -97,6 +103,22 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.integer  "receiver_id"
     t.text     "content"
     t.boolean  "whisper",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friend_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "sender_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friend_requests", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -162,6 +184,31 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.datetime "updated_at"
   end
 
+  create_table "mail_settings", :force => true do |t|
+    t.integer "user_id"
+    t.boolean "mail_me",                      :default => true
+    t.boolean "request_to_be_friend",         :default => true
+    t.boolean "confirm_friend",               :default => true
+    t.boolean "birthday",                     :default => false
+    t.boolean "comment_my_status",            :default => true
+    t.boolean "comment_same_status_after_me", :default => true
+    t.boolean "message_me",                   :default => true
+    t.boolean "poke_me",                      :default => true
+    t.boolean "tag_me_in_photo",              :default => true
+    t.boolean "tag_my_photo",                 :default => true
+    t.boolean "comment_my_photo",             :default => true
+    t.boolean "comment_photo_contains_me",    :default => true
+    t.boolean "comment_same_photo_after_me",  :default => true
+    t.boolean "tag_me_in_blog",               :default => true
+    t.boolean "comment_my_blog",              :default => true
+    t.boolean "comment_same_blog_after_me",   :default => true
+    t.boolean "comment_blog_contains_me",     :default => true
+    t.boolean "tag_me_in_video",              :default => true
+    t.boolean "comment_my_video",             :default => true
+    t.boolean "comment_same_video_after_me",  :default => true
+    t.boolean "comment_video_contains_me",    :default => true
+  end
+
   create_table "mails", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
@@ -180,15 +227,6 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.string   "title"
     t.string   "permalink"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pcomment_notifications", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "commentor_id"
-    t.integer  "comment_id"
-    t.boolean  "read",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -238,6 +276,23 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.integer  "position"
   end
 
+  create_table "pokes", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "content",     :default => "hi"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "privacy_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "personal",   :default => 1
+    t.integer  "friend",     :default => 0
+    t.boolean  "search",     :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "provinces", :force => true do |t|
     t.string   "name"
     t.integer  "country_id"
@@ -263,15 +318,6 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.datetime "updated_at"
   end
 
-  create_table "scomment_notifications", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "commentor_id"
-    t.integer  "comment_id"
-    t.boolean  "read",         :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "scomments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "status_id"
@@ -286,6 +332,15 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.integer  "user_id"
     t.text     "content"
     t.integer  "comments_count", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.string   "tag_type"
+    t.boolean  "read",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -309,15 +364,6 @@ ActiveRecord::Schema.define(:version => 20090826063423) do
     t.integer  "mobile"
     t.string   "website"
     t.datetime "birthday"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "vcomment_notifications", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "commentor_id"
-    t.integer  "comment_id"
-    t.boolean  "read",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

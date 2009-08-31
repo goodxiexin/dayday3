@@ -9,4 +9,9 @@ class Vtag < ActiveRecord::Base
   belongs_to :video,
              :counter_cache => 'tags_count'
 
+  has_many :tag_notifications,
+           :as => 'tag',
+           :dependent => :destroy
+
+
 end

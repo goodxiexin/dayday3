@@ -1,0 +1,9 @@
+<div class='fby'>
+  <h3>Menu: <%= link_to_function 'fold', "$('side_menus').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='side_menus'>
+    <li><%= link_to 'reset password', edit_user_password_url(@user) %></li>
+    <li><%= link_to 'delete account' %></li>
+    <li><%= link_to 'mail settings', edit_user_mail_setting_url(@user) %></li>
+  </div>
+</div>
+

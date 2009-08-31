@@ -2,12 +2,20 @@
   no friends is found. you can search friends in our website
 <% else %>
   <% friends.each do |friend| %>
-    <% friend_divid = "friend_#{friend.id}" %>
-    <div id=<%= friend_divid %>>
-      <%= user_icon(friend) %>
-      <%= link_to_user friend%>
-      <%= link_to_remote 'delete', :complete => "$('#{friend_divid}').remove()", :url => user_friend_url(@user, friend), :method => :delete %>
+  <div class='friend' id='<%= "friend_#{friend.id}"%>'>
+    <%= user_icon(friend) %>
+    <div class='user-link'>
+      <%= link_to_user friend%><br/>
+      <span class='friend-tiny'>
+        <% friend.games.each do |g| %>
+          <%= link_to g.name %><%= ',' %> 
+        <% end %>
+      </span>
     </div>
+    <div class='operation'>
+      <%= link_to 'x', confirm_destroy_user_friend_url(@user, friend), :rel => 'facebox' %>
+    </div>
+  </div>
   <% end %>
   <% if @remote %>
     <%= will_paginate friends, :renderer => 'RemoteLinkRenderer', :remote => @remote %>

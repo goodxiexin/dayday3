@@ -9,4 +9,8 @@ class Btag < ActiveRecord::Base
   belongs_to :blog,
              :counter_cache => 'tags_count'
 
+  has_many :tag_notifications,
+           :as => 'tag',
+           :dependent => :destroy
+
 end

@@ -1,8 +1,8 @@
 <h3>comment notifications</h3>
 
 <div class='notification-board'>
-<div class='comment-notification' id='notifications'>
-  <%= render :partial => 'user/comment_notifications/notification', :collection => @notifications, :locals => {:delete => false} %>
+<div class='comment-notification' id='comment_notifications'>
+  <%= render :partial => 'notification', :collection => @notifications, :locals => {:delete => false} %>
 </div>
 </div>
 

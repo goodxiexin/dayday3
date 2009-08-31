@@ -1,5 +1,70 @@
-<% class_name = notification.class.to_s.downcase.pluralize %>
-<% idx = class_name.index 'notification' %>
-<% directory = class_name[0..(idx-1)] + '_' + class_name[idx..class_name.size] %>
-<% initial = class_name[0..0] %>
-<%= render :partial => "user/#{directory}/#{initial}notification", :object => notification, :locals => {:delete => delete} %>
+<% comment = notification.comment %>
+<% type = comment.class.to_s %>
+<% if type == 'Bcomment' %>
+  <% blog = comment.blog %>
+  <li id='comment_notification_<%= notification.id %>' type='blog' type_id='<%= blog.id %>' notification_id='<%= notification.id %>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_comment_notification('blog','#{blog.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span>
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+    <% if comment.receiver_id != @user.id and blog.user_id != @user.id %>
+      <%= link_to_user comment.user %> 在博客<%= link_to_function (truncate blog.title, 20), "read_comment_notification('blog', '#{blog.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_blog_url(blog.user, blog)}');", :popup => true %>里留言了
+    <% elsif comment.receiver_id != @user.id and blog.user_id == @user.id %>
+      <%= link_to_user comment.user %> 在你的博客<%= link_to_function (truncate blog.title, 20), "read_comment_notification('blog', '#{blog.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_blog_url(blog.user, blog)}');", :popup => true %>里留言了
+    <% else %>
+      <%= link_to_user comment.user %> 在博客<%= link_to_function (truncate blog.title, 20), "read_comment_notification('blog', '#{blog.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_blog_url(blog.user, blog)}');", :popup => true %>里回复了你
+    <% end %>
+    </span>
+  </li>
+<% elsif type == 'Pcomment' %>
+  <% photo = comment.photo %>
+  <% album = photo.album %>
+  <li id='comment_notification_<%= notification.id %>' type='photo' type_id='<%= photo.id %>' notification_id='<%= notification.id %>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_comment_notification('photo','#{photo.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span>
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+    <% if comment.receiver_id != @user.id and album.user_id != @user.id %>
+      <%= link_to_user comment.user %> 在相册<%= link_to_function (truncate album.title, 20), "read_comment_notification('photo', '#{photo.id}', #{@user.id}, #{delete ? 1:0});window.open('#{album_photo_url(photo.album, photo)}');", :popup => true %>里留言了
+    <% elsif comment.receiver_id != @user.id and album.user_id == @user.id %>
+      <%= link_to_user comment.user %> 在你的相册<%= link_to_function (truncate album.title, 20), "read_comment_notification('photo', '#{photo.id}', #{@user.id}, #{delete ? 1:0});window.open('#{album_photo_url(photo.album, photo)}');", :popup => true %>里留言了
+    <% else %>
+      <%= link_to_user comment.user %> 在相册 <%= link_to_function (truncate album.title, 20), "read_comment_notification('photo', '#{photo.id}', #{@user.id}, #{delete ? 1:0});window.open('#{album_photo_url(photo.album, photo)}');", :popup => true %>里回复了你
+    <% end %>
+    </span>
+  </li>
+<% elsif type == 'Vcomment' %>
+  <% video = comment.video %>
+  <li id='comment_notification_<%= notification.id %>' type='video' type_id='<%= video.id %>' notification_id='<%= notification.id %>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_comment_notification('video','#{video.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span>
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+    <% if comment.receiver_id != @user.id and video.user_id != @user.id %>
+      <%= link_to_user comment.user %> 在视频 <%= link_to_function (truncate video.title, 20), "read_comment_notification('video', '#{video.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_video_url(video.user, video)}');", :popup => true %>里留言了
+    <% elsif comment.receiver_id != @user.id and video.user_id == @user.id %>
+      <%= link_to_user comment.user %> 在你的视频<%= link_to_function (truncate video.title, 20), "read_comment_notification('video', '#{video.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_video_url(video.user, video)}');", :popup => true %>里留言了
+    <% else %>
+      <%= link_to_user comment.user %> 在视频 <%= link_to_function (truncate video.title, 20), "read_comment_notification('video', '#{video.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_video_url(video.user, video)}');", :popup => true %>里回复了你
+    <% end %>
+    </span>
+  </li>
+<% elsif type == 'Scomment' %>
+  <% status = comment.status %>
+  <li id='comment_notification_<%= notification.id %>' type='status' type_id='<%= status.id %>' notification_id='<%= notification.id %>'>
+    <% if delete %>
+      <span class='delete'><%= link_to_function 'x', "read_comment_notification('status','#{status.id}', #{@user.id}, 1);" %></span>
+    <% end %>
+    <span class='notification-tiny'><%= ftime4 notification.created_at %></span>
+    <% style = (notification.read)? "font-weight: normal;" : "font-weight: bold;" %>
+    <span style='<%= style %>'>
+      <%= link_to_user comment.user %> replied to you in status <%= link_to_function (truncate status.content, 20), "read_comment_notification('status', '#{status.id}', #{@user.id}, #{delete ? 1:0});window.open('#{user_statuses_url(status.user)}');", :popup => true %>
+    </span>
+  </li>  
+<% end %>

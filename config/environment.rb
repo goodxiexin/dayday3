@@ -44,7 +44,7 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
-  config.active_record.observers = [:photo_observer, :comment_observer]#:user_observer]
+  config.active_record.observers = [:photo_observer, :scomment_observer, :btag_observer, :bcomment_observer, :vtag_observer, :vcomment_observer, :ptag_observer, :pcomment_observer, :friend_request_observer]#:user_observer]
 end
 
 require 'will_paginate'

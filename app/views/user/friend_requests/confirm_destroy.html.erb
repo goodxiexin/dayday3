@@ -1,0 +1,5 @@
+<p><%= "你确定要拒绝加他为好友吗？" %></p>
+<% form_remote_tag :url => user_friend_request_url(@user, @request), :method => :delete do %>
+  <%= text_field_tag 'accept', 0, :style => 'display:none' %>
+  <%= submit_tag '确定' %>
+<% end %>

@@ -1,7 +1,6 @@
 <% user = scomment.user %>
 <% comment_divid = "scomment_#{scomment.id}" %>
 
-<% if scomment_viewable(scomment,current_user) %>
 <div id=<%= comment_divid %> class='comment-box'>
   <% if scomment.whisper %>
     <div class='whisper'><strong>whisper</strong></div>
@@ -16,4 +15,3 @@
     <%= link_to_function 'comment', "$('scomment_receiver_#{scomment.status.id}').value=#{user.id};$('scomment_content_#{scomment.status.id}').value='reply to #{user.login}: '; $('scomment_content_#{scomment.status.id}').focus();" %>
   <% end %>
 </div>
-<% end %>

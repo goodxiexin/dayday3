@@ -1,16 +1,10 @@
 <%
-    notifications = []
-    notifications.concat @user.scomment_notifications
-    notifications.concat @user.vcomment_notifications
-    notifications.concat @user.bcomment_notifications
-    notifications.concat @user.pcomment_notifications
-    @notifications = notifications.find_all {|x| !x.read}
-    @notifications = @notifications.sort { |x,y| y.created_at <=> x.created_at }
+    @notifications = @user.comment_notifications.find_all {|n| !n.read}
 %>
 <div class='comment-notification'>
-  <h3> comments and messages  <%= link_to_function 'fold', "$('notifications').toggle();if(this.innerHTML == 'unfold') this.update('fold'); else this.update('unfold');", :class => 'hide-all'%></h3>
-  <div id='notifications'>
-    <%= render :partial => 'user/comment_notifications/notification', :collection => @notifications[0..7], :locals => {:delete => true} %>
+  <h3> comment notification(<%= @notifications.count %> unread) <%= link_to_function 'fold', "$('comment_notifications').toggle();if(this.innerHTML == 'unfold') this.update('fold'); else this.update('unfold');", :class => 'hide-all'%></h3>
+  <div id='comment_notifications'>
+    <%= render :partial => 'user/comment_notifications/notification', :collection => @notifications[0..9], :locals => {:delete => true} %>
   </div>
   <div class='view-all'>
     <%= link_to 'more..', user_comment_notifications_url(@user) %>

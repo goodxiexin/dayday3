@@ -1,7 +1,6 @@
 <% user = vcomment.user %>
 <% comment_divid = "vcomment_#{vcomment.id}" %>
 
-<% if vcomment_viewable(vcomment, current_user) %>
 <div id=<%= comment_divid %> class='comment-box'>
   <% if vcomment.whisper %>
     <div class='whisper'><strong>whisper</strong></div>
@@ -16,4 +15,3 @@
     <%= link_to_function 'comment', "$('vcomment_receiver_#{vcomment.video.id}').value=#{user.id};$('vcomment_content_#{vcomment.video.id}').value='reply to #{user.login}: '; $('vcomment_content_#{vcomment.video.id}').focus();" %>
   <% end %>        
 </div>
-<% end %>

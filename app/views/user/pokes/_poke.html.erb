@@ -1,0 +1,13 @@
+<div class='poke' id="poke_<%= poke.id%>">
+  <div class='icon'>
+    <%= user_icon poke.sender %>
+  </div>
+  <div class='content'>
+    <%= image_tag "pokes/#{poke.content}.png" %>
+    <%= link_to_user poke.sender %> 向你 <%= poke_content(poke) %>
+  </div>
+  <div class='operation'>
+    <%= link_to 'reply', new_user_poke_url(@user, :receiver_id => poke.sender.id), :rel => 'facebox' %> |
+    <%= link_to_remote 'delete', :complete => "$('poke_#{poke.id}').remove();",:url => user_poke_url(@user, poke), :method => :delete %> 
+  </div>
+</div>
