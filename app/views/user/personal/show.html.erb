@@ -12,6 +12,13 @@
 
 <%= render :partial => 'user/personal/menu' %>
 
+<%= render :partial => 'user/statuses/show' %>
+
 <div id='personal_container'>
+  <h3>Wall: <%= link_to "all wall messages", user_wall_messages_url(@user) %></h3>
+  <%= render :partial => 'user/wall_messages/input' %>
+  <div id='wall_messages'> 
+    <%= render :partial => 'user/wall_messages/wall_message', :collection => @wall_messages %>
+  </div>
 </div>
 

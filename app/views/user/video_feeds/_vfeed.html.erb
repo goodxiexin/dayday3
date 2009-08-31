@@ -6,7 +6,7 @@
     <%= image_tag 'blank_video.png', :onclick => "play_video(#{vfeed.id}, '#{vfeed.link}');$('video_title_#{vfeed.id}').setStyle({float:'left', marginLeft: '75px'});" %>
   </div>
   <div id='video_title_<%= vfeed.id %>'>
-    <%= link_to vfeed.title, user_video_url(@user, vfeed) %><br/>
+    <%= link_to vfeed.title, user_video_url(vfeed.user, vfeed) %><br/>
     <%= link_to vfeed.url, vfeed.url, :popup => true %>
   </div>
   <div style="float:right">

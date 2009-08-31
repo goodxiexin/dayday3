@@ -18,19 +18,32 @@ class User::FriendsController < ApplicationController
     when 'time'
       @friends = @user.friends.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
     end
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @friends }
     end
   end
 
+  def confirm_destroy
+    @user= resource_owner
+    @friend = User.find(params[:id])
+    render :action => 'confirm_destroy', :layout => false
+  rescue ActiveRecord::RecordNotFound
+    render :text => 'friend not found' 
+  end
+
   def destroy
     @user = resource_owner
-    @user.friendships.find_by_friend_id(params[:id]).destroy
-    respond_to do |format|
-      format.html { render :nothing => true }
-      format.xml { head :ok }
+    @friendship = Friendship.find(:first, :conditions => {:user_id => @user.id, :friend_id => params[:id]})
+    if session[:validation_text] == params[:validation_text]
+      @friendship.destroy
+      render :update do |page|
+        page << "facebox.close();$('friend_#{params[:id]}').remove();"
+      end
+    else
+      render :update do |page|
+        page << "$('error').innerHTML = validation code error';" 
+      end
     end
   rescue ActiveRecord::RecordNotFound
     render :text => 'friend not found'

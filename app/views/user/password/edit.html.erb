@@ -1,0 +1,31 @@
+<% content_for :left do %>
+  <%= render :partial => 'user/account_setting/menu' %>
+<% end %>
+
+<div class='notes'>
+<h4>安全密码设置提示</h4>
+<li>请使用英文字母加数字或符号的组合密码。</li>
+<li>请不要使用你的个人信息作为密码的内容。如生日、手机号码等。</li>
+<li>请不要使用与登录邮箱相同的密码。</li>
+<li>建议每隔一段时间更新一次帐号的密码。</li>
+</div>
+
+<div class='reset-password-form'>
+<% form_tag user_password_url(@user), :method => 'put' do %>
+<p>
+  <%= label_tag '', 'old password: '%>
+  <%= password_field_tag 'old_password', @old_password %>
+</p>
+<p>
+  <%= label_tag '', 'new password: '%>
+  <%= password_field_tag 'new_password', @new_password %>
+</p>
+  <%= label_tag '', 'confirmation: '%>
+  <%= password_field_tag 'confirmation', @confirmation%>
+<p>
+  <%= label_tag '', 'validation code: '%><%= text_field_tag 'validation_text', params[:validation_text], :size => 4 %>
+  <%= validation_image %>
+</p>
+  <%= submit_tag 'submit' %>
+<% end %>
+</div>

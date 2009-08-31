@@ -10,7 +10,7 @@ class User::BcommentsController < ApplicationController
     @comment.user = current_user
     @comment.blog = @blog
     if @comment.save
-      BcommentNotification.create(:user_id => current_user.id, :receiver_id => bcomment.receiver_id, :blog_id => bcomment.blog.id)
+      # create a notificaiton
       render :partial => 'bcomment', :object => @comment
     end
   rescue ActiveRecord::RecordNotFound
@@ -28,7 +28,7 @@ class User::BcommentsController < ApplicationController
 
   def index
     @blog = Blog.find(params[:blog_id])
-    @comments = @blog.comments
+    @comments = @blog.comments.find_user_viewable(current_user.id, :all)
     render :partial => 'bcomment', :collection => @comments
   rescue ActiveRecord::RecordNotFound
     render :text => 'blog not found'

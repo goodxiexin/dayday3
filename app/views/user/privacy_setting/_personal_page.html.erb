@@ -1,0 +1,8 @@
+<h3>personal page</h3>
+<hr/>
+<% form_remote_tag :url => user_privacy_setting_url(@user, :type => 1), :method => :put do %>
+  <%= label_tag '', 'who can view my personal page?'%><br/>
+  <%= personal_select_tag(@setting) %>
+  <%= submit_tag 'submit' %>
+<% end %>
+

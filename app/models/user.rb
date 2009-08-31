@@ -2,6 +2,16 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
 
+  has_many :friend_requests,
+           :foreign_key => 'receiver_id',
+           :order => 'created_at DESC'
+
+  has_many :friend_notifications
+
+  has_one :privacy_setting
+
+  has_one :mail_setting
+
   has_many :visitor_records,
            :order => 'created_at DESC'
 
@@ -108,21 +118,6 @@ class User < ActiveRecord::Base
            :order => 'position DESC',
            :conditions => {:draft => false}
 
-  has_many :bcomment_notifications,
-           :order => 'created_at DESC'
- 
-  def can_view(blog)
-    return true if blog.user == self 
-    case blog.privilege
-    when 'all'
-      return true
-    when 'myself'
-      return (blog.user == self)
-    when 'only friends'
-      return blog.user.has_friend(self)
-    end
-  end
- 
   has_many :drafts,
            :class_name => 'Blog',
            :order => 'updated_at DESC',
@@ -133,6 +128,16 @@ class User < ActiveRecord::Base
 
   has_many :videos,
            :order => 'position DESC'
+
+  has_many :tag_notifications,
+           :order => 'created_at DESC'
+
+  has_many :comment_notifications,
+           :order => 'created_at DESC'
+
+  has_many :pokes,
+           :foreign_key => 'receiver_id',
+           :order => 'created_at DESC'
 
   # permissions and roles
   has_many :permissions

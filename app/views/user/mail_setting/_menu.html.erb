@@ -1,0 +1,13 @@
+<div class='fby'>
+  <h3>Category: <%= link_to_function 'fold', "$('mail_setting_menu').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='mail_setting_menu'>
+    <li><%= image_tag 'account.gif' %> <%= link_to_function "General", "window.scrollTo(0, $('general').positionedOffset().top);$('general').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'status.gif' %> <%= link_to_function "Status", "window.scrollTo(0, $('status').positionedOffset().top);$('status').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'application.gif' %> <%= link_to_function "Wall", "window.scrollTo(0, $('wall').positionedOffset().top);$('wall').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'privacy.gif' %> <%= link_to_function "Poke", "window.scrollTo(0, $('poke').positionedOffset().top);$('poke').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'blog.gif' %> <%= link_to_function "Blog", "window.scrollTo(0, $('blog').positionedOffset().top);$('blog').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'video.gif' %> <%= link_to_function "Video", "window.scrollTo(0, $('video').positionedOffset().top);$('video').highlight({duration: 1});" %></li>
+    <li><%= image_tag 'photo.gif' %> <%= link_to_function "Photo", "window.scrollTo(0, $('photo').positionedOffset().top);$('photo').highlight({duration: 1});" %></li>
+  </div>
+</div>
+

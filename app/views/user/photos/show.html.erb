@@ -35,7 +35,7 @@
 <%= render :partial => 'photo_menu' %>
 
 <div id='pcomments_<%= @photo.id%>'>
-  <%= render :partial => 'user/pcomments/pcomment', :collection => @photo.comments %>
+  <%= render :partial => 'user/pcomments/pcomment', :collection => @comments %>
 </div>
 
 <%= render :partial => 'user/pcomments/new', :locals => {:photo => @photo} %>

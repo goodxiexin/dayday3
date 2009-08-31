@@ -1,4 +1,4 @@
-<%= link_to 'received', :action => 'index', :type => 'recv' %>
-<%= link_to 'sent', :action => 'index', :type => 'sent' %>
-<%= link_to 'notification' %>
+<%= link_to 'received', user_mails_url(@user, :type => 'recv') %>
+<%= link_to 'sent', user_mails_url(@user, :type => 'sent') %>
+<%= link_to 'notification', user_friend_notifications_url(@user) %>
 <%= link_to 'write new mail', new_user_mail_url %>

@@ -27,7 +27,7 @@ class User::ScommentsController < ApplicationController
 
   def index
     @status = Status.find(params[:status_id])
-    @comments = @status.comments
+    @comments = @status.comments.find_user_viewable(current_user.id, :all)
     render :partial => 'scomment', :collection => @comments
   rescue ActiveRecord::RecordNotFound
     render :text => 'status not found'

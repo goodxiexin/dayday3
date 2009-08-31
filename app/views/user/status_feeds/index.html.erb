@@ -1,0 +1,11 @@
+<% content_for :left do %>
+<%= render :partial => 'user/statuses/status_menu' %>
+<% end %>
+
+<div id='feeds'>
+<% @more = 1 %>
+<%= render :partial => 'sfeed', :collection => @statuses %>
+</div>
+<div id='more_feeds'>
+<%= link_to_remote "More..", :url => get_user_status_feeds_url(@user, :idx => @idx), :method => :get %>
+</div>

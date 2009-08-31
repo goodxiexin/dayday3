@@ -10,7 +10,7 @@ class User::WallMessagesController < ApplicationController
 
   def index
     @user = resource_owner
-    @wall_messages = WallMessage.paginate :page => params[:page], :per_page => 10, :conditions => "user_id = #{@user.id} OR receiver_id = #{@user.id}", :order => 'created_at DESC' 
+    @wall_messages = WallMessage.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC', :conditions => {:user_id => @user.id, :receiver_id => @user.id} #@user.wall_messages.paginate :page => params[:page], :per_page => 10
     @wall_message = WallMessage.new
     @wall_message.receiver_id = @user.id
   end

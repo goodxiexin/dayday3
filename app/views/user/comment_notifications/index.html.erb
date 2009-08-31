@@ -1,0 +1,10 @@
+<h3>comment notifications</h3>
+
+<div class='notification-board'>
+<div class='comment-notification' id='comment_notifications'>
+  <%= render :partial => 'notification', :collection => @notifications, :locals => {:delete => false} %>
+</div>
+</div>
+
+<%= page_entries_info @notifications, :entry_name => 'notification' %>
+<%= will_paginate @notifications %>

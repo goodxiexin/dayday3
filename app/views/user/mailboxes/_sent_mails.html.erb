@@ -1,15 +1,19 @@
-<table cellpadding=10>
+<table class='recv-mail'>
   <% sent_mails.each_with_index do |mail, i| %>
     <% receiver = mail.receiver %>
     <tr>
-      <td><%= check_box_tag "mail_#{i}", "#{mail.id}-#{mail.read_by_sender}" %></td>
-      <td align='center'><%= user_icon(receiver) %></td>
-      <td><%= link_to receiver.login %></td>
-      <td><%= ftime mail.created_at %></td>
-      <td><%= link_to mail.title, user_mail_url(:id => mail) %><br/>
-          <%= mail.content %></td>
-      <td><%= link_to 'delete', user_mail_url(:id => mail, :type => 'sent'), :confirm => 'are you sure?', :method => :delete %></td>
+      <td class='checkbox'><%= check_box_tag "mail_#{i}", "#{mail.id}-#{mail.read_by_sender}" %></td>
+      <td class='icon'><%= user_icon(receiver) %></td>
+      <td class='name'>
+        <%= link_to receiver.login %><br/>
+        <span class='recv-mail-tiny'><%= ftime mail.created_at %></span>
+      </td>
+      <td class='title'>
+        <%= link_to mail.title, user_mail_url(:id => mail) %><br/>
+        <span class='mail-content-truncate'><%= mail.content %></span>
+      </td>
+      <td class='operation'><%= link_to 'x', user_mail_url(:id => mail, :type => 'sent'), :confirm => 'are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
-<%= will_paginate sent_mails %>
+<div class='mail-pagination'><%= will_paginate sent_mails %></div>

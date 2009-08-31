@@ -90,6 +90,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :users, :member => {:enable => :put} do |users|
+    users.resource :password,
+                   :controller => 'user/password'
+
     users.resource :personal,
                    :controller => 'user/personal'
 
@@ -120,7 +123,15 @@ ActionController::Routing::Routes.draw do |map|
 
     users.resources :friends, 
                     :controller => 'user/friends',
+                    :member => {:confirm_destroy => :get},
                     :collection => {:search => :get}
+
+    users.resources :friend_requests,
+                    :controller => 'user/friend_requests',
+                    :member => {:confirm_destroy => :get}
+
+    users.resources :friend_notifications,
+                    :controller => 'user/friend_notifications'
 
     users.resources :visitor_records,
                     :controller => 'user/visitor_records'
@@ -169,6 +180,28 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :resource_feeds,
                     :controller => 'user/resource_feeds',
                     :collection => {:get => :get}
+ 
+    users.resources :comment_notifications,
+                    :controller => 'user/comment_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :tag_notifications,
+                    :controller => 'user/tag_notifications',
+                    :collection => {:read_multiple => :post}
+
+    users.resources :pokes,
+                    :controller => 'user/pokes',
+                    :collection => {:destroy_all => :delete}
+
+    users.resource :privacy_setting,
+                   :controller => 'user/privacy_setting'
+
+    users.resource :mail_setting,
+                   :controller => 'user/mail_setting'
+
+    users.resource :application_setting,
+                   :controller => 'user/application_setting'
+ 
   end  
 
   map.resources :statuses do |statuses|

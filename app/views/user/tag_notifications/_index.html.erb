@@ -1,0 +1,11 @@
+<% @notifications = @user.tag_notifications.find_all { |n| !n.read} %>
+
+<div class='comment-notification'>
+  <h3> Tag Notifications(<%= @notifications.count %> unread)  <%= link_to_function 'fold', "$('tag_notifications').toggle();if(this.innerHTML == 'unfold') this.update('fold'); else this.update('unfold');", :class => 'hide-all'%></h3>
+  <div id='tag_notifications'>
+    <%= render :partial => 'user/tag_notifications/notification', :collection => @notifications[0..9], :locals => {:delete => true} %>
+  </div>
+  <div class='view-all'>
+    <%= link_to 'more..', user_tag_notifications_url(@user) %>
+  </div>
+</div>

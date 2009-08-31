@@ -1,0 +1,2 @@
+module User::FriendRequestsHelper
+end

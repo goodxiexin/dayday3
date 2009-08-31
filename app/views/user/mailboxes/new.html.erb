@@ -21,3 +21,10 @@
   </tr>
 <% end %>
 </table>
+
+<% unless @receiver.blank? %>
+<script type="text/javascript">
+  $('mail_recipients').value = '<%= @receiver.login %>';
+  $('mail_recipients').disabled = true;     
+</script>
+<% end %>

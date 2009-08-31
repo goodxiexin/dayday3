@@ -6,12 +6,14 @@ class User::PhotosController < ApplicationController
 
   before_filter :owner_required, :only => [:new, :edit, :edit_multiple, :create_multiple, :update, :update_multiple, :confirm_destroy, :destroy,:cover]
 
-  before_filter :record_visiting
+  before_filter :permission_required, :only => [:index, :show]
+
+  before_filter :record_visiting, :except => [:friends]
 
   def show
     @album = Album.find(params[:album_id])
     @user = resource_owner#@album.user
-    if @album.privilege == 'friends' and relationship != 'owner' and relationsihp != 'friend'
+    if @album.privilege == 'friends' and relationship != 'owner' and relationship != 'friend'
       flash[:error] = "This photo is only viewable for friends"
       redirect_to new_user_friend_url(current_user, :friend_id => @user.id)
     end
@@ -19,6 +21,7 @@ class User::PhotosController < ApplicationController
       render :text => 'only owner is allowed to view this album'
     end
     @photo = @album.photos.find(params[:id])
+    @comments = @photo.comments.find_user_viewable(current_user.id, :all)
   rescue ActiveRecord::RecordNotFound
     render :text => 'photo not found'
   end

@@ -36,7 +36,7 @@
 
 
 <div id='vcomments_<%= @video.id %>'>
-  <%= render :partial => 'user/vcomments/vcomment', :collection => @video.comments %>
+  <%= render :partial => 'user/vcomments/vcomment', :collection => @comments %>
 </div>
 
 <%= render :partial => 'user/vcomments/new', :locals => {:video => @video } %>

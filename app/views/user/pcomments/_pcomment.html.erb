@@ -1,7 +1,10 @@
 <% user = pcomment.user %>
-<% comment_divid = "comment_#{pcomment.id}" %>
+<% comment_divid = "pcomment_#{pcomment.id}" %>
 
 <div id=<%= comment_divid %> class='comment-box'>
+  <% if pcomment.whisper %>
+    <div class='whisper'><strong>whisper</strong></div>
+  <% end %>
   <%= user_icon(user) %>
   <strong><%= link_to_user user %></strong>
   <span class="comment-box-tiny"><%= ftime pcomment.created_at %></span><br/>
@@ -9,6 +12,6 @@
   <% if current_user == user %>
     <%= link_to_remote 'delete', :complete => "$('#{comment_divid}').remove();", :url => photo_comment_url(pcomment.photo, pcomment), :method => :delete %>
   <% else %>       
-    <%= link_to_function 'comment', "$('pcomment_content').value='reply to #{user.login}: '; $('pcomment_content').focus();" %>
+    <%= link_to_function 'comment', "$('pcomment_receiver_#{pcomment.photo.id}').value=#{user.id};$('pcomment_content_#{pcomment.photo.id}').value='reply to #{user.login}: '; $('pcomment_content_#{pcomment.photo.id}').focus();" %>
   <% end %>        
 </div>

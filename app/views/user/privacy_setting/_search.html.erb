@@ -1,0 +1,8 @@
+<h3>personal page</h3>
+<hr/>
+<% form_remote_tag :url => user_privacy_setting_url(@user, :type => 3), :method => :put do %>
+  <%= label_tag '', 'allow people to get my info through search engine'%>
+  <%= check_box_tag 'setting[search]', 1, @setting.search %><br/>
+  <%= submit_tag 'save' %>
+<% end %>
+

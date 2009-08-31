@@ -6,6 +6,8 @@ class User::AlbumsController < ApplicationController
 
   before_filter :owner_required, :only => [:new, :create, :edit, :create, :confirm_destroy, :destroy]
 
+  before_filter :permission_required, :only => [:index, :show]
+
   before_filter :record_visiting
 
   def index

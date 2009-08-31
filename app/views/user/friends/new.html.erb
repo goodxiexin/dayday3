@@ -7,11 +7,14 @@
   <%= render :partial => 'user/personal/resources_right' %><br/>
 <% end %>
 
-<strong><%= @user.login %>:</strong> <%= @user.latest_status.content %><br/>
+<strong><%= @user.login %>:</strong>
+<% unless @user.latest_status.blank? %>
+  <%= @user.latest_status.content %>
+   <span class='status-show-tiny'><%= distance_of_time_in_words_to_now @user.latest_status.created_at %> ago</span>
+<% else %>
+  <span style="color:grey">这家伙什么都没留下</span>
+<% end %> 
 <div class='yellow-info'>
-  <% form_tag user_friends_url(@user) do %>
     <strong><%= label_tag '', 'do you want to know more about him?' %></strong><br/>
-    <%= image_submit_tag 'add_friend.gif' %>
-  <% end %>
+    <%= link_to (image_tag 'add_friend.gif', :style => "border:0px;"), new_user_friend_request_url(current_user, :receiver_id => @user.id), :rel => 'facebox' %> or <strong><%= link_to "send him an email", new_user_mail_url(current_user, :receiver_id => @user.id) %></strong>
 </div>
-

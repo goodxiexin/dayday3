@@ -5,6 +5,6 @@
 <%= link_to 'events', events_url(:term => 'up_coming') %>
 <%= link_to 'group/guild' %>
 <%= link_to 'mailbox', user_mails_url(current_user, :type => 'recv') %>
-<%= link_to 'settings' %>
+<%= link_to 'settings', '', :onmouseover => "show_setting_menus(this, #{current_user.id});" %>
 <%= link_to 'logout', session_url(:id => 1), :method => :delete %>
 </div>

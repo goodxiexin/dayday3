@@ -1,32 +1,9 @@
-1. think about if we really need personal controller and profile controller
+1. conditional counter_cache
 
-2. fix facebox bug DONE
+2. how to calculate unread comment notification
 
-3. fix relationship can't be invoked from view bug
+3. tag notification
 
-4. with scope DONE
+4. dig
 
-5. owner_required DONE
-
-6. compare 2 level resources and >2 level resources (in authentication) DONE
-  temporarily, I am adopting 2 level resources because it's not difficult to code. The design might be modified in the future. 
-
-7. think about if we can integrate privilege check into authenticate_system
-
-8. view friends' page DONE
-
-9. prevent user from viewing mailbox, building new blog etc. DONE
-
-10. whisper? receiver_id?
-
-11. view friend's friends
-
-12. add friend
-
-13. how about tagged info and someone replied to you...
-
-order:
-require login
-require viewable (TO BE DONE tomorrow)
-require owner
-record visiting
+5. setting

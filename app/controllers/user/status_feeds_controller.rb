@@ -1,6 +1,17 @@
 class User::StatusFeedsController < ApplicationController
 
+  layout 'user'
+
   before_filter :login_required
+
+  before_filter :owner_required
+
+  def index
+    @user = resource_owner
+    ret = Status.more_feeds(@user, 0)
+    @idx = ret[0] + 1
+    @statuses = ret[1]
+  end
 
   def get
     @user = User.find(params[:user_id])

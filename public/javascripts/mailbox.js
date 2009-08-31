@@ -185,6 +185,9 @@ function validate_mail(){
     info.insert('<li style="color: red">content cannot be blank</li>', {position: 'bottom'});
   }
 
+  if(!error)
+    $('mail_recipients').disabled = false;
+
   return !error;
 }
 

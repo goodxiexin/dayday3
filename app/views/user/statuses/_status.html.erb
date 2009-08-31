@@ -1,0 +1,21 @@
+<div class='blog-feed' id=<%= "status_#{status.id}"%>>
+  <% if @user == current_user %>
+  <div style="float:right">
+    <%= link_to_remote "x", :after => "$('status_#{status.id}').remove();", :url => user_status_url(@user.id, status), :confirm => 'are you sure?', :method => :delete %>
+  </div>
+  <% end %>
+  <%= user_icon(status.user) %>
+  <%= link_to_user status.user %> 
+  <span class='blog-feed-tiny'><%= distance_of_time_in_words_to_now status.created_at %> ago</span><br/>
+  <%= status.content %>
+  <div style="float:right">
+    <%= link_to_function "comment", "unfold_scomments(#{status.id})", :id => "unfold_scomments_#{status.id}" %>
+    <%= link_to_function "fold", "fold_scomments(#{status.id})", :style => "display:none", :id => "fold_scomments_#{status.id}" %> 
+    (<%= status.comments_count %>)
+  </div>
+  <div id='scomments_<%= status.id%>' style="margin-left:75px;float:left"></div>
+  <div id='scomments_form_<%= status.id%>' style="margin-left:75px;float:left;display:none">
+    <%= render :partial => 'user/scomments/new', :locals => {:status => status} %>
+  </div>
+</div>
+

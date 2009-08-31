@@ -106,8 +106,25 @@ module AuthenticatedSystem
       (resource_owner == current_user) || ownership_denied
     end
 
+    def permission_required
+      logger.error "permission required"
+      if resource_owner == current_user
+        return true
+      end
+      level = resource_owner.privacy_setting.personal
+      if level == 0 
+        return true
+      elsif level == 1
+        # check if resource owner requests to be a friend of current_user
+        current_user.friend_requests.each do |f|
+          return true if f.sender == resource_owner
+        end
+        (relationship == 'friend') || permission_denied(level)
+      end
+    end
+
     def login_prohibited
-      !logged_in? || permission_denied
+      !logged_in? || permission_denied2
     end
 
     # Redirect as appropriate when an access request fails.
@@ -134,7 +151,14 @@ module AuthenticatedSystem
       render :text => "You are not the owner of this resource, thus you cannot commit that operation"
     end
 
-    def permission_denied
+    def permission_denied(level)
+      if level == 1
+        flash[:notice] = 'only friends are allowed to view his personal pages'
+        redirect_to new_user_friend_url(current_user, :friend_id => resource_owner.id)
+      end
+    end
+
+    def permission_denied2
       respond_to do |format|
         format.html do
           domain_name = "http://localhost:3000"
