@@ -1,0 +1,109 @@
+class User::FriendGuessesController < ApplicationController
+  layout 'friend'
+  
+  before_filter :login_required
+
+  def index
+    @user = current_user
+    if (@user.friend_guesses.empty? or (@user.friend_guesses.size < 50))
+        self.create
+    end
+    @friend_suggestions = current_user.guessed_friends.sort_by{rand}[0..8]
+    @common_game_characters = {}
+    # this prevent multiple game characters in one game server
+    current_user.currently_playing_game_characters.each do |game_character|
+      @current_game_characters = {}
+      @current_game_characters.default = ' ' 
+      game_character.server.game_characters.each do |other_character|
+        @current_game_characters[other_character.user.id] += (other_character.name + ' ')
+      end
+      @common_game_characters[game_character.server.id] = @current_game_characters
+    end
+  end
+
+  def create
+    unless @user.friend_guesses.empty?
+        self.remove_all
+    end
+    @guessed_users = {}
+    @guessed_users.default = 0
+    @stage = 0
+    # go through all events find people that attending the same event as the current user
+    # those users are most like to be friend with current user
+    current_user.events.each do |event|
+      event.must_attenders.each do |user|
+        # if they are already friend or engine already searched 200 people and has not yet include that user, we ignore that user
+        unless (current_user.id == user.id or current_user.has_friend(user) or current_user.has_friend_request(user) or (guessed_users.size >= 200 and guessed_users[user.id] == 0 ))
+          @guessed_users[user.id] += 5
+        end
+      end
+    end
+
+    if (@guessed_users.size >= 200)
+      @stage = 1
+    end
+
+    unless (@stage == 1)
+      catch(:done) do 
+        current_user.friends.each do |friend|
+          @n = friend.friends.size
+          @n.times do |i|
+            @user = friend.friends[rand(@n)]
+            unless (current_user.id == @user.id or current_user.has_friend(@user) or current_user.has_friend_request(@user) )
+              @guessed_users[@user.id] += 1
+              throw :done if (@guessed_users.size >= 200)
+            end
+          end
+        end
+      end
+    end
+
+    if (@guessed_users.size >= 200)   
+      @done = true
+    else
+      @done = false
+    end
+ 
+    unless (@done)
+      @final_suggestions = @guessed_users.sort{|a,b| a[1] <=> b[1]}[0..50]
+      @final_suggestions.each do |element|
+        current_user.friend_guesses.create(:guess_id => element[0])
+      end
+      #redirect_to :back
+    end
+
+    return
+  end
+
+  def remove_all
+    current_user.friend_guesses.each do |guess|
+      guess.destroy
+    end
+    return
+  end
+
+  def show_all
+    @server = GameServer.find(params[:server_id])
+    @current_game_characters={}
+    @current_game_characters.default = ' '
+    @server.game_characters.each do |other_character|
+      @current_game_characters[other_character.user.id] += (other_character.name + ' ')
+    end
+    # currently the users are shown with login order (user.id),but login name ASC order is perfered
+    @temp_array = @current_game_characters.sort
+    @user_array = @temp_array.paginate :page => params[:page], :per_page => 10
+  end
+
+  def show_all_server_characters
+    @user = current_user
+    @common_game_characters={}
+    current_user.game_characters.each do |game_character|
+      @current_game_characters = {}
+      @current_game_characters.default = ' '
+      game_character.server.game_characters.each do |other_character|
+        @current_game_characters[other_character.user.id] += (other_character.name + ' ')
+      end
+      @common_game_characters[game_character.server.id] = @current_game_characters
+    end
+  end
+end

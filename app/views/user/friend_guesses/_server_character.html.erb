@@ -1,0 +1,13 @@
+<div class='friend_suggestion' id='friend_suggestion_<%= server_character[0] %>'>
+<% @common_game_user = User.find(server_character[0]) %>
+<%= user_icon @common_game_user %>
+<%= link_to_user @common_game_user %>
+player name: <%= server_character[1] %>
+    <% if current_user.id == @common_game_user.id %>    
+    <% elsif current_user.has_friend(@common_game_user) %>           
+      已为好友  
+    <% elsif current_user.has_friend_request(@common_game_user)%>
+      以发出邀请
+    <% else %>
+      <%= link_to (image_tag 'add_friend.gif', :style => "border:0px;"), new_user_friend_request_url(current_user, :receiver_id => @common_game_user.id), :rel => 'facebox' %>
+    <% end %>   

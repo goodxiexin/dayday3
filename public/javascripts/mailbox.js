@@ -163,8 +163,16 @@ function delete_mails(user_id, type){
   }); 
 }
 
-function validate_mail(){
-  var recipients = $('mail_recipients');
+function after_auto_select(input_field, selected_li){                         
+  mail_builder.new_recipient(selected_li.readAttribute('user_id'), 1);
+} 
+    
+function double_check_recipient(){
+  mail_builder.check_recipient($('mail_recipients').value);                   
+}
+
+MailBuilder = Class.create({
+  validate_mail: function(){
   var title = $('mail_title');
   var content = $('mail_content');
   var info = $('mail_info');
@@ -172,7 +180,7 @@ function validate_mail(){
 
   info.innerHTML = '';
 
-  if(recipients.value == ''){
+  if(this.recipients.size == 0){
     error = true;
     info.insert('<li style="color: red">you must specify at least one recipient</li>', {position: 'bottom'});
   }
@@ -188,6 +196,57 @@ function validate_mail(){
   if(!error)
     $('mail_recipients').disabled = false;
 
-  return !error;
-}
+  return error;
+},
 
+  initialize: function(user_id){
+    this.user_id = user_id;
+
+    this.recipients = new Hash();
+  },
+
+  new_recipient: function(recipient_id, case_id){
+    if(this.recipients.get(recipient_id)) return;
+    new Ajax.Request('/users/'+this.user_id+'/mails/new_recipient?recipients[]='+recipient_id + '&condition='+case_id, {
+      method: 'get',
+      onSuccess: function(transport){
+        $('recipients_info').innerHTML = transport.responseText + $('recipients_info').innerHTML;
+        $('mail_recipients').value=''; 
+        var children = $('recipients_info').childElements();
+        var length = children.length;
+        for(var i=0;i<length;i++){
+          this.recipients.set(children[i].readAttribute('recipient_id'), children[i]);
+        } 
+      }.bind(this)      
+    });
+  },
+
+  remove_recipient: function(recipient_id){
+    var recipient_code = this.recipients.unset(recipient_id);
+    recipient_code.remove();
+  },
+ 
+  check_recipient: function(recipient_names){
+    this.recipients.each(function(pair){
+      if (recipient_names.match(pair.value) == null)
+        this.recipients.unset(pair.key);
+    }.bind(this));
+  },
+
+  validate_save: function(){
+    if (this.validate_mail()) return;
+
+    var form = $('mail_form');
+    var title = $('mail_title').value;
+    var content = $('mail_content').value;
+    var url = '/users/' + this.user_id;
+    url += '/mails?';
+    this.recipients.each(function(pair){
+      url += "recipients[]=" + pair.key + "&";
+    });
+    url += "mail[title]=" + title + "&";
+    url += "mail[content]=" + content;
+    new Ajax.Request(url, {method: 'post'});
+  },
+
+});

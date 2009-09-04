@@ -1,0 +1,10 @@
+<h3> 您一共玩了<%= @common_game_characters.size %>款以下游戏 </h3>
+<% @common_game_characters.each do |game_server_id, server_users_hash| %>     
+<% @server = GameServer.find(game_server_id) %>                               
+<h3>有<%= server_users_hash.size %>个玩家在您所在的<%= @server.game.name %>  <%= @server.name %>在一起玩</h3>
+<% unless (server_users_hash.size <=3) %>                                     
+<%= link_to '查看全部', show_all_user_friend_guesses_path(@user, :server_id => game_server_id) %>
+<% end %>
+<%= render :partial => 'server_character', :collection => server_users_hash.sort_by{rand}[0..2] %>
+<% end %>                                                                     
+

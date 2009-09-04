@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090830132411) do
+ActiveRecord::Schema.define(:version => 20090901162327) do
 
   create_table "account_settings", :force => true do |t|
     t.datetime "created_at"
@@ -124,6 +124,13 @@ ActiveRecord::Schema.define(:version => 20090830132411) do
     t.integer  "participations_count", :default => 0
     t.datetime "time"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friend_guesses", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "guess_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

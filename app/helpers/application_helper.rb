@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def validation_image
-    "<img src='/application/new_validation_image' />"
+    "<img name='validationImage' src='/application/new_validation_image?time=1' onclick=\"renew_validation_image()\"/>"
   end
 
   def privilege_select_tag(resource, privilege)

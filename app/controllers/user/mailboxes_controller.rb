@@ -43,8 +43,8 @@ class User::MailboxesController < ApplicationController
   def create
     @user = resource_owner
     Mail.transaction do
-      params[:mail][:recipients].split(%r{,\s*}).each do |recipient_name|
-        recipient = @user.friends.find_by_login(recipient_name)
+      params[:recipients].each do |recipient_id|
+        recipient = User.find(recipient_id)
         if recipient
           mail = Mail.new(params[:mail])
           mail.receiver = recipient
@@ -55,7 +55,9 @@ class User::MailboxesController < ApplicationController
         end
       end
     end
-    redirect_to :action => 'index', :type => 'sent'
+    render :update do |page|
+      page.redirect_to :action => 'index', :type => 'sent'
+    end
   end
 
   def reply
@@ -160,10 +162,18 @@ class User::MailboxesController < ApplicationController
     redirect_to user_mails_url(@user, :type => 'recv')
   end
 
+  def new_recipient
+    recipients = []
+    params[:recipients].each do |recipient_id|
+      recipients << User.find(recipient_id)
+    end
+    render :partial => "recipient", :collection => recipients, :locals => {:condition => params[:condition]}
+  end
+
   def auto_complete_for_mail_recipients
     @user = current_user
     @friends = @user.friends.find_all {|f| f.login.include?(params[:mail][:recipients]) }
-    render :inline => "<%= auto_complete_result @friends, 'login' %>"
+    render :partial => 'friends'
   end
 
 end

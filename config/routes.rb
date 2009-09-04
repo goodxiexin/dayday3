@@ -119,12 +119,16 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :mails, 
                     :controller => 'user/mailboxes', 
                     :member => {:reply => :post}, 
-                    :collection => {:read_multiple => :put, :unread_multiple => :put, :destroy_multiple => :delete}
+                    :collection => {:read_multiple => :put, :unread_multiple => :put, :destroy_multiple => :delete, :new_recipient => :get}
 
     users.resources :friends, 
                     :controller => 'user/friends',
                     :member => {:confirm_destroy => :get},
                     :collection => {:search => :get}
+
+    users.resources :friend_guesses,
+                    :controller => 'user/friend_guesses',
+                    :collection => {:show_all => :get, :show_all_server_characters => :get}
 
     users.resources :friend_requests,
                     :controller => 'user/friend_requests',

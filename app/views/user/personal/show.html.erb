@@ -8,6 +8,7 @@
 <% content_for :right do %>
   <%= render :partial => 'user/personal/visitor_history', :object => @user.visitor_records[0..8] %><br/>
   <%= render :partial => 'user/personal/friends', :object => @user.friends[0..14] %>
+  <%= render :partial => 'user/personal/friend_guesses', :object => @user.guessed_friends[0..2] %>
 <% end %>
 
 <%= render :partial => 'user/personal/menu' %>

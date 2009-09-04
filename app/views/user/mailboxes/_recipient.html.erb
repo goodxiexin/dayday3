@@ -1,0 +1,6 @@
+<div recipient_id=<%=recipient.id%>>
+<%= link_to_user recipient %> 
+<% if (:condition == 1)%>
+<%= link_to_function 'x', "mail_builder.remove_recipient(#{recipient.id})" %> 
+<% end %>
+</div>

@@ -74,123 +74,6 @@ class User < ActiveRecord::Base
            :through => :friend_guesses,
            :uniq => true
 
-
-  def destroy_existing_guesses
-    unless self.friend_guesses.empty?
-      self.friend_guesses.each do |guess|
-        guess.destroy
-      end
-    end
-  end
-
-  def collect_friend_guesses(guessed_users)
-    # go through all events find people that attending the same event as the current user
-    # those users are most like to be friend with current user
-    # event is not selected randomly because each new event is very likely bring people together
-    self.events.each do |event|
-      catch(:done) do
-        event.must_attenders.each do |user|
-          unless (self.id == user.id or self.has_friend(user) or self.has_friend_request(user))
-            guessed_users[user.id] += 1
-            throw :done if (guessed_users.size >= 200)
-          end
-        end
-      end
-    end
-
-    # if events collect enough users then friends' friends are not collected.
-    # otherwise, friends' friends are collected for consideration
-    # friends' friends are selected randomly to avoid same users are used every time
-    unless (guessed_users.size >= 200)
-      catch(:done1) do 
-        self.friends.each do |friend|
-          @n = friend.friends.size
-          @n.times do |i|
-            @user_guess = friend.friends[rand(@n)]
-            unless (self.id == @user_guess.id or self.has_friend(@user_guess) or self.has_friend_request(@user_guess) )
-              guessed_users[@user_guess.id] += 2
-              throw :done1 if (guessed_users.size >= 200)
-            end
-          end
-        end
-      end
-    end
-
-    # if previous step has not get enough users, all users in same servers are considered
-    unless (guessed_users.size >= 200)
-      catch(:done2) do
-        self.game_characters.each do |each_character|
-          @current_characters = each_character.server.game_characters.sort_by{rand}
-          @current_characters.each do |other_character|
-            unless (self.id == other_character.user.id or self.has_friend(other_character.user) or self.has_friend_request(other_character.user) )
-              gussed_users[other_character.user.id] += 1
-              throw :done2 if (guessed_users.size >= 200)
-            end
-          end
-        end
-      end 
-    end
-
-    # At this stage, every user is needed for this engine
-    # this only occur when user does not provide enough info or we have not get enough users
-    unless (guessed_users.size >= 200)
-      catch(:done3) do
-        User.all.each do |each_user|
-          guessed_users[each_user.id] += 1
-          throw :done3 if (guessed_users.size >= 200)
-        end
-      end
-    end
-  end
-
-  def calculating_final_scores(guessed_users, suggested_users)
-    guessed_users.each_key do |user_id|
-      this_user = User.find(user_id)
-      this_user.friends do |each_friend|
-        if (self.has_friend(each_friend))
-            suggested_users[user_id] += 2
-        end
-      end
-      this_user.events do |each_event|
-        if (self.has_attended_event(each_event))
-            suggested_users[user_id] += 5
-        end
-      end
-      this_user.game_characters do |each_game_character|
-        self.game_characters do |this_game_character|
-          if (this_game_character.server.id == each_game_character.server.id)
-            suggested_users[user_id] +=2
-          end
-        end
-      end
-    end
-  end
-
-  # this method has three main part
-  # first part is to destroy all existing samples
-  # second part is to collect 200 samples
-  # third part is to calculate sample quality
-  def create_friend_guesses
-    self.destroy_existing_guesses
-
-    @guessed_users = {}
-    @guessed_users.default = 0
-    self.collect_friend_guesses(@guessed_users)
-
-    @suggested_users = @guessed_users
-    @suggested_users.each_key do |user_id|
-      @suggested_users[user_id] = 1
-    end
-    self.calculating_final_scores(@guessed_users, @suggested_users)
-
-    @min_num = [50, @suggested_users.size].min
-    @final_suggestions = @suggested_users.sort{|a,b| a[1] <=> b[1]}[0..@min_num]
-    
-    @final_suggestions.each do |element|
-      self.friend_guesses.create(:guess_id => element[0])
-    end
-  end
-
   has_many :friendships,
            :dependent => :destroy
 
@@ -222,10 +105,6 @@ class User < ActiveRecord::Base
   has_many :events,
            :through => :participations,
            :uniq => true
-
-  def has_attended_event(event)
-    self.events.include?(event)
-  end
 
   has_many :icons,
            :class_name => 'Photo',
@@ -305,9 +184,6 @@ class User < ActiveRecord::Base
   # callbacks
   before_save :encrypt_password
   before_create :make_activation_code
-
-  # friend guesses are built after a user is created
-  after_create :create_friend_guesses
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

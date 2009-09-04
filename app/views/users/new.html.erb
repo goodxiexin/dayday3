@@ -1,0 +1,40 @@
+<%= javascript_include_tag 'validator' %>
+
+<% form_for :user, :html => {:id => 'register_form'} do |f| -%>
+<p>
+  <label>Login</label><br/>
+  <%= f.text_field :login, :onblur => "validate_login(this.value)", :onfocus => "show_login_requirement();" %>
+  <a id='login_info'></a>
+</p>
+
+<p>
+  <label>Email</label><br/>
+  <%= f.text_field :email, :onblur => "validate_email(this.value)", :onfocus => "show_email_requirement();" %>
+  <a id='email_info'></a>
+</p>
+
+<p>
+  <%= f.radio_button 'gender', 'male' %> male
+  <%= f.radio_button 'gender', 'female' %> female
+</p>
+
+<p>
+  <label for="password">Password</label><br/>
+  <%= f.password_field :password, :onblur => "validate_password(this.value)", :onfocus => "show_password_requirement();"%>
+  <a id='password_info'></a>
+</p>
+
+<p>
+  <label for="password_confirmation">Confirm Password</label><br/>
+  <%= f.password_field :password_confirmation, :onblur => "validate_password_confirmation(this.value)", :onclick => "show_password_confirm_requirement()" %>
+  <a id='password_confirmation_info'></a>
+</p>
+
+<p> Game Characters: </p>
+<div id='character_info'></div>
+<ul id='characters'></ul>
+<%= link_to 'add game character', {:controller => :register, :action => 'new_character'}, :rel => 'facebox' %>
+
+<% end -%>
+
+<%= link_to_function 'submit', "validate_and_request()" %>

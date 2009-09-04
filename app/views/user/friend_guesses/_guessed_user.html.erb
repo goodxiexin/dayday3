@@ -1,0 +1,5 @@
+<div class='friend_suggestion' id='friend_suggestion_<%= guessed_user.id%>' >
+<%= user_icon guessed_user %>
+<span><%= link_to_user guessed_user %></span>
+<%= link_to (image_tag 'add_friend.gif', :style => "border:0px;"), new_user_friend_request_url(current_user, :receiver_id => guessed_user.id), :rel => 'facebox' %>
+</div>

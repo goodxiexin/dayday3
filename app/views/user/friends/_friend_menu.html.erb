@@ -19,7 +19,7 @@
         <% end %>
       </div>
     </li>
-    <li><%= link_to "friend suggestion" %></li>
+    <li><%= link_to "friend suggestion", user_friend_guesses_url(@user)  %></li>
     <li><%= link_to "recently added friends", user_friends_url(@user, :term => 'time') %></li>
   </div>
 </div>

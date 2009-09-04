@@ -1,0 +1,23 @@
+<div class='visitors'>
+  <h3>Your friends suggestions: <%= link_to_function 'fold', "$('friend_suggestion_table').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <table id='friend_suggestion_table'>
+  <% i=0 %>
+  <% friend_guesses.each do |friend| %>
+    <% if i == 0 %>
+      <tr>
+    <% end %>
+    <td class='record'>
+    <%= user_icon friend %><br/>
+    <%= link_to_user friend %>
+    </td>
+    <% i = i + 1 %>
+    <% if i == 3 %>
+      </tr>
+      <% i = 0 %>
+    <% end %>
+  <% end %>
+  </table>
+  <div class='view-all'>
+    <%= link_to 'view all', user_friend_guesses_url(@user) %>
+  </div>
+</div>

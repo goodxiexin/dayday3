@@ -3,11 +3,12 @@
 
 <ul id='mail_info'></ul>
 <table>
-<% form_for :mail, :url => user_mails_url, :html => {:onsubmit => "return validate_mail();"} do |form| %>
   <tr>
-    <td><%= form.label 'recipient: ' %></td>
-    <td><%= text_field_with_auto_complete :mail, :recipients, {}, {:tokens => ','} %></td>
+    <td><%= label :mail, 'find recipient: ' %></td>
+    <td><%= text_field_with_auto_complete :mail, :recipients, {}, {:after_update_element => "after_auto_select" } %></td>
   </tr>
+  <tr><td><%= label :mail, "recipient:" %></td><td> <div id='recipients_info'></div></td></tr>
+<% form_for :mail, :html => {:id => 'mail_form'} do |form| %>
   <tr>
     <td><%= form.label 'title: ' %></td>
     <td><%= form.text_field 'title' %></td>
@@ -16,15 +17,14 @@
     <td><%= form.label 'content: ' %></td>
     <td><%= form.text_area 'content', :rows => 8, :cols => 35 %></td>
   </tr>
-  <tr>
-    <td></td><td><%= form.submit 'send' %></td>
-  </tr>
 <% end %>
 </table>
-
+<%= javascript_tag "mail_builder = new MailBuilder(#{@user.id});" %> 
+<%= link_to_function "send", "mail_builder.validate_save()" %>
 <% unless @receiver.blank? %>
 <script type="text/javascript">
   $('mail_recipients').value = '<%= @receiver.login %>';
-  $('mail_recipients').disabled = true;     
+  $('mail_recipients').disabled = true;    
+  mail_builder.new_recipient(<%= @receiver.id %>, 0); 
 </script>
 <% end %>
